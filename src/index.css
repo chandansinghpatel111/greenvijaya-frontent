@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #3d1e24;
+  color: white;
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-lg border border-white/80 bg-white/90 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] backdrop-blur-xl;
+  }
+
+  .section-shell {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .hero-badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-blue-50/90 px-4 py-1.5 text-sm font-semibold text-blue-700 shadow-sm backdrop-blur-md;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-slate-950 via-[#013b9a] to-[#3866f1] bg-clip-text text-transparent;
+  }
+
+  .text-gradient-sky {
+    @apply bg-gradient-to-r from-sky-400 via-blue-300 to-white bg-clip-text text-transparent;
+  }
+
+  .greenvijaya-btn {
+    @apply relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#013b9a] via-[#3866f1] to-[#65acff] px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.98];
+  }
+
+  .greenvijaya-btn-outline {
+    @apply relative inline-flex items-center justify-center rounded-full border-2 border-sky-400/50 bg-white px-7 py-3.5 text-sm font-semibold text-blue-950 transition-all duration-300 hover:border-[#3866f1] hover:bg-blue-50/50 active:scale-[0.98];
+  }
+
+  /* Pure Light Effect for Buttons - Zero shadows, only pure illumination and shimmer light */
+  button:not(.no-light), .greenvijaya-btn, .greenvijaya-btn-outline {
+    position: relative;
+    overflow: hidden;
+    /* Completely eliminate all normal & hover shadow effects */
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  button:not(.no-light):hover, .greenvijaya-btn:hover, .greenvijaya-btn-outline:hover {
+    /* Zero shadow on hover! Only display vibrant surface light illumination */
+    box-shadow: none !important;
+    filter: brightness(1.18);
+    border-color: #ffffff;
+    transform: scale(1.03);
+  }
+
+  /* Shimmering beam of white light sweeping across the button */
+  button:not(.no-light)::after, .greenvijaya-btn::after, .greenvijaya-btn-outline::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.75) 50%,
+      transparent 80%
+    );
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  button:not(.no-light):hover::after, .greenvijaya-btn:hover::after, .greenvijaya-btn-outline:hover::after {
+    left: 100%;
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 22s linear infinite;
+  }
+
+  .pause-hover:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Fix autofill background for dark/glassmorphic inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+}
