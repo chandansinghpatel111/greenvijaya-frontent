@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: isLocal ? 'http://localhost:5000/api' : 'https://greenvijaya-backend-psi.vercel.app/api',
 });
 
 // Add a request interceptor to include the JWT token
