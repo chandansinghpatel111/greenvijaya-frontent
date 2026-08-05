@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { auth } from "./firebase";
 
-// Layout
+
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -13,10 +14,9 @@ import Project from "./Pages/Project";
 import About from "./Pages/About";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
-import ForgotPassword from "./Pages/ForgotPassword";
 import Service from "./Pages/Service";
 import PostProperty from "./Pages/PostProperty";
-import Profilepage from "./Pages/ProfilePage";
+import Profilepage from "./Pages/profilepage";
 import OurTeams from "./Pages/OurTeams";
 
 import ServiceDetail from "./Pages/ServiceDetail";
@@ -30,10 +30,10 @@ import Amenities from "./Pages/Amenities";
 import PropertyDetails from "./Pages/PropertyDetails";
 import NewProject from "./Pages/NewProject";
 import NewProjectD from "./Pages/NewProjectD";
-import NewprojectDetail from "./Pages/NewProjectDetail";
+import NewprojectDetail from "./Pages/Newproject detial"; // Ensure correct filename
 import ExplorecityPropertyD from "./Pages/ExplorecityPropertyD";
 import ListingpropertDetail from "./Pages/ListingpropertDetail";
-import PrivacyPolicy from "./Pages/PrivacyPolicy";
+import PrivacyPolicy from "./Pages/Privacypolicy";
 import NewsProject from "./Pages/NewsProject";
 import NewsProjectdetail from "./Pages/NewsProjectdetail";
 import ProjectDetails from "./Pages/ProjectDetails";
@@ -44,14 +44,10 @@ import OurService1 from "./Dynamic/OurService1";
 import Search from "./components/Search";
 
 // Admin
-import AdminLayout from "./Admin/AdminLayout";
 import AdminPanel from "./Admin/AdminPanel";
-import OurProject from "./Admin/OurProject";
-import PropertyApprovals from "./Admin/PropertyApprovals";
-import RegisteredSellers from "./Admin/RegisteredSellers";
-import PostPropertyListing from "./Seller/Postlisting";
-import Enquiries from "./Admin/Enquiries";
-import AdminProfile from "./Admin/AdminProfile";
+import OurProject from "./Admin/ourproject";
+import Postproject from "./Admin/Postproject";
+import ComingSoon from "./Admin/ComingSoon";
 
 import Buys from "./Admin/Buys";
 
@@ -67,8 +63,10 @@ function App() {
   const [isUserLogin, setIsUserLogin] = useState(false);
 
   useEffect(() => {
-    const user = localStorage.getItem('currentUser');
-    setIsUserLogin(!!user);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsUserLogin(!!user);
+    });
+    return unsubscribe;
   }, []);
 
   return (
@@ -83,10 +81,6 @@ function App() {
         <Route
           path="/sign"
           element={isUserLogin ? <Navigate to="/" /> : <SignUp />}
-        />
-        <Route
-          path="/forgot-password"
-          element={isUserLogin ? <Navigate to="/" /> : <ForgotPassword />}
         />
         <Route path="/postproperty" element={<PostProperty />} />
 
@@ -132,20 +126,15 @@ function App() {
           {/* Seller */}
           <Route path="/Postlisting" element={<Postlisting />} />
           <Route path="/profile" element={<Profilepage />} />
-        </Route>
 
-        {/* Protected Admin Routes (No Public Navbar / Persistent Admin Layout) */}
-        <Route element={<AdminGuard />}>
-          <Route element={<AdminLayout />}>
+          {/* Protected Admin Routes */}
+          <Route element={<AdminGuard />}>
             <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/admin/profile" element={<AdminProfile />} />
             <Route path="/admin/ourproject" element={<OurProject />} />
-            <Route path="/admin/sellers" element={<RegisteredSellers />} />
-            <Route path="/admin/post-property" element={<PostPropertyListing />} />
+            <Route path="/admin/Postproject" element={<Postproject />} />
+            <Route path="/admin/ComingSoon" element={<ComingSoon />} />
             <Route path="/admin/Buys" element={<Buys />} />
             <Route path="/admin/ProjectExplore" element={<ProjectExplore />} />
-            <Route path="/admin/approvals" element={<PropertyApprovals />} />
-            <Route path="/admin/enquiries" element={<Enquiries />} />
           </Route>
         </Route>
       </Routes>

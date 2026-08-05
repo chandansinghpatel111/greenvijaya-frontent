@@ -46,7 +46,7 @@ const City = () => {
 
   return (
     <motion.div
-      className="p-6 max-w-7xl mx-auto bg-white rounded-lg"
+      className="px-4 sm:px-6 pb-6 pt-8 sm:pt-12 max-w-7xl mx-auto bg-white rounded-lg"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -113,42 +113,51 @@ const City = () => {
 
       {/* Map Section */}
       <motion.div
-        className="mt-16"
-        initial={{ opacity: 0, y: 50 }}
+        className="mt-8 sm:mt-12"
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Our Location
-        </h1>
-        <p className="text-center text-gray-600 mb-8">
-          Visit us at our office to see how we innovate and bring your ideas to
-          life.
-        </p>
-        <div className="flex justify-center">
-          <iframe
-            title="Location Map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.6810947293557!2d81.01123537462805!3d26.850771476654817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd104c6601b7%3A0x8923c0619e563456!2sDifmo%20Technologies!5e0!3m2!1sen!2sin!4v1708334543215!5m2!1sen!2sin"
-            width="600"
-            height="450"
-            className="w-full rounded-lg shadow-md"
-            allowFullScreen
-            loading="lazy"
-          ></iframe>
+        <div className="text-center mb-10 sm:mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+            Visit Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Office</span>
+          </h2>
+          <p className="text-slate-600 font-medium max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+            Step into our corporate office to discuss your real estate aspirations. Experience our commitment to innovation, transparency, and building your dreams.
+          </p>
+        </div>
+        
+        {/* Premium Map Container */}
+        <div className="relative max-w-5xl mx-auto group">
+          <div className="absolute -inset-1.5 bg-gradient-to-r from-[#3d1e24] via-[#753441] to-[#3d1e24] rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative bg-white p-2 rounded-[2rem] shadow-2xl overflow-hidden border border-slate-100">
+            <iframe
+              title="Location Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.6810947293557!2d81.01123537462805!3d26.850771476654817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd104c6601b7%3A0x8923c0619e563456!2sDifmo%20Technologies!5e0!3m2!1sen!2sin!4v1708334543215!5m2!1sen!2sin"
+              width="100%"
+              height="450"
+              className="rounded-[1.5rem] w-full filter contrast-[1.02] saturate-105"
+              allowFullScreen
+              loading="lazy"
+            ></iframe>
+          </div>
         </div>
       </motion.div>
 
       {/* Social Media Section */}
       <motion.div
-        className="text-center py-10"
-        initial={{ opacity: 0, y: 50 }}
+        className="text-center py-16"
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Connect With Us</h2>
-        <div className="flex justify-center space-x-6">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-wide">
+          Join Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441] italic font-serif">Exclusive Network</span>
+        </h2>
+        
+        <div className="flex justify-center gap-5 sm:gap-6">
           {[
             {
               name: "Facebook",
@@ -176,10 +185,11 @@ const City = () => {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-orange-300 transform transition duration-300 hover:scale-110"
-              whileHover={{ scale: 1.2 }}
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-[#753441] shadow-sm hover:shadow-md hover:bg-[#3d1e24] hover:text-white hover:border-[#3d1e24] transition-all duration-300 group"
+              whileHover={{ y: -4 }}
+              title={name}
             >
-              <Icon size={30} />
+              <Icon size={20} className="group-hover:scale-110 transition-transform duration-300" />
             </motion.a>
           ))}
         </div>

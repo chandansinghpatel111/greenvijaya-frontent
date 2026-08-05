@@ -1,23 +1,29 @@
-import { Home, Briefcase, Building2, Landmark } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Home, Briefcase, Building2, Landmark } from "lucide-react"; // Importing icons
+import CustomButton from "../components/Button";
 
-export default function PropertyDetails({ formData, setFormData, cities = [] }) {
+export default function PropertyDetails({ formData, setFormData }) {
+  const navigate = useNavigate();
+
   const propertyTypes = {
     Residential: [
-      { name: "Flat/Apartment", icon: <Building2 size={15} /> },
-      { name: "Independent House/Villa", icon: <Home size={15} /> },
-      { name: "Plot/Land", icon: <Landmark size={15} /> },
-      { name: "1 RK/Studio Apartment", icon: <Building2 size={15} /> },
+      { name: "Flat/Apartment", icon: <Building2 size={20} /> },
+      { name: "Independent House/Villa", icon: <Home size={20} /> },
+      { name: "Plot/Land", icon: <Landmark size={20} /> },
+      { name: "1 RK/Studio Apartment", icon: <Building2 size={20} /> },
     ],
     Commercial: [
-      { name: "Office", icon: <Briefcase size={15} /> },
-      { name: "Retail", icon: <Building2 size={15} /> },
-      { name: "Plot/Land", icon: <Landmark size={15} /> },
-      { name: "Storage", icon: <Building2 size={15} /> },
-      { name: "Industry", icon: <Briefcase size={15} /> },
+      { name: "Office", icon: <Briefcase size={20} /> },
+      { name: "Retail", icon: <Building2 size={20} /> },
+      { name: "Plot/Land", icon: <Landmark size={20} /> },
+      { name: "Storage", icon: <Building2 size={20} /> },
+      { name: "Industry", icon: <Briefcase size={20} /> },
     ],
   };
 
   const listingTypes = ["Sell", "Rent", "PG"];
+
+  const cities = ["Lucknow", "Noida", "Gurugram", "Kanpur", "Varanasi"];
 
   const handleCategorySelect = (category) => {
     setFormData({ ...formData, propertyCategory: category, propertyType: "" });
@@ -37,156 +43,97 @@ export default function PropertyDetails({ formData, setFormData, cities = [] }) 
   };
 
   return (
-    <div className="space-y-3.5 text-slate-900">
-      {/* Listing Type & Category in 2 Columns on larger screens */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        {/* Listing Type */}
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1.5 uppercase tracking-wide transition-colors duration-300">Listing Type</label>
-          <div className="flex gap-1.5">
-            {listingTypes.map((listing) => (
-              <button
-                key={listing}
-                type="button"
-                onClick={() => handleListingSelect(listing)}
-                className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-extrabold transition-colors duration-300 border ${
-                  formData.listingType === listing 
-                    ? "bg-slate-950 dark:bg-rose-500 text-white border-slate-950 dark:border-rose-500" 
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
-                }`}
-              >
-                {listing}
-              </button>
-            ))}
-          </div>
-        </div>
+    <div className="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto">
+      <h2 className="text-xl font-semibold text-center mb-4">Property Details</h2>
 
-        {/* Property Category */}
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1.5 uppercase tracking-wide transition-colors duration-300">Property Category</label>
-          <div className="flex gap-1.5">
-            {Object.keys(propertyTypes).map((category) => (
-              <button
-                key={category}
-                type="button"
-                onClick={() => handleCategorySelect(category)}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-extrabold transition-colors duration-300 border ${
-                  formData.propertyCategory === category 
-                    ? "bg-slate-950 dark:bg-rose-500 text-white border-slate-950 dark:border-rose-500" 
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
-                }`}
-              >
-                {category === "Residential" ? <Home size={14} className="shrink-0" /> : <Briefcase size={14} className="shrink-0" />}
-                {category}
-              </button>
-            ))}
-          </div>
+      {/* Listing Type Selection */}
+      <div className="mb-4">
+        <label className="block text-gray-700 font-medium mb-2">Listing Type</label>
+        <div className="flex gap-4">
+          {listingTypes.map((listing) => (
+            <button
+              key={listing}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all w-1/3
+                ${formData.listingType === listing ? "bg-orange-300 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
+              onClick={() => handleListingSelect(listing)}
+            >
+              {listing}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Property Type Selection - Compact Grid */}
+      {/* Property Category Selection */}
+      <div className="mb-4">
+        <label className="block text-gray-700 font-medium mb-2">Property Category</label>
+        <div className="flex gap-4">
+          {Object.keys(propertyTypes).map((category) => (
+            <button
+              key={category}
+              className={`flex items-center justify-center px-4 py-2 rounded-md w-1/2 text-sm font-medium transition-all 
+                ${formData.propertyCategory === category ? "bg-orange-300 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
+              onClick={() => handleCategorySelect(category)}
+            >
+              {category === "Residential" ? <Home size={18} className="mr-2" /> : <Briefcase size={18} className="mr-2" />}
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Property Type Selection */}
       {formData.propertyCategory && (
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1.5 uppercase tracking-wide transition-colors duration-300">Property Type</label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Property Type</label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {propertyTypes[formData.propertyCategory].map((typeObj) => (
               <button
                 key={typeObj.name}
-                type="button"
+                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all 
+                  ${formData.propertyType === typeObj.name ? "bg-orange-300 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
                 onClick={() => handleTypeSelect(typeObj.name)}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors duration-300 border truncate ${
-                  formData.propertyType === typeObj.name 
-                    ? "bg-slate-950 dark:bg-rose-500 text-white border-slate-950 dark:border-rose-500" 
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
-                }`}
               >
-                <span className="shrink-0">{typeObj.icon}</span>
-                <span className="truncate">{typeObj.name}</span>
+                {typeObj.icon}
+                <span className="ml-2">{typeObj.name}</span>
               </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* City Dropdown & Details - 2 Column Compact Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1 uppercase tracking-wide transition-colors duration-300">City</label>
-          <select
-            name="city"
-            value={formData.city || ""}
-            onChange={handleChange}
-            className="w-full p-2 text-xs font-bold bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-slate-950 dark:focus:border-rose-500 text-slate-900 dark:text-white transition-colors duration-300"
-          >
-            <option value="">Select City Location</option>
-            {[
-              "Agra", "Ahmedabad", "Ajmer", "Aligarh", "Allahabad", "Amravati", "Amritsar", "Asansol", "Aurangabad", 
-              "Bareilly", "Belgaum", "Bengaluru", "Bhavnagar", "Bhilai", "Bhiwandi", "Bhopal", "Bhubaneswar", "Bikaner", 
-              "Chandigarh", "Chennai", "Coimbatore", "Cuttack", "Dehradun", "Delhi", "Dhanbad", "Durgapur", "Erode", 
-              "Faridabad", "Firozabad", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", "Gurugram", "Guwahati", 
-              "Gwalior", "Howrah", "Hubli-Dharwad", "Hyderabad", "Indore", "Jabalpur", "Jaipur", "Jalandhar", "Jalgaon", 
-              "Jammu", "Jamnagar", "Jamshedpur", "Jhansi", "Jodhpur", "Kalyan-Dombivli", "Kanpur", "Kochi", "Kolhapur", 
-              "Kolkata", "Kota", "Loni", "Lucknow", "Ludhiana", "Madurai", "Maheshtala", "Malegaon", "Mangalore", "Meerut", 
-              "Mira-Bhayandar", "Moradabad", "Mumbai", "Mysuru", "Nagpur", "Nanded", "Nashik", "Navi Mumbai", "Nellore", 
-              "Noida", "Patna", "Pimpri-Chinchwad", "Pune", "Raipur", "Rajkot", "Ranchi", "Rourkela", "Saharanpur", 
-              "Salem", "Sangli", "Siliguri", "Solapur", "Srinagar", "Surat", "Thane", "Thiruvananthapuram", 
-              "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Udaipur", "Ujjain", "Ulhasnagar", "Vadodara", "Varanasi", 
-              "Vasai-Virar", "Vijayawada", "Visakhapatnam", "Warangal", "Other"
-            ].map((city, i) => (
-              <option key={i} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* City Dropdown + Other Details */}
+      <div className="mb-4">
+        <label className="block text-gray-700 font-medium mb-2">City</label>
+        <select
+          name="city"
+          value={formData.city || ""}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">Select City</option>
+          {cities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1 uppercase tracking-wide transition-colors duration-300">Project Building Name</label>
-          <input
-            type="text"
-            name="projectBuildingName"
-            placeholder="e.g., Green Vijaya Towers"
-            value={formData.projectBuildingName || ""}
-            onChange={handleChange}
-            className="w-full p-2 text-xs font-semibold bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-slate-950 dark:focus:border-rose-500 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors duration-300"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1 uppercase tracking-wide transition-colors duration-300">Locality</label>
-          <input
-            type="text"
-            name="locality"
-            placeholder="e.g., Gomti Nagar"
-            value={formData.locality || ""}
-            onChange={handleChange}
-            className="w-full p-2 text-xs font-semibold bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-slate-950 dark:focus:border-rose-500 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors duration-300"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1 uppercase tracking-wide transition-colors duration-300">Plot Area (Sq. Ft / Sq. Yards)</label>
-          <input
-            type="text"
-            name="plotArea"
-            placeholder="e.g., 2500 Sq. Ft"
-            value={formData.plotArea || ""}
-            onChange={handleChange}
-            className="w-full p-2 text-xs font-semibold bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-slate-950 dark:focus:border-rose-500 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors duration-300"
-          />
-        </div>
-
-        <div className="sm:col-span-2">
-          <label className="block text-xs font-extrabold text-slate-800 dark:text-slate-300 mb-1 uppercase tracking-wide transition-colors duration-300">Price Valuation</label>
-          <input
-            type="text"
-            name="price"
-            placeholder="e.g., ₹ 1.25 Cr or ₹ 45,000 / Mo"
-            value={formData.price || ""}
-            onChange={handleChange}
-            className="w-full p-2 text-xs font-semibold bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:border-slate-950 dark:focus:border-rose-500 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-colors duration-300"
-          />
-        </div>
+      {/* Remaining Property Details */}
+      <div className="space-y-4">
+        {["projectBuildingName", "locality", "plotArea", "price"].map((field) => (
+          <div key={field} className="w-full">
+            <label className="block text-gray-700 font-medium capitalize">{field.replace(/([A-Z])/g, ' $1')}</label>
+            <input
+              type="text"
+              name={field}
+              placeholder={field.replace(/([A-Z])/g, ' $1')}
+              value={formData[field] || ""}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

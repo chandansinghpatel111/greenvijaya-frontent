@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-import apiClient from '../api/apiClient'; // or appropriate path
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import {
   Wifi, Building2, Dumbbell, ShieldCheck, Sparkle,
@@ -48,13 +48,13 @@ export default function NewlyProjectD() {
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === 0 ? project.images.length - 1 : prev - 1
+      prev === 0 ? project.imageUrls.length - 1 : prev - 1
     );
   };
 
   const handleNextImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === project.images.length - 1 ? 0 : prev + 1
+      prev === project.imageUrls.length - 1 ? 0 : prev + 1
     );
   };
 
@@ -84,11 +84,11 @@ export default function NewlyProjectD() {
           <>
             {/* Image Carousel */}
             <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg mb-10">
-              {Array.isArray(project.images) && project.images.length > 0 ? (
+              {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
                 <>
                   <motion.img
                     key={currentImageIndex}
-                    src={project.images[currentImageIndex]}
+                    src={project.imageUrls[currentImageIndex]}
                     alt={`Project image ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0.5, scale: 1.05 }}

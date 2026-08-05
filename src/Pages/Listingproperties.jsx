@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight, CheckCircle2, Ruler, Sofa, Layers } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-import apiClient from '../api/apiClient'; // or appropriate path
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const PostPropertyListing = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,8 +15,11 @@ const PostPropertyListing = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data } = await apiClient.get('/properties');
-        const projectsList = data;
+        const querySnapshot = await getDocs(collection(db, "propertiesunique"));
+        const projectsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setProperties(projectsList);
       } catch (error) {
         console.error("Error fetching Properties: ", error);
@@ -42,25 +45,8 @@ const PostPropertyListing = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const filteredProperties = Properties.filter((project) => project.status === 'Approved');
-
-  // Calculate items per slide to always have 2 rows
-  const itemsPerSlide = visibleCards * 2;
-
-  // Chunk properties array into pages
-  const chunks = [];
-  for (let i = 0; i < filteredProperties.length; i += itemsPerSlide) {
-    chunks.push(filteredProperties.slice(i, i + itemsPerSlide));
-  }
-
-  const totalSlides = Math.max(1, chunks.length);
-
-  // Ensure currentIndex is within bounds when resizing
-  useEffect(() => {
-    if (currentIndex >= totalSlides && totalSlides > 0) {
-      setCurrentIndex(totalSlides - 1);
-    }
-  }, [totalSlides, currentIndex]);
+  const filteredProperties = Properties.filter((project) => project.isApproved === true);
+  const totalSlides = Math.max(1, filteredProperties.length - visibleCards + 1);
 
   const nextSlide = () => {
     if (totalSlides > 1) {
@@ -89,148 +75,154 @@ const PostPropertyListing = () => {
     <div className="bg-white relative">
       <motion.div
         ref={ref}
-        className="section-shell pt-6 pb-16 sm:pt-8 sm:pb-20 relative z-10"
+        className="section-shell -mt-8 sm:-mt-12 pt-0 pb-16 sm:pb-20 relative z-10"
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         {/* Header Section */}
-        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b border-slate-200 pb-8">
+        <div className="mb-14 flex flex-col lg:flex-row lg:items-center lg:justify-between border-b border-[#3d1e24]/10 pb-10 gap-8">
           <div className="max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50/90 px-3.5 py-1.5 text-xs font-bold text-[#3d1e24] backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#753441] opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#753441]"></span>
-              </span>
-              Green-Vijaya Exclusive Real Estate
-            </div>
-            <h2 className="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl lg:text-5xl tracking-tight">
-              Discover Real Estate Masterpieces & <span className="text-[#3d1e24]">Luxury Townships</span>
+
+            <h2 className="text-4xl font-black text-slate-900 sm:text-5xl lg:text-6xl tracking-tight leading-[1.1]">
+              Experience Unmatched <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Luxury</span> & Signature Masterpieces
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Browse Green-Vijaya&apos;s handpicked portfolio of premium residential properties and commercial plots featuring clear titles, architectural excellence, smart urban design, and exceptional capital growth.
+            <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+              Step into a world of architectural brilliance. Our meticulously curated collection of premium residential estates and strategic commercial spaces offers unparalleled elegance, flawless design, and exceptional capital appreciation.
             </p>
+          </div>
+
+          {/* Right Side Image */}
+          <div className="w-full lg:w-[400px] xl:w-[500px] shrink-0">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#3d1e24]/20 border border-slate-200 aspect-[16/9] lg:aspect-[4/3] group">
+              <img
+                src="/image99.jpg"
+                alt="Luxury Masterpiece"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b0e]/80 via-transparent to-transparent opacity-80"></div>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <p className="text-sm font-bold uppercase tracking-widest text-rose-200">Featured Masterpiece</p>
+                <p className="text-lg font-bold">A glimpse of perfection</p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Carousel Container */}
         <div className="relative -mx-2 sm:mx-0 px-2 sm:px-0">
-          <div className="overflow-hidden pb-6">
+          <div className="overflow-hidden py-4 px-2">
             <div
               className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
             >
-              {chunks.map((chunk, chunkIndex) => (
+              {filteredProperties.map((project, index) => (
                 <div
-                  key={chunkIndex}
-                  className="w-full shrink-0 flex-none"
+                  key={project.id || index}
+                  className="w-full shrink-0 px-3 sm:px-4"
+                  style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-full">
-                    {chunk.map((project, index) => (
-                      <motion.div
-                        key={project._id || project.id || index}
-                        className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-200/80 bg-white shadow-lg shadow-slate-200/50 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-900/10 hover:border-blue-300"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={inView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                      >
-                        {/* Image Section */}
-                        <div className="relative mt-1 aspect-[4/3] overflow-hidden rounded-md">
-                          {Array.isArray(project.images) && project.images.length > 0 ? (
-                            <img
-                              src={project.images[0]}
-                              alt={project.ProjectBuildingName || project.projectBuildingName || project.title || "Property"}
-                              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center bg-slate-200 text-slate-500">
-                              <span className="font-medium">No Image Available</span>
-                            </div>
-                          )}
-
-                          {/* Gradient Overlay for Text Readability */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
-
-                          {/* Top Badges */}
-                          <div className="absolute left-4 top-4 flex gap-2">
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#013b9a] shadow-sm backdrop-blur-md">
-                              <CheckCircle2 size={14} className="text-[#3866f1]" />
-                              {project.propertyCategory || "Premium"}
-                            </span>
-                          </div>
-
-                          {/* Bottom Image Overlay Content */}
-                          <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                            <div className="rounded-md bg-white/95 px-4 py-2 font-bold text-slate-950 shadow-lg backdrop-blur-md">
-                              {formatPrice(project.price)}
-                            </div>
-                          </div>
+                  <motion.div
+                    className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200/80 bg-white shadow-lg shadow-slate-200/50 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-900/10 hover:border-blue-300"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    {/* Image Section */}
+                    <div className="relative mx-3 mt-3 aspect-[4/3] overflow-hidden rounded-md">
+                      {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+                        <img
+                          src={project.imageUrls[0]}
+                          alt={project.ProjectBuildingName || project.projectBuildingName || "Property"}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-slate-200 text-slate-500">
+                          <span className="font-medium">No Image Available</span>
                         </div>
+                      )}
 
-                        {/* Card Content */}
-                        <div className="flex flex-1 flex-col p-6 pt-5">
-                          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#753441]">
-                            <MapPin size={16} />
-                            <span className="truncate">{project.Locality || project.locality || project.city || "Prime location"}</span>
-                          </div>
+                      {/* Gradient Overlay for Text Readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
 
-                          <h3 className="mb-4 line-clamp-1 text-2xl font-bold text-slate-950 group-hover:text-[#3d1e24] transition-colors">
-                            {project.ProjectBuildingName || project.projectBuildingName || project.title || "Exclusive Property"}
-                          </h3>
+                      {/* Top Badges */}
+                      <div className="absolute left-4 top-4 flex gap-2">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#013b9a] shadow-sm backdrop-blur-md">
+                          <CheckCircle2 size={14} className="text-[#3866f1]" />
+                          {project.propertyCategory || "Premium"}
+                        </span>
+                      </div>
 
-                          {/* Property Details Pills */}
-                          <div className="mb-6 flex flex-wrap gap-2">
-                            {(project.plotArea || project.totalFloors) && (
-                              <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
-                                <Ruler size={16} className="text-[#753441]" />
-                                {project.plotArea ? `${project.plotArea} sq.ft` : `${project.totalFloors} Floors`}
-                              </div>
-                            )}
-                            {project.furnishing && (
-                              <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
-                                <Sofa size={16} className="text-[#753441]" />
-                                {project.furnishing}
-                              </div>
-                            )}
-                            {(project.floorNumber) && (
-                              <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
-                                <Layers size={16} className="text-[#753441]" />
-                                Floor {project.floorNumber}
-                              </div>
-                            )}
-
-                            {/* Fallback if no specific details exist */}
-                            {!project.plotArea && !project.furnishing && !project.floorNumber && (
-                              <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-1 py-1 text-sm font-medium text-slate-700">
-                                Premium Selection
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="mt-auto border-t border-slate-100  ">
-                            <button
-                              onClick={() => navigate(`/listing-detail`, { state: { project } })}
-                              className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 py-1 text-sm font-semibold text-slate-800 transition-all hover:bg-rose-50 hover:text-[#3d1e24] hover:shadow-sm"
-                            >
-                              View Property Details
-                              <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1.5 text-[#3d1e24]" />
-                            </button>
-                          </div>
+                      {/* Bottom Image Overlay Content */}
+                      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                        <div className="rounded-md bg-white/95 px-4 py-2 font-bold text-slate-950 shadow-lg backdrop-blur-md">
+                          {formatPrice(project.price)}
                         </div>
-                      </motion.div>
-                    ))}
-                  </div>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="flex flex-1 flex-col p-6 pt-5">
+                      <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#753441]">
+                        <MapPin size={16} />
+                        <span className="truncate">{project.Locality || project.locality || project.city || "Prime location"}</span>
+                      </div>
+
+                      <h3 className="mb-4 line-clamp-1 text-2xl font-bold text-slate-950 group-hover:text-[#3d1e24] transition-colors">
+                        {project.ProjectBuildingName || project.projectBuildingName || "Exclusive Property"}
+                      </h3>
+
+                      {/* Property Details Pills */}
+                      <div className="mb-6 flex flex-wrap gap-2">
+                        {(project.plotArea || project.totalFloors) && (
+                          <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
+                            <Ruler size={16} className="text-[#753441]" />
+                            {project.plotArea ? `${project.plotArea} sq.ft` : `${project.totalFloors} Floors`}
+                          </div>
+                        )}
+                        {project.furnishing && (
+                          <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
+                            <Sofa size={16} className="text-[#753441]" />
+                            {project.furnishing}
+                          </div>
+                        )}
+                        {(project.floorNumber) && (
+                          <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
+                            <Layers size={16} className="text-[#753441]" />
+                            Floor {project.floorNumber}
+                          </div>
+                        )}
+
+                        {/* Fallback if no specific details exist */}
+                        {!project.plotArea && !project.furnishing && !project.floorNumber && (
+                          <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
+                            Premium Selection
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="mt-auto border-t border-slate-100 pt-2">
+                        <button
+                          onClick={() => navigate(`/listing-detail`, { state: { project } })}
+                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-3 text-sm font-semibold text-slate-800 transition-all hover:bg-rose-50 hover:text-[#3d1e24] hover:shadow-sm"
+                        >
+                          View Property Details
+                          <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1.5 text-[#3d1e24]" />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Normal Navigation Controls - Static Left and Right side buttons below cards matching NewsProject.jsx */}
-          <div className="flex items-center justify-between mt-3 px-3">
+          <div className="flex items-center justify-between mt-8 px-3">
             <button
               onClick={prevSlide}
               aria-label="Previous slide"
-              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Previous</span>
@@ -243,7 +235,7 @@ const PostPropertyListing = () => {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   aria-label={`Go to slide ${index + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-[#3d1e24] w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
+                  className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-[#3d1e24] w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
                     }`}
                 />
               ))}
@@ -252,7 +244,7 @@ const PostPropertyListing = () => {
             <button
               onClick={nextSlide}
               aria-label="Next slide"
-              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
             >
               <span>Next</span>
               <ChevronRight className="w-5 h-5" />
@@ -265,3 +257,4 @@ const PostPropertyListing = () => {
 };
 
 export default PostPropertyListing;
+

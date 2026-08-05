@@ -12,7 +12,7 @@ function OurProject() {
     images: [],
     about: "",
     details: {
-      location: "",
+      location: "", 
       projectType: "",
       amenities: "",
       priceRange: "",

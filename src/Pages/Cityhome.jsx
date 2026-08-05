@@ -27,14 +27,13 @@ const City = () => {
   ];
 
   return (
-    <div className="section-shell py-16 sm:py-12">
+    <div className="section-shell pb-16 pt-0 sm:pb-20 sm:pt-0 -mt-12 sm:-mt-20">
       <div className="text-center mb-12">
-        <p className="text-sm font-bold uppercase tracking-[0.3em] text-[#013b9a] mb-2">GREEN-VIJAYA URBAN CORRIDORS</p>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950">
-          Strategic Real Estate Presence Across <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#013b9a] via-[#3866f1] to-[#65acff]">Major Cities</span>
+        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+          Strategic Presence in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Major Cities</span>
         </h2>
-        <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
-          Discover Green-Vijaya&apos;s prime property offerings and government-approved townships located in India&apos;s most dynamic urban growth centers.
+        <p className="text-slate-600 font-medium max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+          Explore our premium residential townships and commercial hubs, strategically located in India's fastest-growing and most dynamic urban centers.
         </p>
       </div>
 
@@ -42,7 +41,7 @@ const City = () => {
         {cities.map((city) => (
           <div
             key={city.id}
-            className="group bg-white rounded-lg border border-slate-200/80 transition-all duration-500 overflow-hidden flex flex-col justify-between"
+            className="group bg-white rounded-[1.5rem] border border-slate-100 shadow-[0_5px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden flex flex-col justify-between"
           >
             <div>
               <div className="relative overflow-hidden h-56">
@@ -51,26 +50,26 @@ const City = () => {
                   alt={city.name}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/30 to-transparent" />
                 <div className="absolute bottom-4 left-5 flex items-center gap-2 text-white">
-                  <div className="p-1.5 rounded-full bg-blue-500/30 border border-white/40 backdrop-blur-md">
-                    <MapPin size={16} className="text-sky-300" />
+                  <div className="p-1.5 rounded-full bg-[#753441]/40 border border-white/30 backdrop-blur-md">
+                    <MapPin size={16} className="text-rose-200" />
                   </div>
                   <span className="text-xl font-extrabold tracking-wide">{city.name}</span>
                 </div>
               </div>
               <div className="p-7 text-left">
-                <p className="text-slate-600 text-sm leading-relaxed font-normal">{city.desc}</p>
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">{city.desc}</p>
               </div>
             </div>
 
-            <div className="px-7 pb-7 pt-2 border-t border-slate-100 flex items-center justify-between">
+            <div className="px-7 pb-7 pt-2 flex items-center justify-between">
               <a
                 href={city.contactUrl}
-                className="inline-flex items-center gap-2 text-sm text-[#013b9a] hover:text-[#3866f1] font-bold transition group/link"
+                className="inline-flex items-center gap-2 text-sm text-[#753441] hover:text-[#3d1e24] font-bold transition group/link"
               >
                 <span>Explore City Projects</span>
-                <ArrowRight size={16} className="transition-transform group-hover/link:translate-x-1 text-[#3866f1]" />
+                <ArrowRight size={16} className="transition-transform group-hover/link:translate-x-1 text-[#3d1e24]" />
               </a>
             </div>
           </div>

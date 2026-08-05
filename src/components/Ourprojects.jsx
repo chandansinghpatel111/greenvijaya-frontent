@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { services } from "../data/ServiceOur";
+import { services } from "../data/services";
 import CustomButton from "./Button";
 import { ChevronLeft, ChevronRight, MapPin, Building2, Sparkles } from "lucide-react";
 

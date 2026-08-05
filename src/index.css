@@ -22,6 +22,27 @@ html, body {
 
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 23, 42, 0.3) transparent;
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.5);
 }
 
 ::selection {
@@ -103,6 +124,10 @@ html, body {
   .animate-marquee {
     animation: marquee 22s linear infinite;
   }
+  
+  .animate-marquee-seamless {
+    animation: marquee-seamless 35s linear infinite;
+  }
 
   .pause-hover:hover {
     animation-play-state: paused;
@@ -110,19 +135,12 @@ html, body {
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
-/* Fix autofill background for dark/glassmorphic inputs */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: white !important;
+@keyframes marquee-seamless {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
+

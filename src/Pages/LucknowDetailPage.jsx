@@ -30,7 +30,7 @@ export default function LucknowDetailPage() {
                 <p className="text-lg mb-2"><strong>Price:</strong> ₹ {project.Price || "N/A"}</p>
                 <p className="text-lg mb-2"><strong>Area:</strong> {project.PlotArea || "N/A"} sqft</p>
                 <p className="text-lg mb-2"><strong>Property Type:</strong> {project.propertyType || "N/A"}</p>
-                <p className="text-lg mb-2"><strong>Amenities:</strong> 
+                <p className="text-lg mb-2"><strong>Amenities:</strong>
                     {Array.isArray(project.amenities) && project.amenities.length > 0 ? (
                         <ul className="list-disc ml-5">
                             {project.amenities.map((item, i) => <li key={i}>{item}</li>)}
@@ -39,11 +39,11 @@ export default function LucknowDetailPage() {
                 </p>
 
                 {/* Optional Image Gallery */}
-                {Array.isArray(project.images) && project.images.length > 0 && (
+                {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 && (
                     <div className="mt-6">
                         <h3 className="text-xl font-semibold mb-2">Gallery</h3>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                            {project.images.map((url, index) => (
+                            {project.imageUrls.map((url, index) => (
                                 <img
                                     key={index}
                                     src={url}

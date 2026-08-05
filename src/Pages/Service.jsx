@@ -63,7 +63,7 @@ export default function ExploreServices() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-6 pb-14 bg-white overflow-hidden">
+      <section className="relative pt-6 sm:pt-10 pb-10 sm:pb-12 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -71,19 +71,18 @@ export default function ExploreServices() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="text-[#3d1e24] font-extrabold tracking-[0.35em] uppercase text-xs mb-3 block">OUR EXPERTISE</span>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-950 mb-4 tracking-tight">
-              Real Estate <span className="text-[#3d1e24]">Service Excellence</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+              Pioneering <span className="text-[#3d1e24]">Real Estate</span> Excellence
             </h1>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Green Vijaya Infra provides a comprehensive suite of real estate solutions designed to turn your property aspirations into landmark reality with transparency and trust.
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl mx-auto">
+              Green Vijaya Infra delivers a complete spectrum of bespoke real estate solutions. We bridge the gap between your property aspirations and landmark reality, driven by our commitment to transparency, innovation, and unwavering trust.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pb-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
@@ -108,7 +107,7 @@ export default function ExploreServices() {
 
                 {/* Content */}
                 <div className="p-8 text-left">
-                  <h3 className="text-2xl font-bold text-slate-950  group-hover:text-[#3d1e24] transition-colors">
+                  <h3 className="text-2xl font-bold text-slate-950 mb-3 group-hover:text-[#3d1e24] transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-slate-600 leading-relaxed text-sm sm:text-base font-normal">
@@ -132,7 +131,7 @@ export default function ExploreServices() {
       </section>
 
       {/* CTA Section - Brand-Aligned Dark Burgundy Corporate Panel */}
-      <section className="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12">
+      <section className="pt-0 pb-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12">
         <div className="rounded-3xl border border-rose-900/15 bg-gradient-to-r from-[#2a1117] via-[#3d1e24] to-[#4e242d] p-10 sm:p-14 relative overflow-hidden shadow-xl text-white">
           <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-96 h-96 bg-rose-400/10 rounded-full blur-3xl pointer-events-none"></div>

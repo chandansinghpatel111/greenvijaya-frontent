@@ -22,16 +22,19 @@ import { useLocation } from "react-router-dom";
 
 import ScrollToTop from "./components/ScrollToTop";
 
-import { ThemeProvider } from "./context/ThemeContext";
-
 function AppWrapper() {
   const location = useLocation();
 
+  // Adjust this logic to match actual route casing or path
+  //const hideFooter = location.pathname.includes("PostProperty");
+
   return (
-    <ThemeProvider>
+    <>
+     
       <App />
       <ScrollToTop />
+      
       <WhatsAppButton />
-    </ThemeProvider>
+    </>
   );
 }

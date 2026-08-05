@@ -1,59 +1,144 @@
-import { useState } from "react";
-import { Search, Mic, Crosshair } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { Search as SearchIcon, MapPin, Building, ArrowRight, ShieldCheck } from "lucide-react";
 
-export default function NavBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Search() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const initialQuery = searchParams.get("query") || "";
+  const initialType = searchParams.get("type") || "";
+
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(initialQuery);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "NewlyProjectunique"));
+        const allData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setProjects(allData);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  const filteredProjects = projects.filter(project => {
+    const matchesSearch = 
+      (project.projectBuildingName && project.projectBuildingName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (project.city && project.city.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesType = !initialType || 
+      (project.propertyCategory && project.propertyCategory.toLowerCase() === initialType.toLowerCase()) ||
+      (project.propertyType && project.propertyType.toLowerCase() === initialType.toLowerCase());
+
+    return matchesSearch && matchesType;
+  });
 
   return (
-    <div className="bg-white shadow-md p-4">
-      <div className="max-w-6xl mx-auto flex flex-col items-center md:flex-row justify-center md:justify-between">
+    <div className="min-h-screen bg-slate-50/50 pt-6 sm:pt-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Navigation Links - Centered */}
-        <div className="flex flex-wrap justify-center space-x-6 text-gray-700 font-medium mb-4 md:mb-0">
-          <span className="text-black font-bold border-b-2 border-blue-500 pb-1 cursor-pointer">Buy</span>
-          <span className="cursor-pointer hover:text-blue-600">Rent</span>
-          <span className="cursor-pointer hover:text-blue-600 relative">
-            New Launch
-            <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
-          </span>
-          <span className="cursor-pointer hover:text-blue-600">PG / Co-living</span>
-          <span className="cursor-pointer hover:text-blue-600">Commercial</span>
-          <span className="cursor-pointer hover:text-blue-600">Plots/Land</span>
-          <span className="cursor-pointer hover:text-blue-600">Projects</span>
+        {/* Search Header */}
+        <div className="bg-white rounded-2xl shadow-sm border border-[#d4af37]/30 p-6 mb-10 flex flex-col md:flex-row items-center gap-4">
+          <div className="flex-1 w-full relative flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1">
+              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-[#d4af37]" size={20} />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by city or project name..."
+                className="w-full pl-12 pr-4 py-3 rounded-xl border border-[#d4af37]/40 focus:outline-none focus:ring-2 focus:ring-[#d4af37]/30 focus:border-[#d4af37] transition-all bg-slate-50 text-slate-800 placeholder:text-slate-400"
+              />
+            </div>
+            <button 
+              className="bg-gradient-to-r from-[#e3b838] to-[#c29624] hover:from-[#d4af37] hover:to-[#b38f2d] text-slate-900 px-8 py-3 rounded-full font-extrabold transition-all duration-300 shadow-md shadow-yellow-900/20 active:scale-95 w-full sm:w-auto flex items-center justify-center gap-2"
+            >
+              <SearchIcon size={18} strokeWidth={2.5} />
+              Search
+            </button>
+          </div>
         </div>
 
-        {/* Search Bar Container - Responsive */}
-        <div className="flex flex-col md:flex-row items-center bg-gray-100 rounded-full p-2 w-full md:w-2/3 lg:w-1/2 space-y-2 md:space-y-0">
-          <div className="relative flex-grow flex items-center w-full">
-            {/* Dropdown for Property Type */}
-            <select className="bg-transparent text-gray-700 px-3 py-2 focus:outline-none border-r border-gray-300">
-              <option>All Residential</option>
-              <option>Buy</option>
-              <option>Rent</option>
-            </select>
-
-            {/* Search Input */}
-            <Search className="h-5 w-5 text-gray-500 absolute left-12" />
-            <input
-              type="text"
-              placeholder='Search "PG in sector 74 noida"'
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-transparent pl-10 pr-4 py-2 focus:outline-none"
-            />
-          </div>
-
-          {/* Icons */}
-          <div className="flex space-x-2">
-            <Crosshair className="h-5 w-5 text-blue-600 bg-blue-100 p-2 rounded-full cursor-pointer" />
-            <Mic className="h-5 w-5 text-blue-600 bg-blue-100 p-2 rounded-full cursor-pointer" />
-          </div>
-
-          {/* Search Button */}
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-full md:w-auto">
-            Search
-          </button>
+        {/* Header Text */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">
+            {searchTerm ? `Search Results for "${searchTerm}"` : "All Projects"}
+          </h1>
+          <p className="text-slate-500">
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'property' : 'properties'} found
+          </p>
         </div>
+
+        {/* Results Grid */}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#753441]"></div>
+          </div>
+        ) : filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map(project => (
+              <div key={project.id} className="bg-white rounded-[1.5rem] border border-slate-200/80 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+                <div className="relative h-60 overflow-hidden">
+                  {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+                    <img 
+                      src={project.imageUrls[0]} 
+                      alt={project.projectBuildingName} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">
+                      No Image Available
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#3d1e24] flex items-center gap-1.5 shadow-sm">
+                    <ShieldCheck size={14} className="text-green-600" /> Verified
+                  </div>
+                </div>
+                
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-1">
+                    {project.projectBuildingName || "Untitled Project"}
+                  </h3>
+                  <div className="flex items-center text-slate-500 mb-4 text-sm font-medium">
+                    <MapPin size={16} className="mr-1 text-[#753441]" />
+                    {project.city || "Location Not Specified"}
+                  </div>
+                  
+                  <div className="mt-auto pt-4 border-t border-slate-100">
+                    <button 
+                      onClick={() => navigate(`/project/${project.city}`)}
+                      className="w-full flex items-center justify-center gap-2 bg-slate-50 hover:bg-[#3d1e24] text-[#3d1e24] hover:text-white border border-slate-200 hover:border-[#3d1e24] transition-colors py-2.5 rounded-xl font-bold text-sm"
+                    >
+                      View Details <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-3xl border border-slate-200 border-dashed">
+            <Building className="mx-auto h-12 w-12 text-slate-300 mb-4" />
+            <h3 className="text-xl font-bold text-slate-900 mb-2">No projects found</h3>
+            <p className="text-slate-500">We couldn't find any properties matching your search criteria.</p>
+            <button 
+              onClick={() => setSearchTerm("")}
+              className="mt-6 text-[#753441] font-bold hover:underline"
+            >
+              Clear Search
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

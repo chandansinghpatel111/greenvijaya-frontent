@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
-import apiClient from '../api/apiClient';
+import { db, auth, storage } from "../firebase";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import PropertyDetails from "../Pages/ExplorecityPropertyD";
 import AdditionalDetails from "../Pages/AdditionalDetails";
 import Amenities from "../Pages/Amenities";
+import Button from "../components/Button";
 import { Home, FileText, CheckCircle, Image as ImageIcon } from "lucide-react";
 
 export default function PropertyPost() {
@@ -15,8 +19,6 @@ export default function PropertyPost() {
   const [selectedCityInfo, setSelectedCityInfo] = useState(null);
 
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
     city: "",
     projectBuildingName: "",
     locality: "",
@@ -26,27 +28,21 @@ export default function PropertyPost() {
     floorNumber: "",
     totalFloors: "",
     amenities: [],
-    images: [],
+    imageUrls: [],
   });
 
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-    }
+    });
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     const fetchCityData = async () => {
-      try {
-        // Wait, cityData is not backed by our Node server yet, mock or fetch from a properties route
-        // We'll mock it for now since we haven't built a city endpoints
-        setCityInfoList([
-          { title: "Lucknow", location: "Uttar Pradesh", projectType: "Residential", priceRange: "50L - 2Cr", amenities: ["Park", "Gym"], about: "Capital city of UP" }
-        ]);
-      } catch (err) {
-        console.error(err);
-      }
+      const snapshot = await getDocs(collection(db, "cityData"));
+      const data = snapshot.docs.map((doc) => doc.data());
+      setCityInfoList(data);
     };
     fetchCityData();
   }, []);
@@ -61,30 +57,39 @@ export default function PropertyPost() {
   const handleImageUpload = async (files) => {
     if (!files.length) return;
 
-    const data = new FormData();
+    const uploadedUrls = [];
     for (let file of files) {
-      data.append('images', file);
-    }
+      const storageRef = ref(storage, `property_images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-    try {
-      setUploadProgress(50);
-      const res = await apiClient.post('/upload', data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
+          },
+          (error) => {
+            console.error("Error uploading image: ", error);
+            alert("Image upload failed. Please try again.");
+            reject(error);
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            uploadedUrls.push(downloadURL);
+            resolve();
+          }
+        );
       });
-      setUploadProgress(100);
-
-      setFormData((prevData) => ({
-        ...prevData,
-        images: [...prevData.images, ...res.data.images],
-      }));
-
-      alert("Images uploaded successfully!");
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-      alert("Image upload failed. Please try again.");
-    } finally {
-      setTimeout(() => setUploadProgress(0), 1000);
     }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrls: [...prevData.imageUrls, ...uploadedUrls],
+    }));
+
+    alert("Images uploaded successfully!");
   };
 
   const handleSubmit = async () => {
@@ -95,21 +100,18 @@ export default function PropertyPost() {
     }
 
     try {
-      const payload = {
-        ...formData,
-        title: formData.projectBuildingName || formData.title || "Project Explore Listing",
-        description: formData.locality || formData.description || "No description provided",
-        price: Number(formData.price) || 0,
-        images: formData.images,
-      };
 
-      await apiClient.post('/properties', payload);
+      await addDoc(collection(db, "NewlyProjectunique"), {
+
+      
+        ...formData,
+        userId: user.uid,
+        createdAt: new Date(),
+      });
 
       alert("Property submitted successfully!");
       setStep(1);
       setFormData({
-        title: "",
-        description: "",
         city: "",
         projectBuildingName: "",
         locality: "",
@@ -119,173 +121,96 @@ export default function PropertyPost() {
         floorNumber: "",
         totalFloors: "",
         amenities: [],
-        images: [],
+        imageUrls: [],
       });
 
+
       navigate("/");
+
+      
     } catch (error) {
       console.error("Error adding document: ", error);
-      alert("Error submitting property: " + (error.response?.data?.message || error.message));
+      alert("Error submitting property. Please try again.");
     }
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-1 text-slate-500 font-sans">
-      {/* Page Title & Status Header - Compact */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-2.5 transition-colors duration-300">
-        <div>
-          <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-slate-950 dark:text-white transition-colors duration-300">
-            Project Exploration & Setup
-          </h1>
-          <p className="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 transition-colors duration-300">
-            Create and configure municipal real estate listings across prominent urban zones.
-          </p>
+    <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
+      <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg">
+        {/* Step Indicator */}
+        <div className="flex justify-between mb-4">
+          {[
+            { label: "ExplorecityPropertyD", icon: <Home className="w-5 h-5 inline mr-2" /> },
+            { label: "Additional Details", icon: <FileText className="w-5 h-5 inline mr-2" /> },
+            { label: "Amenities", icon: <CheckCircle className="w-5 h-5 inline mr-2" /> },
+            { label: "Upload Images", icon: <ImageIcon className="w-5 h-5 inline mr-2" /> }
+          ].map((item, index) => (
+            <span
+              key={index}
+              className={`text-lg flex items-center ${step === index + 1 ? "font-bold text-[#ec9322]" : "text-gray-400"}`}
+            >
+              {item.icon} {item.label}
+            </span>
+          ))}
         </div>
-      </div>
 
-      {/* Main Ultra-Compact Container */}
-      <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-slate-100 dark:border-slate-800 flex flex-col justify-between min-h-[450px] transition-colors duration-300">
-        <div>
-          {/* Responsive & Compact Step Indicator Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 border-b border-slate-100 dark:border-slate-800 pb-3 transition-colors duration-300">
-            {[
-              { label: "City Property", icon: <Home className="w-3.5 h-3.5 shrink-0" /> },
-              { label: "Additional Info", icon: <FileText className="w-3.5 h-3.5 shrink-0" /> },
-              { label: "Amenities", icon: <CheckCircle className="w-3.5 h-3.5 shrink-0" /> },
-              { label: "Upload Assets", icon: <ImageIcon className="w-3.5 h-3.5 shrink-0" /> }
-            ].map((item, index) => {
-              const isCurrent = step === index + 1;
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => setStep(index + 1)}
-                  className={`flex items-center justify-center gap-1.5 py-1.5 px-2.5 rounded-lg text-xs font-extrabold transition-all duration-300 border ${isCurrent
-                    ? "bg-slate-950 dark:bg-rose-500 text-white border-slate-950 dark:border-rose-500"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
-                    }`}
-                >
-                  {item.icon}
-                  <span className="truncate">{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Form Step Contents */}
-          <div className="py-1">
-            {step === 1 && (
-              <div className="space-y-3">
-                <PropertyDetails
-                  formData={formData}
-                  setFormData={setFormData}
-                  cities={cityInfoList.map((c) => c.title)}
-                />
-                {selectedCityInfo && (
-                  <div className="mt-3 p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-300 space-y-1.5 transition-colors duration-300">
-                    <h3 className="text-xs sm:text-sm font-black text-slate-950 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-1 transition-colors duration-300">
-                      {selectedCityInfo.title} Urban Zone Overview
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-slate-700 dark:text-slate-300">
-                      <p><span className="font-extrabold text-slate-950 dark:text-white">Location:</span> {selectedCityInfo.location}</p>
-                      <p><span className="font-extrabold text-slate-950 dark:text-white">Project Type:</span> {selectedCityInfo.projectType}</p>
-                      <p><span className="font-extrabold text-slate-950 dark:text-white">Price Range:</span> {selectedCityInfo.priceRange}</p>
-                      <p className="truncate"><span className="font-extrabold text-slate-950 dark:text-white">Amenities:</span> {selectedCityInfo.amenities?.join(", ")}</p>
-                    </div>
-                    <p className="pt-1 text-slate-600 dark:text-slate-400 border-t border-slate-200/60 dark:border-slate-700/60 leading-relaxed text-[11px] transition-colors duration-300"><span className="font-extrabold text-slate-950 dark:text-white">Overview:</span> {selectedCityInfo.about}</p>
-                  </div>
-                )}
+        {/* Form Steps */}
+        {step === 1 && (
+          <>
+            <PropertyDetails
+              formData={formData}
+              setFormData={setFormData}
+              cities={cityInfoList.map((c) => c.title)}
+            />
+            {selectedCityInfo && (
+              <div className="mt-4 p-4 bg-gray-50 rounded shadow">
+                <h3 className="text-lg font-bold mb-2">About {selectedCityInfo.title}</h3>
+                <p><strong>About:</strong> {selectedCityInfo.about}</p>
+                <p><strong>Location:</strong> {selectedCityInfo.location}</p>
+                <p><strong>Project Type:</strong> {selectedCityInfo.projectType}</p>
+                <p><strong>Amenities:</strong> {selectedCityInfo.amenities.join(", ")}</p>
+                <p><strong>Price Range:</strong> {selectedCityInfo.priceRange}</p>
               </div>
             )}
-
-            {step === 2 && (
-              <div>
-                <AdditionalDetails formData={formData} setFormData={setFormData} />
-              </div>
-            )}
-
-            {step === 3 && (
-              <div>
-                <Amenities formData={formData} setFormData={setFormData} />
-              </div>
-            )}
-
-            {step === 4 && (
-              <div className="space-y-4 py-1">
-                <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-5 sm:p-6 text-center hover:border-[#753441] dark:hover:border-rose-400 transition-colors bg-slate-50/50 dark:bg-slate-800/50">
-                  <ImageIcon className="mx-auto h-8 w-8 text-slate-400 dark:text-slate-500 mb-2" />
-                  <h3 className="text-xs sm:text-sm font-black text-slate-950 dark:text-white mb-1">Select or deposit property photographs</h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-4">Supports high resolution PNG, JPG, or WEBP photography assets</p>
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e.target.files)}
-                    className="text-xs text-slate-600 dark:text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-extrabold file:bg-slate-950 dark:file:bg-rose-600 file:text-white hover:file:bg-slate-800 dark:hover:file:bg-rose-500 cursor-pointer w-full max-w-xs mx-auto block transition-all"
-                  />
+          </>
+        )}
+        {step === 2 && <AdditionalDetails formData={formData} setFormData={setFormData} />}
+        {step === 3 && <Amenities formData={formData} setFormData={setFormData} />}
+        {step === 4 && (
+          <div>
+            <h2 className="text-xl font-bold mb-2">Upload Property Images</h2>
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e.target.files)}
+              className="border p-2 rounded w-full"
+            />
+            {uploadProgress > 0 && (
+              <div className="mt-2">
+                <p>Uploading: {uploadProgress.toFixed(0)}%</p>
+                <div className="w-full bg-gray-300 h-2 rounded">
+                  <div
+                    className="bg-[#ec9322] h-2 rounded"
+                    style={{ width: `${uploadProgress}%` }}
+                  ></div>
                 </div>
-
-                {uploadProgress > 0 && (
-                  <div className="space-y-1 p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors duration-300">
-                    <div className="flex justify-between text-xs font-extrabold text-slate-950 dark:text-white">
-                      <span>Uploading real estate media assets...</span>
-                      <span>{uploadProgress.toFixed(0)}%</span>
-                    </div>
-                    <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                      <div
-                        className="bg-[#ec9322] dark:bg-rose-500 h-1.5 transition-all duration-200 rounded-full"
-                        style={{ width: `${uploadProgress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                )}
-
-                {formData.images.length > 0 && (
-                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 pt-1">
-                    {formData.images.map((url, index) => (
-                      <div key={index} className="relative aspect-video rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">
-                        <img src={url} alt={`Property ${index}`} className="w-full h-full object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                )}
+              </div>
+            )}
+            {formData.imageUrls.length > 0 && (
+              <div className="grid grid-cols-3 gap-2 mt-4">
+                {formData.imageUrls.map((url, index) => (
+                  <img key={index} src={url} alt={`Property ${index}`} className="w-full h-32 object-cover rounded-lg" />
+                ))}
               </div>
             )}
           </div>
-        </div>
+        )}
 
-        {/* Compact Navigation Footer Bar */}
-        <div className="flex items-center justify-between mt-5 pt-3.5 border-t border-slate-200 dark:border-slate-800 shrink-0 transition-colors duration-300">
-          <button
-            type="button"
-            disabled={step === 1}
-            onClick={() => setStep(Math.max(1, step - 1))}
-            className="px-3 py-1.5 rounded-lg text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            Previous Step
-          </button>
-
-          <div className="text-xs font-extrabold text-slate-500 dark:text-slate-400 hidden sm:block">
-            Step <span className="text-slate-950 dark:text-white font-black">{step}</span> of 4
-          </div>
-
-          {step < 4 ? (
-            <button
-              type="button"
-              onClick={() => setStep(Math.min(4, step + 1))}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-950 dark:bg-rose-600 text-white hover:bg-slate-800 dark:hover:bg-rose-500 transition-colors"
-            >
-              Next Step
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="px-3 py-1.5 rounded-lg text-xs font-extrabold bg-[#ec9322] dark:bg-rose-600 text-white hover:bg-[#d6851f] dark:hover:bg-rose-500 border border-transparent transition-colors"
-            >
-              Submit Property
-            </button>
-          )}
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-4">
+          {step > 1 ? <Button onClick={() => setStep(step - 1)} text="Previous" /> : <div className="w-24"></div>}
+          {step < 4 ? <Button onClick={() => setStep(step + 1)} text="Next" /> : <Button onClick={handleSubmit} text="Submit" />}
         </div>
       </div>
     </div>

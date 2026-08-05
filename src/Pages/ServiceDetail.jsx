@@ -1,193 +1,146 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { MapPin, Phone, User, CheckCircle2, Building, Image as ImageIcon } from "lucide-react";
-import apiClient from "../api/apiClient";
+import { useParams, Link } from "react-router-dom";
+import homeImage from "../assets/service1.jpg"; 
+import commercialImage from "../assets/service2.jpg"; 
+import rentImage from "../assets/service4.jpg"; 
+import { MapPin, Building, ShieldCheck, Banknote, Sparkles } from "lucide-react";
 
-const serviceConfig = {
-  'home': {
-    title: 'Buy a Home',
-    description: 'Find your dream residential property. Explore top apartments, villas, and houses for sale.',
-    filter: (p) => p.propertyType === 'Residential' && p.listingType === 'Sell'
+// Sample services data
+const services = [
+  { 
+    url: "home", 
+    title: "Discover Your Dream Home", 
+    description: "Experience the epitome of luxury living with our meticulously curated selection of premium residential properties, exclusive villas, and smart homes. We bring you properties in prime locations equipped with world-class amenities, ensuring unparalleled comfort and a lifestyle that truly matches your aspirations.", 
+    location: "Premium Locations (Lucknow, Gurugram, Noida)", 
+    projectType: "Luxury Residential & Villas", 
+    amenities: "24x7 Multi-tier Security, Lush Green Parks, Exclusive Club House", 
+    priceRange: "₹20 Lakh - ₹5 Cr",
+    image: homeImage
   },
-  'commercial': {
-    title: 'Buying a Commercial Property',
-    description: 'Discover premium commercial spaces, office buildings, and retail shops.',
-    filter: (p) => p.propertyType === 'Commercial'
+  { 
+    url: "commercial", 
+    title: "Premium Commercial Spaces", 
+    description: "Elevate your business by exploring our top-tier commercial spaces, high-street retail shops, and state-of-the-art office buildings. Strategically located in the most sought-after business hubs, our properties are designed to maximize your ROI and drive unprecedented business growth.", 
+    location: "Metro Cities & Central Business Hubs", 
+    projectType: "Premium Commercial & Retail", 
+    amenities: "High-Speed Internet, Ample Reserved Parking, 100% Power Backup", 
+    priceRange: "₹50 Lakh - ₹10 Cr",
+    image: commercialImage
   },
-  'rent': {
-    title: 'Renting a Home',
-    description: 'Find the perfect rental property that fits your lifestyle and budget.',
-    filter: (p) => p.listingType === 'Rent'
+  { 
+    url: "rent", 
+    title: "Find the Perfect Rental Home", 
+    description: "Step into comfort with our handpicked luxury and affordable rental properties situated in premium neighborhoods. Whether you seek move-in ready apartments or spacious houses, we offer excellent connectivity and top-notch community facilities tailored to your needs.", 
+    location: "Prime Neighborhoods Across Major Cities", 
+    projectType: "Premium Residential Rentals", 
+    amenities: "Furnished/Semi-furnished Options, Dedicated Maintenance Staff", 
+    priceRange: "₹10K - ₹2 Lakh per month",
+    image: rentImage
   }
-};
+];
 
 const ServiceDetail = () => {
-  const { serviceUrl } = useParams(); 
-  const navigate = useNavigate();
-  const [properties, setProperties] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { serviceUrl } = useParams();
+  const service = services.find((s) => s.url === serviceUrl);
 
-  const config = serviceConfig[serviceUrl];
-
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        setLoading(true);
-        const { data } = await apiClient.get('/properties');
-        
-        if (config) {
-          const filtered = data.filter(config.filter);
-          setProperties(filtered);
-        }
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperties();
-  }, [serviceUrl, config]);
-
-  if (!config) {
+  if (!service) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <h2 className="text-3xl font-bold text-red-600 mb-2">🚫 Service Not Found</h2>
-        <p className="text-gray-600 mb-6">The requested service category does not exist.</p>
-        <button onClick={() => navigate("/")} className="px-6 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700">Go Home</button>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <div className="bg-rose-50 p-6 rounded-full mb-6">
+          <ShieldCheck size={48} className="text-[#753441]" />
+        </div>
+        <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-3">Service Not Found</h2>
+        <p className="text-slate-600 mb-8 max-w-md">We couldn't find the service you're looking for. It might have been updated or moved.</p>
+        <Link to="/" className="bg-[#3d1e24] text-white px-8 py-3 rounded-full font-bold shadow-md hover:bg-[#291217] transition-all">
+          Return to Homepage
+        </Link>
       </div>
     );
   }
 
-  const formatPrice = (priceStr) => {
-    if (!priceStr) return "Price on Request";
-    if (isNaN(priceStr)) return priceStr;
-    const price = Number(priceStr);
-    if (price >= 10000000) return `₹ ${(price / 10000000).toFixed(2)} Cr`;
-    if (price >= 100000) return `₹ ${(price / 100000).toFixed(2)} Lac`;
-    return `₹ ${price.toLocaleString('en-IN')}`;
-  };
-
   return (
-    <div className="bg-slate-50 min-h-screen pb-20">
-      {/* Header Banner */}
-      <div className="bg-[#1a0c0f] py-16 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(244,63,94,0.15),_transparent_55%)] pointer-events-none" />
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-rose-300 mb-4">{config.title}</h1>
-          <p className="text-rose-100/80 max-w-2xl mx-auto text-lg">{config.description}</p>
-        </div>
+    <div className="max-w-6xl mx-auto px-4 pt-0 pb-12 sm:pb-16 -mt-2 sm:-mt-4">
+      <div className="text-center max-w-3xl mx-auto mb-10">
+        <h1 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-[#291217] via-[#461e27] to-[#753441] bg-clip-text text-transparent tracking-tight mb-4 leading-tight py-1">
+          {service.title}
+        </h1>
+        <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+          {service.description}
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="w-12 h-12 border-4 border-rose-600 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        ) : properties.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-xl p-12 text-center border border-slate-100">
-            <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Building size={32} />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* Image Section */}
+        <div className="relative group rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+          <img 
+            src={service.image} 
+            alt={service.title} 
+            className="w-full h-[300px] sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" 
+            loading="lazy" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
+          <div className="absolute bottom-6 left-6 right-6">
+            <div className="bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20 inline-block">
+              <p className="text-[#3d1e24] font-extrabold text-sm uppercase tracking-wider mb-1">Starting From</p>
+              <p className="text-2xl font-black text-slate-900">{service.priceRange.split(' - ')[0]}</p>
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-2">No Properties Available</h3>
-            <p className="text-slate-500">We currently do not have any properties listed under this category. Please check back later.</p>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {properties.map((property) => (
-              <div key={property._id} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 group flex flex-col">
-                {/* Image Section */}
-                <div className="relative h-64 overflow-hidden bg-slate-200">
-                  {property.images && property.images.length > 0 ? (
-                    <img 
-                      src={property.images[0]} 
-                      alt={property.title || property.projectBuildingName} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                      <ImageIcon size={48} className="mb-2 opacity-50" />
-                      <span>No Image Available</span>
-                    </div>
-                  )}
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#3d1e24] shadow-sm backdrop-blur-md">
-                      <CheckCircle2 size={14} className="text-rose-500" />
-                      Verified
-                    </span>
-                  </div>
-                  <div className="absolute bottom-4 right-4 rounded-lg bg-white/95 px-4 py-2 font-black text-slate-900 shadow-lg backdrop-blur-md">
-                    {formatPrice(property.price)}
-                  </div>
-                </div>
+        </div>
 
-                {/* Details Section */}
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 line-clamp-1">{property.title || property.projectBuildingName}</h3>
-                      <div className="flex items-center gap-1.5 text-sm font-medium text-slate-500 mt-1">
-                        <MapPin size={16} className="text-rose-500" />
-                        <span className="truncate">{property.locality || property.city || 'Location not specified'}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                     <span className="inline-block bg-slate-100 text-slate-700 px-2.5 py-1 rounded text-xs font-semibold">{property.propertyType || 'Property'}</span>
-                     <span className="inline-block bg-slate-100 text-slate-700 px-2.5 py-1 rounded text-xs font-semibold">{property.listingType || 'Listing'}</span>
-                  </div>
-
-                  {/* Broker / Contact Section */}
-                  <div className="mt-auto border-t border-slate-100 pt-5">
-                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Listed By</h4>
-                    {property.broker ? (
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-lg">
-                            {property.broker.name?.charAt(0).toUpperCase() || 'U'}
-                          </div>
-                          <div>
-                            <p className="font-bold text-slate-800 text-sm">{property.broker.name || 'Admin User'}</p>
-                            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Broker / Admin</p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end">
-                           <div className="flex items-center gap-1.5 text-rose-600 bg-rose-50 px-2.5 py-1.5 rounded-md font-semibold text-sm">
-                             <Phone size={14} />
-                             {property.broker.mobileNumber || property.contactNumber || 'No Contact Info'}
-                           </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold">
-                            <User size={20} />
-                          </div>
-                          <span className="font-semibold text-slate-700 text-sm">Green Vijaya Admin</span>
-                        </div>
-                        {property.contactNumber && (
-                           <div className="flex items-center gap-1.5 text-rose-600 bg-rose-50 px-2.5 py-1.5 rounded-md font-semibold text-sm">
-                             <Phone size={14} />
-                             {property.contactNumber}
-                           </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  
-                  <button 
-                    onClick={() => navigate('/listing-detail', { state: { project: property } })}
-                    className="mt-5 w-full bg-slate-900 hover:bg-[#3d1e24] text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
-                  >
-                    View Property Details
-                  </button>
-                </div>
+        {/* Details Section */}
+        <div className="flex flex-col gap-6">
+          <h3 className="text-2xl font-extrabold text-slate-900 mb-2 border-b border-slate-100 pb-4">Key Highlights</h3>
+          
+          <div className="grid gap-6">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center text-[#753441]">
+                <MapPin size={24} />
               </div>
-            ))}
+              <div>
+                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Location Focus</p>
+                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.location}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                <Building size={24} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Property Type</p>
+                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.projectType}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <ShieldCheck size={24} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Premium Amenities</p>
+                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.amenities}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+                <Banknote size={24} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Investment Range</p>
+                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.priceRange}</p>
+              </div>
+            </div>
           </div>
-        )}
+
+          <div className="mt-8 pt-8 border-t border-slate-100 flex gap-4">
+            <Link 
+              to="/contact" 
+              className="flex-1 bg-[#3d1e24] text-white text-center px-6 py-4 rounded-2xl font-bold shadow-lg shadow-rose-950/20 hover:bg-[#291217] transition-all hover:-translate-y-1"
+            >
+              Contact Sales Expert
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

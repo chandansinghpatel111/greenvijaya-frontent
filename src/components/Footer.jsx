@@ -9,7 +9,6 @@ import {
   ArrowRight,
   Sparkles
 } from 'lucide-react';
-import FooterBg from '../assets/footer3.jpg';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -17,7 +16,6 @@ const Footer = () => {
     { name: 'About Us', href: '/about' },
     { name: 'Service', href: '/service' },
     { name: 'City', href: '/city' },
-    // { name: 'Post Property', href: '/postproperty' },
     { name: 'Contact Us', href: '/contact' },
   ];
 
@@ -35,8 +33,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="relative overflow-hidden bg-[#1a0c0f] text-white border-t border-rose-900/40"
-      style={{ backgroundImage: `linear-gradient(135deg, rgba(26,12,15,0.97), rgba(61,30,36,0.92)), url(${FooterBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      className="relative overflow-hidden bg-gradient-to-br from-[#1a0c0f] to-[#3d1e24] text-white border-t border-rose-900/40"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(244,63,94,0.15),_transparent_55%)] pointer-events-none" />
 

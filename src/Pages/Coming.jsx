@@ -6,16 +6,13 @@ const Coming = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full pt-6 pb-14 sm:pt-8 sm:pb-16 bg-white">
+    <div className="w-full pt-0 pb-14 sm:pt-2 sm:pb-16 bg-white">
       <div className="section-shell">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-start">
 
           {/* Left Content Area: Brand Logo Green Styling, Zero Ad-Box Effects */}
           <div className="text-left">
-            <div className="inline-flex items-center gap-2 rounded-full bg-rose-50 px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.25em] text-[#3d1e24] mb-5">
-              <Sparkles size={15} className="text-[#753441]" />
-              NEW LAUNCHES & MASTERPLANS
-            </div>
+
             <h2 className="text-3xl font-bold sm:text-5xl text-slate-950 tracking-tight leading-tight">
               Elevate your property portfolio with <span className="text-[#3d1e24]">architectural benchmarks</span>.
             </h2>
@@ -62,7 +59,7 @@ const Coming = () => {
               className="group relative h-72 sm:h-80 w-full rounded-lg overflow-hidden bg-slate-900 border border-slate-200/80 shadow-lg hover:shadow-2xl cursor-pointer transition-all duration-500 hover:-translate-y-2"
             >
               <img
-                src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80"
+                src="/image88.png"
                 alt="Green Vijaya Masterplan"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -78,28 +75,31 @@ const Coming = () => {
             </div>
 
             {/* Clean Feature Lists without borders or shadows, only smooth upward lift on hover */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left mt-6">
               {[
                 {
-                  icon: <Building2 size={22} className="text-[#3d1e24]" />,
+                  icon: <Building2 size={24} className="text-rose-200" />,
                   title: 'Prime Corridors',
                   text: 'Strategically located in high-demand zones near expressways.'
                 },
                 {
-                  icon: <TrendingUp size={22} className="text-[#753441]" />,
+                  icon: <TrendingUp size={24} className="text-rose-200" />,
                   title: 'Capital Returns',
                   text: 'Backed by legal purity and timely delivery records.'
                 }
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="bg-white rounded-lg border border-slate-200/80 p-6 transition-all duration-500"
+                  className="group relative bg-gradient-to-br from-[#291217] via-[#3d1e24] to-[#753441] rounded-2xl border border-[#753441]/40 p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden cursor-pointer"
                 >
-                  <div className="p-3 rounded-xl bg-white text-[#3d1e24] inline-flex mb-3.5">
-                    {item.icon}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4 shadow-sm transition-transform duration-500 group-hover:scale-110">
+                      {item.icon}
+                    </div>
+                    <h3 className="font-extrabold text-xl text-white mb-2 tracking-tight group-hover:text-rose-200 transition-colors">{item.title}</h3>
+                    <p className="text-[13px] sm:text-sm leading-relaxed text-rose-100/80 font-medium">{item.text}</p>
                   </div>
-                  <h3 className="font-extrabold text-lg text-slate-950">{item.title}</h3>
-                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">{item.text}</p>
                 </div>
               ))}
             </div>

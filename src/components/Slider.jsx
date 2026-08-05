@@ -1,95 +1,174 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Calendar, Sparkles, ShieldCheck, Building2, MapPin } from 'lucide-react';
-import sliderImg from '../assets/sliderimg.png';
-import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, Search, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function Slider() {
   const navigate = useNavigate();
+  const [propertyType, setPropertyType] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const media = [
+    { type: 'video', src: '/video22.mp4' },
+    { type: 'image', src: '/image123.avif' },
+    { type: 'image', src: '/image456.webp' },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % media.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div className="relative w-full overflow-hidden bg-white">
-      <div className="section-shell relative z-10 w-full pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
+    <div className="relative w-full min-h-[100vh] overflow-hidden bg-slate-900 flex flex-col -mt-14">
+      {/* Background Media Slider */}
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0 w-full h-full z-0"
+        >
+          {media[currentIndex].type === 'video' ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src={media[currentIndex].src} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={media[currentIndex].src}
+              alt={`Slide ${currentIndex}`}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </motion.div>
+      </AnimatePresence>
 
-          {/* Left Column: Title, Subtitle, and CTAs */}
-          <motion.div
-            className="lg:col-span-6 z-10 flex flex-col items-start text-left"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            {/* Green-Vijaya Pill Badge */}
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3.5 py-2 sm:px-4 text-[11px] sm:text-sm font-semibold text-[#3d1e24] shadow-sm mb-4 sm:mb-6">
-              <Sparkles size={16} className="text-[#753441] shrink-0 animate-pulse" />
-              <span className="leading-normal">Green-Vijaya Infra • Premier Real Estate Development</span>
-            </div>
+      {/* Dark Overlay for Text Readability */}
+      <div className="absolute inset-0 bg-black/60 z-10"></div>
 
-            {/* Responsive Bold Heading */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-bold tracking-tight text-slate-950 leading-[1.22] sm:leading-[1.14]">
-              Building spaces where <br />
-              <span className="text-[#3d1e24]">
-                Memories thrive
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="mt-3.5 sm:mt-6 text-sm sm:text-lg lg:text-xl text-slate-600 font-normal leading-relaxed max-w-xl">
-              Green-Vijaya brings architectural innovation and trusted excellence to modern real estate. We specialize in luxury residential villas, prime commercial spaces, and government-approved urban townships designed for prestigious living and guaranteed value appreciation.
-            </p>
-
-            {/* CTA Buttons in Simple, Premium Property Style */}
-            <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3.5 sm:gap-4 w-full sm:w-auto">
-              <button
-                onClick={() => navigate('/NewsProject')}
-                className="group flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-[#3d1e24] hover:bg-[#291217] px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg shadow-rose-950/15 transition-all duration-300 hover:scale-[1.02] active:scale-95"
-              >
-                <span>Explore Properties</span>
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5 shrink-0" />
-              </button>
-
-              <button
-                onClick={() => navigate('/contact')}
-                className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border-2 border-rose-300 bg-white px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-slate-900 transition-all duration-300 hover:border-[#753441] hover:bg-rose-50/50 hover:text-[#3d1e24] hover:scale-[1.02] active:scale-95"
-              >
-                <Calendar size={18} className="text-[#753441] shrink-0" />
-                <span>Schedule Visit</span>
-              </button>
-            </div>
-
-            {/* Trust Badges / Quick Stats */}
-            <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8 border-t border-slate-200/80 w-full text-left">
-              <div>
-                <p className="text-xl sm:text-3xl font-extrabold text-[#3d1e24]">150+</p>
-                <p className="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1">Luxury Projects</p>
-              </div>
-              <div>
-                <p className="text-xl sm:text-3xl font-extrabold text-[#753441]">98%</p>
-                <p className="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1">Client Satisfaction</p>
-              </div>
-              <div>
-                <p className="text-xl sm:text-3xl font-extrabold text-[#a85567]">5+ Yrs</p>
-                <p className="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1">Industry Excellence</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Hero Asset Illustration on Pure White Background */}
-          <motion.div
-            className="lg:col-span-6 flex items-center justify-center relative mt-6 lg:mt-0"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            <div className="relative w-full flex justify-center py-4 lg:py-0">
-              <img
-                src={sliderImg}
-                alt="Modern Luxury Real Estate Architecture"
-                className="w-full max-w-[460px] sm:max-w-[560px] lg:max-w-[620px] lg:scale-[1.1] xl:scale-[1.15] h-auto object-contain mx-auto transition-transform duration-700"
+      {/* Main Content Container */}
+      <div className="relative z-20 w-full flex-grow flex items-center justify-center section-shell pt-24 sm:pt-28 lg:pt-32 pb-12 md:pb-16">
+        <motion.div
+          className="flex flex-col items-center text-center max-w-4xl px-4"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {/* Search Bar Section (Smaller Size & Theme Colors) */}
+          <div className="flex flex-col sm:flex-row items-center gap-1.5 rounded-2xl sm:rounded-full border border-white/20 bg-white/10 backdrop-blur-md p-1.5 w-full max-w-xl mx-auto shadow-sm -mt-4 sm:-mt-6 mb-8 sm:mb-10">
+            <div className="flex items-center w-full px-3 py-1.5 sm:py-1">
+              <MapPin size={16} className="text-rose-300 shrink-0 mr-2" />
+              <input
+                type="text"
+                placeholder="Search city or project..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="bg-transparent text-white w-full focus:outline-none placeholder-gray-300 text-[13px]"
               />
             </div>
-          </motion.div>
 
-        </div>
+            <div className="hidden sm:block w-[1px] h-6 bg-white/20 shrink-0"></div>
+
+            <div className="flex items-center w-full sm:w-auto px-3 py-1.5 sm:py-1 border-t border-white/10 sm:border-t-0 relative">
+              <div
+                className="bg-transparent text-gray-100 w-full sm:w-32 focus:outline-none text-[13px] appearance-none cursor-pointer outline-none flex justify-between items-center"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                {propertyType || "Property Type"}
+                <svg className={`w-3 h-3 ml-2 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 w-full mt-3 bg-white/95 backdrop-blur-xl border border-gray-100/50 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] overflow-hidden z-50">
+                  <div className="py-1.5 overflow-y-auto max-h-60">
+                    {["", "Residential", "Commercial", "Flat/Apartment", "Independent House/Villa", "Plot/Land", "1 RK/Studio Apartment", "Office", "Retail", "Storage", "Industry"].map((type) => (
+                      <div
+                        key={type}
+                        className={`px-4 py-2.5 text-[13px] cursor-pointer transition-all duration-200 flex items-center ${
+                          propertyType === type 
+                            ? "bg-slate-50 text-[#b8860b] font-semibold border-l-[3px] border-[#d4af37]" 
+                            : "text-slate-600 hover:bg-slate-50/80 hover:text-[#d4af37] border-l-[3px] border-transparent"
+                        }`}
+                        onClick={() => { setPropertyType(type); setIsDropdownOpen(false); }}
+                      >
+                        {type === "" ? "Property Type" : type}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => {
+                navigate(`/Search?query=${encodeURIComponent(searchQuery)}&type=${propertyType}`);
+              }}
+              className="flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:from-[#f0e6d2] hover:to-[#d4af37] text-[#240a12] rounded-xl sm:rounded-full px-6 py-2.5 sm:py-2 font-bold text-[13px] transition-all shadow-md shrink-0"
+            >
+              <Search size={14} className="mr-1.5" /> Search
+            </button>
+          </div>
+
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-6">
+            Building spaces where <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-300 to-white">
+              Memories thrive
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg lg:text-xl text-gray-300 font-normal leading-relaxed max-w-2xl mb-10">
+            Green-Vijaya brings architectural innovation and trusted excellence to modern real estate. We specialize in luxury residential villas, prime commercial spaces, and government-approved urban townships.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+            <button
+              onClick={() => navigate('/NewsProject')}
+              className="group flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b8860b] px-8 py-4 text-sm sm:text-base font-bold text-[#240a12] shadow-lg shadow-[#d4af37]/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
+            >
+              <span>Explore Properties</span>
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5 shrink-0" />
+            </button>
+
+            <button
+              onClick={() => navigate('/contact')}
+              className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-[#d4af37]/50 bg-[#240a12]/80 backdrop-blur-sm px-8 py-4 text-sm sm:text-base font-bold text-[#f0e6d2] transition-all duration-300 hover:bg-[#3d1e24]/90 hover:border-[#d4af37] hover:scale-[1.03] active:scale-95"
+            >
+              <Calendar size={18} className="text-[#d4af37] shrink-0" />
+              <span>Schedule Visit</span>
+            </button>
+          </div>
+
+          {/* Trust Badges / Quick Stats */}
+          <div className="mt-14 grid grid-cols-3 gap-4 sm:gap-10 pt-8 border-t border-white/20 w-full max-w-3xl">
+            <div>
+              <p className="text-2xl sm:text-4xl font-bold text-white">150+</p>
+              <p className="text-xs sm:text-sm text-gray-300 mt-1 uppercase tracking-wider font-medium">Luxury Projects</p>
+            </div>
+            <div>
+              <p className="text-2xl sm:text-4xl font-bold text-rose-300">98%</p>
+              <p className="text-xs sm:text-sm text-gray-300 mt-1 uppercase tracking-wider font-medium">Satisfaction</p>
+            </div>
+            <div>
+              <p className="text-2xl sm:text-4xl font-bold text-white">5+ Yrs</p>
+              <p className="text-xs sm:text-sm text-gray-300 mt-1 uppercase tracking-wider font-medium">Excellence</p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

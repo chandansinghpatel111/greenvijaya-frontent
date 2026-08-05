@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import apiClient from '../api/apiClient';
+import { db, auth, storage } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import PropertyDetails from "../Pages/ExplorecityPropertyD";
 import AdditionalDetails from "../Pages/AdditionalDetails";
 import Amenities from "../Pages/Amenities";
 import Button from "../components/Button";
 import { Home, FileText, CheckCircle, Image as ImageIcon } from "lucide-react";
-import { services } from "../data/ServiceOur"; // Import your services data
+import { services } from "../data/services"; // Import your services data
 
 export default function PropertyPost() {
   const [step, setStep] = useState(1);
@@ -15,8 +18,6 @@ export default function PropertyPost() {
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
     city: "",
     projectBuildingName: "",
     locality: "",
@@ -26,45 +27,53 @@ export default function PropertyPost() {
     floorNumber: "",
     totalFloors: "",
     amenities: [],
-    images: [],
+    imageUrls: [],
   });
 
   const selectedCity = services.find((s) => s.title.toLowerCase() === formData.city.toLowerCase());
 
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-    }
+    });
+    return () => unsubscribe();
   }, []);
 
   const handleImageUpload = async (files) => {
     if (!files.length) return;
 
-    const data = new FormData();
+    const uploadedUrls = [];
     for (let file of files) {
-      data.append('images', file);
-    }
+      const storageRef = ref(storage, `property_images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-    try {
-      setUploadProgress(50);
-      const res = await apiClient.post('/upload', data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
+          },
+          (error) => {
+            console.error("Error uploading image: ", error);
+            alert("Image upload failed. Please try again.");
+            reject(error);
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            uploadedUrls.push(downloadURL);
+            resolve();
+          }
+        );
       });
-      setUploadProgress(100);
-
-      setFormData((prevData) => ({
-        ...prevData,
-        images: [...prevData.images, ...res.data.images],
-      }));
-
-      alert("Images uploaded successfully!");
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-      alert("Image upload failed. Please try again.");
-    } finally {
-      setTimeout(() => setUploadProgress(0), 1000);
     }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrls: [...prevData.imageUrls, ...uploadedUrls],
+    }));
+
+    alert("Images uploaded successfully!");
   };
 
   const handleSubmit = async () => {
@@ -75,21 +84,15 @@ export default function PropertyPost() {
     }
 
     try {
-      const payload = {
+      await addDoc(collection(db, "NewlyProject"), {
         ...formData,
-        title: formData.projectBuildingName || formData.title || "New Admin Project",
-        description: formData.locality || formData.description || "No description provided",
-        price: Number(formData.price) || 0,
-        images: formData.images,
-      };
-
-      await apiClient.post('/properties', payload);
+        userId: user.uid,
+        createdAt: new Date(),
+      });
 
       alert("Property submitted successfully!");
       setStep(1);
       setFormData({
-        title: "",
-        description: "",
         city: "",
         projectBuildingName: "",
         locality: "",
@@ -99,13 +102,13 @@ export default function PropertyPost() {
         floorNumber: "",
         totalFloors: "",
         amenities: [],
-        images: [],
+        imageUrls: [],
       });
 
       navigate("/project-explore");
     } catch (error) {
       console.error("Error adding document: ", error);
-      alert("Error submitting property: " + (error.response?.data?.message || error.message));
+      alert("Error submitting property. Please try again.");
     }
   };
 
@@ -173,9 +176,9 @@ export default function PropertyPost() {
                 </div>
               </div>
             )}
-            {formData.images.length > 0 && (
+            {formData.imageUrls.length > 0 && (
               <div className="grid grid-cols-3 gap-2 mt-4">
-                {formData.images.map((url, index) => (
+                {formData.imageUrls.map((url, index) => (
                   <img key={index} src={url} alt={`Property ${index}`} className="w-full h-32 object-cover rounded-lg" />
                 ))}
               </div>

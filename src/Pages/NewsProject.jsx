@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../api/apiClient";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 import CustomButton from "../components/Button";
 
 const NewsProject = () => {
@@ -27,9 +28,31 @@ const NewsProject = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const { data } = await apiClient.get('/projects');
-        // Show all projects directly without deduplicating by city
-        setProjects(data);
+
+        const querySnapshot = await getDocs(collection(db, "NewlyProjectunique"));
+
+
+
+        const allData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        // Filter by valid cities
+        const filtered = allData.filter(project =>
+          validCities.includes(project.city?.trim())
+        );
+
+        // Get only one project per city
+        const uniqueCityProjects = [];
+        const seenCities = new Set();
+
+        for (const project of filtered) {
+          const city = project.city?.trim();
+          if (city && !seenCities.has(city)) {
+            seenCities.add(city);
+            uniqueCityProjects.push(project);
+          }
+        }
+
+        setProjects(uniqueCityProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -54,9 +77,8 @@ const NewsProject = () => {
   };
 
   return (
-    <div className="section-shell pt-6 pb-14 sm:pt-8 sm:pb-16">
+    <div className="section-shell pt-4 sm:pt-6 pb-14 sm:pb-16">
       <div className="text-center mb-10">
-        <p className="text-xs font-extrabold uppercase tracking-[0.3em] text-[#3d1e24] mb-2">GREEN-VIJAYA DEVELOPMENTS</p>
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-950">
           Prime Landmark Projects & <span className="text-[#3d1e24]">Real Estate Townships</span>
         </h2>
@@ -65,23 +87,23 @@ const NewsProject = () => {
         </p>
       </div>
 
-      <div className="relative sm:mx-0 px-2 sm:px-0">
-        <div className="overflow-hidden py-4">
+      <div className="relative -mx-2 sm:mx-0 px-2 sm:px-0">
+        <div className="overflow-hidden py-4 px-2">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
           >
             {projects.map((project, index) => (
               <div
-                key={project._id || project.id || index}
+                key={project.id || index}
                 className="w-full px-3"
                 style={{ minWidth: `${100 / visibleCards}%` }}
               >
-                <div className="bg-white border border-slate-200/80 rounded-lg overflow-hidden  transition-all duration-300">
+                <div className="bg-white border border-[#3d1e24]/40 hover:border-[#3d1e24] rounded-lg overflow-hidden  transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   <div className="relative h-52 overflow-hidden">
-                    {Array.isArray(project.images) && project.images.length > 0 ? (
+                    {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
                       <img
-                        src={project.images[0]}
+                        src={project.imageUrls[0]}
                         alt={project.projectBuildingName || "Project"}
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                       />
@@ -90,28 +112,20 @@ const NewsProject = () => {
                         No Image Available
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
-                    <span className={`absolute bottom-3 left-3 font-black text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full shadow-sm backdrop-blur-md border ${project.status === 'Active' ? 'bg-green-500/90 text-white border-green-400' :
-                      project.status === 'Completed' ? 'bg-blue-500/90 text-white border-blue-400' :
-                        'bg-[#ec9322]/90 text-white border-[#ec9322]'
-                      }`}>
-                      {project.status || "Active"}
-                    </span>
-                    <span className="absolute bottom-3 right-3 bg-white/95 text-slate-800 font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full shadow-sm">
-                      {project.city}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60" />
+                    <span className="absolute bottom-3 left-3 bg-white/95 text-[#3d1e24] font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm">
+                      Verified City
                     </span>
                   </div>
                   <div className="p-6 text-left">
-                    <h3 className="text-xl font-bold text-slate-950 mb-2 truncate" title={project.projectBuildingName || project.title}>
-                      {project.projectBuildingName || project.title || "Exclusive Project"}
-                    </h3>
+                    <h3 className="text-2xl font-bold text-slate-950 mb-2">{project.city}</h3>
 
-                    <p className="text-slate-600 text-sm mb-5 leading-relaxed font-normal h-10 overflow-hidden text-ellipsis">
-                      {project.description || "Explore exclusive real estate opportunities in this premium development."}
+                    <p className="text-slate-600 text-sm mb-5 leading-relaxed font-normal">
+                      {getShortDescription(project.projectBuildingName || "Explore exclusive real estate opportunities in this city.")}
                     </p>
                     <CustomButton
                       onClick={() => navigate(`/project/${project.city}`)}
-                      text="View City Projects"
+                      text="Learn More"
                       className="w-full justify-center"
                     />
                   </div>

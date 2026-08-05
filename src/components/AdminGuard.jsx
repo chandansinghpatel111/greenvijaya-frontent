@@ -1,41 +1,26 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
-import apiClient from "../api/apiClient";
 
 const AdminGuard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const authStatus = sessionStorage.getItem("adminAuth");
-    const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
-    if (authStatus === "true" && (user.role === "admin" || user.role === "Admin")) {
+    if (authStatus === "true") {
       setIsAuthenticated(true);
     }
   }, []);
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      const { data } = await apiClient.post('/auth/login', { email: userId, password });
-      if (data.role === 'admin' || data.role === 'Admin') {
-        localStorage.setItem('currentUser', JSON.stringify(data));
-        sessionStorage.setItem("adminAuth", "true");
-        setIsAuthenticated(true);
-      } else {
-        alert("Access Denied: You do not have admin privileges.");
-      }
-    } catch (error) {
+    if (userId === "chandan@greenvijaya.com" && password === "Chandan@123") {
+      setIsAuthenticated(true);
+      sessionStorage.setItem("adminAuth", "true");
+    } else {
       alert("Invalid Admin ID or Password");
-      console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -61,23 +46,14 @@ const AdminGuard = () => {
             </div>
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Access Key</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className=" w-full px-5 py-4 border-2 border-gray-100 rounded-xl focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 font-medium pr-12"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500 transition-colors"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full px-5 py-4 border-2 border-gray-100 rounded-xl focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 font-medium"
+                required
+              />
             </div>
             <button
               type="submit"
