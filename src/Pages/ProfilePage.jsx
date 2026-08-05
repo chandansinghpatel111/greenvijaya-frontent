@@ -28,7 +28,7 @@ const Profilepage = () => {
 
         const userDocRef = doc(db, "usersunique", useruid);
 
-        
+
 
         const unsubscribeUser = onSnapshot(userDocRef, async (docSnap) => {
           if (docSnap.exists()) {
