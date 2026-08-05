@@ -16,7 +16,7 @@ import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import Service from "./Pages/Service";
 import PostProperty from "./Pages/PostProperty";
-import Profilepage from "./Pages/profilepage";
+import Profilepage from "./Pages/ProfilePage";
 import OurTeams from "./Pages/OurTeams";
 
 import ServiceDetail from "./Pages/ServiceDetail";
@@ -33,7 +33,7 @@ import NewProjectD from "./Pages/NewProjectD";
 import NewprojectDetail from "./Pages/Newproject detial"; // Ensure correct filename
 import ExplorecityPropertyD from "./Pages/ExplorecityPropertyD";
 import ListingpropertDetail from "./Pages/ListingpropertDetail";
-import PrivacyPolicy from "./Pages/Privacypolicy";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import NewsProject from "./Pages/NewsProject";
 import NewsProjectdetail from "./Pages/NewsProjectdetail";
 import ProjectDetails from "./Pages/ProjectDetails";
@@ -45,7 +45,7 @@ import Search from "./components/Search";
 
 // Admin
 import AdminPanel from "./Admin/AdminPanel";
-import OurProject from "./Admin/ourproject";
+import OurProject from "./Admin/OurProject";
 import Postproject from "./Admin/Postproject";
 import ComingSoon from "./Admin/ComingSoon";
 
