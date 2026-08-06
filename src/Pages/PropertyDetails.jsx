@@ -44,19 +44,20 @@ export default function PropertyDetails({ formData, setFormData }) {
 
 
   return (
-    <div className="p-2 bg-white rounded-lg shadow-md max-w-6xl mx-auto">
+    <div className="w-full space-y-8">
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-medium mb-2">Listing Type</label>
-
-        <div className="flex gap-4">
+      {/* Listing Type Selection */}
+      <div>
+        <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Listing Type</label>
+        <div className="flex flex-wrap gap-3">
           {listingTypes.map((listing) => (
             <button
               key={listing}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all w-1/3
-
-                ${formData.listingType === listing ? "bg-blue-700 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
-
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${
+                formData.listingType === listing
+                  ? "bg-rose-50 border-[#753441] text-[#753441] shadow-sm"
+                  : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
+              }`}
               onClick={() => handleListingSelect(listing)}
             >
               {listing}
@@ -65,54 +66,58 @@ export default function PropertyDetails({ formData, setFormData }) {
         </div>
       </div>
 
-
-      <div className="mb-4">
-        <label className="block text-gray-700 font-medium mb-2">Property Category</label>
-
-        <div className="flex gap-4">
+      {/* Property Category Selection */}
+      <div>
+        <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Property Category</label>
+        <div className="flex flex-wrap gap-3">
           {Object.keys(propertyTypes).map((category) => (
             <button
               key={category}
-              className={`flex items-center justify-center px-4 py-2 rounded-md w-1/2 text-sm font-medium transition-all 
-
-                ${formData.propertyCategory === category ? "bg-blue-700 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
-
+              className={`flex items-center px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${
+                formData.propertyCategory === category
+                  ? "bg-rose-50 border-[#753441] text-[#753441] shadow-sm"
+                  : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
+              }`}
               onClick={() => handleCategorySelect(category)}
             >
-              {category === "Residential" ? <Home size={18} className="mr-2" /> : <Briefcase size={18} className="mr-2" />}
+              {category === "Residential" ? <Home size={16} className="mr-2" /> : <Briefcase size={16} className="mr-2" />}
               {category}
             </button>
           ))}
         </div>
       </div>
 
-
+      {/* Property Type Selection */}
       {formData.propertyCategory && (
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Property Type</label>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div className="pt-2">
+          <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Property Type</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {propertyTypes[formData.propertyCategory].map((typeObj) => (
               <button
                 key={typeObj.name}
-                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all 
-
-                  ${formData.propertyType === typeObj.name ? "bg-blue-700 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
-
+                className={`flex items-center p-3 rounded-xl text-sm font-medium transition-all border ${
+                  formData.propertyType === typeObj.name
+                    ? "bg-rose-50 border-[#753441] text-[#753441] shadow-sm"
+                    : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
+                }`}
                 onClick={() => handleTypeSelect(typeObj.name)}
               >
-                {typeObj.icon}
-                <span className="ml-2">{typeObj.name}</span>
+                <div className={`p-2 rounded-lg mr-3 ${formData.propertyType === typeObj.name ? 'bg-white' : 'bg-gray-100'}`}>
+                  {typeObj.icon}
+                </div>
+                <span>{typeObj.name}</span>
               </button>
             ))}
           </div>
         </div>
       )}
 
+      <div className="h-px bg-gray-100 w-full my-6"></div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-medium mb-2">Other Property Details</label>
-        <div className="space-y-4">
+      {/* Other Property Details */}
+      <div>
+        <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-4">Other Property Details</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             { label: "City", name: "city", type: "text" },
             { label: "Project/Building Name", name: "projectBuildingName", type: "text" },
@@ -120,31 +125,30 @@ export default function PropertyDetails({ formData, setFormData }) {
             { label: "Plot Area", name: "plotArea", type: "text" },
             { label: "Price", name: "price", type: "number" }
           ].map((field) => (
-            <div key={field.name} className="w-full">
-              <label className="block text-gray-700 font-medium">{field.label}</label>
-
+            <div key={field.name}>
+              <label className="block text-sm font-bold text-gray-700 mb-2">{field.label}</label>
               <input
                 type={field.type}
                 name={field.name}
-                placeholder={field.label}
+                placeholder={`Enter ${field.label.toLowerCase()}`}
                 value={formData[field.name] || ""}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400"
+                className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#753441]/10 focus:border-[#753441] transition-all bg-gray-50/50"
               />
             </div>
           ))}
+        </div>
 
-          <div className="w-full">
-            <label className="block text-gray-700 font-medium">Description</label>
-            <textarea
-              name="description"
-              placeholder="Detailed property description..."
-              value={formData.description || ""}
-              onChange={handleChange}
-              rows={4}
-              className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400 resize-y"
-            ></textarea>
-          </div>
+        <div className="mt-6">
+          <label className="block text-sm font-bold text-gray-700 mb-2">Description</label>
+          <textarea
+            name="description"
+            placeholder="Detailed property description..."
+            value={formData.description || ""}
+            onChange={handleChange}
+            rows={5}
+            className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#753441]/10 focus:border-[#753441] transition-all bg-gray-50/50 resize-y"
+          ></textarea>
         </div>
       </div>
 
