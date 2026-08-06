@@ -27,16 +27,14 @@ import ScrollToTop from "./components/ScrollToTop";
 
 function AppWrapper() {
   const location = useLocation();
-
-  // Adjust this logic to match actual route casing or path
-  //const hideFooter = location.pathname.includes("PostProperty");
+  const hideFloatingContact = location.pathname.startsWith("/admin");
 
   return (
     <>
      
       <App />
       <ScrollToTop />
-      <FloatingContact />
+      {!hideFloatingContact && <FloatingContact />}
     </>
   );
 }

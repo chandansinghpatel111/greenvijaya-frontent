@@ -88,10 +88,10 @@ const PostPropertyListing = () => {
           <div className="max-w-2xl text-left">
 
             <h2 className="text-4xl font-black text-brand-burgundy sm:text-5xl lg:text-6xl tracking-tight leading-[1.1]">
-              Experience Unmatched <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Luxury</span> & Signature Masterpieces
+              Explore Premium Properties to <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Buy, Sell & Rent</span>
             </h2>
             <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
-              Step into a world of architectural brilliance. Our meticulously curated collection of premium residential estates and strategic commercial spaces offers unparalleled elegance, flawless design, and exceptional capital appreciation.
+              Step into a world of real estate excellence. Whether you are looking to buy your dream home, rent a luxury apartment, or sell a commercial space, our meticulously curated collection offers unparalleled options for every need.
             </p>
           </div>
 
@@ -214,7 +214,7 @@ const PostPropertyListing = () => {
                         </button>
                         <button
                           onClick={() => handleWhatsAppEnquiry(project)}
-                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#128C7E] px-4 py-2.5 text-sm font-bold text-white transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3d1e24] hover:bg-[#3d1e24] px-4 py-2.5 text-sm font-bold text-white transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
                         >
                           <FaWhatsapp size={18} />
                           Enquire Now
@@ -228,11 +228,11 @@ const PostPropertyListing = () => {
           </div>
 
           {/* Normal Navigation Controls - Static Left and Right side buttons below cards matching NewsProject.jsx */}
-          <div className="flex items-center justify-between mt-8 px-3">
+          <div className="flex items-center justify-between mt-1">
             <button
               onClick={prevSlide}
               aria-label="Previous slide"
-              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              className="flex items-center gap-2 bg-[#e0a973] border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Previous</span>
@@ -254,7 +254,7 @@ const PostPropertyListing = () => {
             <button
               onClick={nextSlide}
               aria-label="Next slide"
-              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              className="flex items-center gap-2 bg-[#e0a973] border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
             >
               <span>Next</span>
               <ChevronRight className="w-5 h-5" />

@@ -188,7 +188,9 @@ export default function PropertyApproval() {
                     <td className="px-6 py-4 text-center">
                       <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wide
                       ${property.status === 'Approved' ? 'bg-green-100 text-green-700 border border-green-200' :
-                          property.status === 'Rejected' ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-yellow-100 text-yellow-700 border border-yellow-200'}`}
+                          property.status === 'Rejected' ? 'bg-red-100 text-red-700 border border-red-200' : 
+                          property.status?.toLowerCase() === 'sold' ? 'bg-gray-200 text-gray-800 border border-gray-300' : 
+                          'bg-yellow-100 text-yellow-700 border border-yellow-200'}`}
                       >
                         {property.status || 'Pending'}
                       </span>
@@ -196,7 +198,7 @@ export default function PropertyApproval() {
 
                     <td className="px-6 py-4">
                       <div className="flex flex-col gap-2 min-w-[120px]">
-                        {property.status !== 'Approved' && (
+                        {property.status !== 'Approved' && property.status?.toLowerCase() !== 'sold' && (
                           <button
                             onClick={() => approveProperty(property._id)}
                             className="flex items-center justify-center gap-2 bg-green-500 text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-green-600 transition"
@@ -205,7 +207,7 @@ export default function PropertyApproval() {
                           </button>
                         )}
 
-                        {property.status !== 'Rejected' && property.status !== 'Approved' && (
+                        {property.status !== 'Rejected' && property.status !== 'Approved' && property.status?.toLowerCase() !== 'sold' && (
                           <button
                             onClick={() => rejectProperty(property._id)}
                             className="flex items-center justify-center gap-2 bg-yellow-500 text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-yellow-600 transition"

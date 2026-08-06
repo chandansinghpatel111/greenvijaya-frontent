@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import { MapPin, Maximize, Compass, Grid, CheckCircle2, Phone, Mail, User, MessageCircle, ArrowLeft } from "lucide-react";
@@ -63,7 +63,7 @@ export default function ProjectsDetailPage() {
                 <div className="flex flex-col lg:flex-row gap-8">
                     {/* Main Content */}
                     <div className="flex-1 space-y-6">
-                        
+
                         {/* Title & Header Info */}
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -90,7 +90,7 @@ export default function ProjectsDetailPage() {
 
                         {/* Image Gallery */}
                         <div className="bg-white rounded-[2rem] p-4 shadow-sm border border-slate-100">
-                            <div className="relative h-[300px] sm:h-[400px] md:h-[500px] w-full rounded-3xl overflow-hidden">
+                            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[550px] rounded-3xl overflow-hidden">
                                 {Array.isArray(project.images) && project.images.length > 0 && getImageUrl(project.images[0]) ? (
                                     <img
                                         src={getImageUrl(project.images[0])}
@@ -109,7 +109,7 @@ export default function ProjectsDetailPage() {
                         {/* Property Overview */}
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
                             <h2 className="text-2xl font-bold text-brand-burgundy mb-6">Property Overview</h2>
-                            
+
                             {project.description && (
                                 <div className="mb-8 pb-8 border-b border-slate-100">
                                     <p className="text-slate-600 leading-relaxed">
@@ -162,61 +162,33 @@ export default function ProjectsDetailPage() {
                         </div>
                     </div>
 
-                    {/* Sidebar / Owner Information */}
+                    {/* Sidebar / Enquiry Information */}
                     <aside className="w-full lg:w-1/3 xl:w-[400px]">
                         <div className="bg-white rounded-[2rem] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 sticky top-24">
-                            <div className="flex items-center gap-4 mb-8">
+                            <div className="flex items-center gap-4 mb-6">
                                 <div className="h-16 w-16 bg-gradient-to-tr from-brand-burgundy to-brand-gold rounded-full flex items-center justify-center text-white shadow-inner">
-                                    <User size={32} />
+                                    <Phone size={28} />
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-black text-brand-burgundy">Owner Info</h2>
-                                    <p className="text-[#d4af37] font-bold text-sm uppercase tracking-wider">{userRole}</p>
+                                    <h2 className="text-2xl font-black text-brand-burgundy">Interested?</h2>
+                                    <p className="text-brand-gold font-bold text-sm uppercase tracking-wider">Contact Us</p>
                                 </div>
                             </div>
 
-                            <div className="space-y-6">
-                                {listingOwner ? (
-                                    <>
-                                        <div className="flex items-start gap-4">
-                                            <div className="bg-slate-50 p-3 rounded-xl text-slate-400">
-                                                <User size={20} />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-semibold text-slate-500 mb-0.5">Name</p>
-                                                <p className="font-bold text-brand-burgundy">{listingOwner.name || "Not provided"}</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start gap-4">
-                                            <div className="bg-slate-50 p-3 rounded-xl text-slate-400">
-                                                <Mail size={20} />
-                                            </div>
-                                            <div className="overflow-hidden">
-                                                <p className="text-sm font-semibold text-slate-500 mb-0.5">Email</p>
-                                                <p className="font-bold text-brand-burgundy truncate">{listingOwner.email || "Not provided"}</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start gap-4">
-                                            <div className="bg-slate-50 p-3 rounded-xl text-slate-400">
-                                                <Phone size={20} />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-semibold text-slate-500 mb-0.5">Phone</p>
-                                                <p className="font-bold text-brand-burgundy">{mobileNumber}</p>
-                                            </div>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <div className="text-center py-6">
-                                        <p className="text-slate-500 font-medium">Owner details are currently unavailable.</p>
-                                    </div>
-                                )}
+                            <div className="space-y-4">
+                                <div className="text-center py-6 bg-slate-50 rounded-xl border border-slate-100">
+                                    <p className="text-sm font-semibold text-brand-burgundy mb-2">Want to know more?</p>
+                                    <p className="text-xs text-slate-500 mb-6 px-4 leading-relaxed">Connect with our team to schedule a site visit or learn more about pricing and availability.</p>
+                                    <Link to="/contact" className="inline-block bg-brand-burgundy hover:bg-[#291217] text-brand-gold px-8 py-3 rounded-full text-sm font-bold transition-all shadow-md">
+                                        Go to Contact Page
+                                    </Link>
+                                </div>
                             </div>
 
                             <div className="mt-8 pt-8 border-t border-slate-100">
-                                <button 
+                                <button
                                     onClick={handleWhatsAppEnquiry}
-                                    className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white py-4 rounded-xl font-bold transition-all shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:-translate-y-1 active:translate-y-0"
+                                    className="w-full flex items-center justify-center gap-2 bg-brand-gold hover:bg-[#d19b66] text-brand-burgundy py-4 rounded-xl font-bold transition-all shadow-md shadow-brand-gold/30 hover:-translate-y-1 active:translate-y-0"
                                 >
                                     <MessageCircle size={20} /> Enquire on WhatsApp
                                 </button>

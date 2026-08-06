@@ -114,7 +114,7 @@ function Slider() {
               onClick={() => {
                 navigate(`/Search?query=${encodeURIComponent(searchQuery)}&type=${propertyType}`);
               }}
-              className="flex items-center justify-center w-full bg-black/30 backdrop-blur-md text-white sm:w-auto from-[#d4af37] to-[#b8860b] hover:from-[#f0e6d2] hover:to-[#d4af37] text-[#240a12] rounded-xl sm:rounded-full px-6 py-2.5 sm:py-2 font-bold text-[13px] transition-all shadow-md shrink-0"
+              className="flex items-center justify-center w-full bg-[#e0a973] backdrop-blur-md text-white sm:w-auto from-[#d4af37] to-[#b8860b] hover:from-[#f0e6d2] hover:to-[#d4af37] text-[#240a12] rounded-xl sm:rounded-full px-6 py-2.5 sm:py-2 font-bold text-[13px] transition-all shadow-md shrink-0"
             >
               <Search size={14} className="mr-1.5" /> Search
             </button>
@@ -155,7 +155,7 @@ function Slider() {
           {/* Trust Badges / Quick Stats */}
           <div className="mt-14 grid grid-cols-3 gap-4 sm:gap-10 pt-8 border-t border-white/20 w-full max-w-3xl">
             <div>
-              <p className="text-2xl sm:text-4xl font-bold text-white">150+</p>
+              <p className="text-2xl sm:text-4xl font-bold text-white">50+</p>
               <p className="text-xs sm:text-sm text-gray-300 mt-1 uppercase tracking-wider font-medium">Luxury Projects</p>
             </div>
             <div>
@@ -163,7 +163,7 @@ function Slider() {
               <p className="text-xs sm:text-sm text-gray-300 mt-1 uppercase tracking-wider font-medium">Satisfaction</p>
             </div>
             <div>
-              <p className="text-2xl sm:text-4xl font-bold text-white">5+ Yrs</p>
+              <p className="text-2xl sm:text-4xl font-bold text-white">2+ Yrs</p>
               <p className="text-xs sm:text-sm text-gray-300 mt-1 uppercase tracking-wider font-medium">Excellence</p>
             </div>
           </div>
