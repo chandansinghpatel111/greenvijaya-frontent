@@ -34,7 +34,7 @@ const coreValues = [
 // --- COMPONENTS ---
 
 const HeroSection = () => (
-  <section className="relative pb-24 sm:pb-32 -mt-4 sm:-mt-8">
+  <section className="relative pt-10 sm:pt-16 pb-24 sm:pb-32">
     {/* Premium Background Elements */}
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[60%] bg-gradient-to-br from-[#753441]/20 to-transparent rounded-full blur-[120px]"></div>
@@ -49,7 +49,7 @@ const HeroSection = () => (
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-left flex flex-col justify-center"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-gray-900 mb-4 sm:mb-6 leading-[1.1] sm:leading-[1.1] font-black tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-5xl lg:text-5xl font-serif text-gray-900 mb-5 sm:mb-2 leading-[1.1] sm:leading-[1.1] font-black tracking-tight">
             Our Visionary <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#56252f] sm:ml-0 ml-1">
               Story
