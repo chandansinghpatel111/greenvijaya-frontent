@@ -97,7 +97,7 @@ export default function Search() {
         {/* Header Text */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">
-            {searchTerm ? `Search Results for "${searchTerm}"` : "All Projects"}
+            {searchTerm ? `Search Results for "${searchTerm}"` : "All Projects and Properties"}
           </h1>
           <p className="text-slate-500">
             {combinedResults.length} {combinedResults.length === 1 ? 'result' : 'results'} found
