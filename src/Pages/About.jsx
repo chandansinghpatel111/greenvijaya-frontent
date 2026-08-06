@@ -53,7 +53,7 @@ const HeroSection = () => (
             <span className="w-12 h-[1px] bg-[#753441]"></span>
             <span className="text-[#753441] text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">Discover Green Vijya</span>
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-gray-900 mb-6 leading-[1.1] font-black tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-gray-900 mb-6 leading-[1.1] font-black tracking-tight">
             Our Visionary <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#56252f]">
               Story
@@ -77,7 +77,7 @@ const HeroSection = () => (
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative h-[300px] sm:h-[350px] lg:h-[400px] w-full mt-10 lg:mt-16"
+          className="relative h-[300px] sm:h-[350px] lg:h-[400px] w-full mt-10 lg:mt-0"
         >
           {/* Main Hero Image */}
           <div className="w-full h-full rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border-[3px] border-white bg-gray-100 group">
