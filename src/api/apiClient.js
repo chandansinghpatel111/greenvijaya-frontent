@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Default to localhost, you can change this in production or via .env
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const defaultUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://greenvijaya-backend-psi.vercel.app/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || defaultUrl;
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
