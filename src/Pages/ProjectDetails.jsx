@@ -81,7 +81,7 @@ const ProjectDetails = () => {
               <div className="mt-6 pt-4 border-t border-slate-100">
                 <button
                   onClick={() => handleWhatsAppBooking(project)}
-                  className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_14px_rgba(37,211,102,0.3)] flex items-center justify-center gap-2"
+                  className="w-full bg-[#128C7E] text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_14px_rgba(37,211,102,0.3)] flex items-center justify-center gap-2"
                 >
                   <FaWhatsapp size={20} />
                   Enquire on WhatsApp

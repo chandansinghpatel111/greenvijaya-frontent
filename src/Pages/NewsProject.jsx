@@ -123,7 +123,7 @@ const NewsProject = () => {
                       />
                       <button
                         onClick={() => handleWhatsAppEnquiry(project)}
-                        className="flex-1 flex items-center justify-center gap-2 hover:bg-[#128C7E] text-white font-bold py-2.5 px-4 rounded-full transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
+                        className="flex-1 flex items-center justify-center gap-2 bg-[#3d1e24] text-white font-bold py-2.5 px-4 rounded-full transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
                       >
                         <FaWhatsapp size={18} />
                         Enquire

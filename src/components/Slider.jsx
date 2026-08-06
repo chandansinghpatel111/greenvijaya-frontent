@@ -145,9 +145,9 @@ function Slider() {
 
             <button
               onClick={() => navigate('/contact')}
-              className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-[#d4af37]/50 bg-[#240a12]/80 backdrop-blur-sm px-8 py-4 text-sm sm:text-base font-bold text-[#f0e6d2] transition-all duration-300 hover:bg-brand-burgundy/90 hover:border-[#d4af37] hover:scale-[1.03] active:scale-95"
+              className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-[#d4af37]/50 bg-[#e0a973] px-8 py-4 text-sm sm:text-base font-bold transition-all duration-300  hover:scale-[1.03] active:scale-95"
             >
-              <Calendar size={18} className="text-[#d4af37] shrink-0" />
+              <Calendar size={18} className="text-white shrink-0" />
               <span>Schedule Visit</span>
             </button>
           </div>
