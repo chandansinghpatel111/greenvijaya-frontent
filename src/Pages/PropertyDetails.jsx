@@ -44,8 +44,7 @@ export default function PropertyDetails({ formData, setFormData }) {
 
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto">
-      <h2 className="text-xl font-semibold text-center mb-4">Property Details</h2>
+    <div className="p-2 bg-white rounded-lg shadow-md max-w-6xl mx-auto">
 
       <div className="mb-4">
         <label className="block text-gray-700 font-medium mb-2">Listing Type</label>
@@ -114,20 +113,38 @@ export default function PropertyDetails({ formData, setFormData }) {
       <div className="mb-4">
         <label className="block text-gray-700 font-medium mb-2">Other Property Details</label>
         <div className="space-y-4">
-          {["City", "ProjectBuildingName", "Locality", "PlotArea", "Price"].map((field) => (
-            <div key={field} className="w-full">
-              <label className="block text-gray-700 font-medium">{field}</label>
+          {[
+            { label: "City", name: "city", type: "text" },
+            { label: "Project/Building Name", name: "projectBuildingName", type: "text" },
+            { label: "Locality", name: "locality", type: "text" },
+            { label: "Plot Area", name: "plotArea", type: "text" },
+            { label: "Price", name: "price", type: "number" }
+          ].map((field) => (
+            <div key={field.name} className="w-full">
+              <label className="block text-gray-700 font-medium">{field.label}</label>
 
               <input
-                type="text"
-                name={field}
-                placeholder={field}
-                value={formData[field] || ""}
+                type={field.type}
+                name={field.name}
+                placeholder={field.label}
+                value={formData[field.name] || ""}
                 onChange={handleChange}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400"
               />
             </div>
           ))}
+
+          <div className="w-full">
+            <label className="block text-gray-700 font-medium">Description</label>
+            <textarea
+              name="description"
+              placeholder="Detailed property description..."
+              value={formData.description || ""}
+              onChange={handleChange}
+              rows={4}
+              className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400 resize-y"
+            ></textarea>
+          </div>
         </div>
       </div>
 

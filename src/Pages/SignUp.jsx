@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "../firebase";
+import apiClient from '../api/apiClient';
 import { useNavigate, Link } from "react-router-dom";
-import { doc, setDoc } from "firebase/firestore";
 import { 
   User, Mail, Phone, Lock, Eye, EyeOff, 
   Home, Calendar, Cpu, ShieldCheck, ArrowRight, Shield 
@@ -45,16 +43,11 @@ const SignUp = () => {
 
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await updateProfile(user, { displayName: name });
-
-      await setDoc(doc(db, "usersunique", user.uid), {
+      await apiClient.post('/auth/register', {
         name,
         email,
-        mobileNumber,
-        createdAt: new Date().toISOString(),
+        password,
+        mobileNumber
       });
 
       setMessage("User successfully signed up!");
@@ -68,14 +61,7 @@ const SignUp = () => {
 
       setTimeout(() => navigate("/login"), 1000);
     } catch (error) {
-      const errorMsg =
-        error.code === "auth/email-already-in-use"
-          ? "Email already in use. Try another one."
-          : error.code === "auth/invalid-email"
-            ? "Invalid email format."
-            : error.code === "auth/weak-password"
-              ? "Password is too weak. Use a stronger password."
-              : "An error occurred. Please try again.";
+      const errorMsg = error.response?.data?.message || "An error occurred. Please try again.";
       setMessage(errorMsg);
     } finally {
       setLoading(false);
@@ -164,13 +150,20 @@ const SignUp = () => {
               <Lock size={14} className="text-gray-400" />
             </div>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Password"
-              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-10 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
+            >
+              {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+            </button>
           </div>
 
           {/* Confirm Password */}
@@ -179,13 +172,20 @@ const SignUp = () => {
               <Lock size={14} className="text-gray-400" />
             </div>
             <input
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               placeholder="Confirm Password"
-              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-10 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
+            >
+              {showConfirmPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+            </button>
           </div>
 
           {/* Terms and Conditions */}

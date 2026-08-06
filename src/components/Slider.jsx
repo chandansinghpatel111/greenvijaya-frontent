@@ -137,7 +137,7 @@ function Slider() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
             <button
-              onClick={() => navigate('/NewsProject')}
+              onClick={() => navigate('/Search')}
               className="group flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b8860b] px-8 py-4 text-sm sm:text-base font-bold text-[#240a12] shadow-lg shadow-[#d4af37]/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
             >
               <span>Explore Properties</span>

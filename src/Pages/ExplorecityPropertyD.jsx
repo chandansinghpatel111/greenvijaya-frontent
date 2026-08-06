@@ -43,8 +43,8 @@ export default function PropertyDetails({ formData, setFormData }) {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto">
-      <h2 className="text-xl font-semibold text-center mb-4">Property Details</h2>
+    <div className=" bg-white rounded-lg shadow-md max-w-6xl mx-auto">
+
 
       {/* Listing Type Selection */}
       <div className="mb-4">
@@ -125,7 +125,7 @@ export default function PropertyDetails({ formData, setFormData }) {
           <div key={field} className="w-full">
             <label className="block text-gray-700 font-medium capitalize">{field.replace(/([A-Z])/g, ' $1')}</label>
             <input
-              type="text"
+              type={field === 'price' ? 'number' : 'text'}
               name={field}
               placeholder={field.replace(/([A-Z])/g, ' $1')}
               value={formData[field] || ""}
@@ -134,6 +134,19 @@ export default function PropertyDetails({ formData, setFormData }) {
             />
           </div>
         ))}
+
+        {/* Description Field */}
+        <div className="w-full">
+          <label className="block text-gray-700 font-medium mb-1">Description</label>
+          <textarea
+            name="description"
+            placeholder="Enter project description..."
+            value={formData.description || ""}
+            onChange={handleChange}
+            rows={4}
+            className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400 resize-y"
+          ></textarea>
+        </div>
       </div>
     </div>
   );

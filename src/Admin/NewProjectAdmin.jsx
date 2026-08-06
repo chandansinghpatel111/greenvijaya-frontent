@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { db, auth, storage } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../context/AuthContext";
+import apiClient from "../api/apiClient";
 import { useNavigate } from "react-router-dom";
 import PropertyDetails from "../Pages/ExplorecityPropertyD";
 import AdditionalDetails from "../Pages/AdditionalDetails";
@@ -13,7 +11,7 @@ import { services } from "../data/services"; // Import your services data
 
 export default function PropertyPost() {
   const [step, setStep] = useState(1);
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -27,53 +25,37 @@ export default function PropertyPost() {
     floorNumber: "",
     totalFloors: "",
     amenities: [],
-    imageUrls: [],
+    images: [],
   });
 
   const selectedCity = services.find((s) => s.title.toLowerCase() === formData.city.toLowerCase());
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
   const handleImageUpload = async (files) => {
     if (!files.length) return;
-
-    const uploadedUrls = [];
-    for (let file of files) {
-      const storageRef = ref(storage, `property_images/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      await new Promise((resolve, reject) => {
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setUploadProgress(progress);
-          },
-          (error) => {
-            console.error("Error uploading image: ", error);
-            alert("Image upload failed. Please try again.");
-            reject(error);
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            uploadedUrls.push(downloadURL);
-            resolve();
-          }
-        );
-      });
+    const uploadData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      uploadData.append('images', files[i]);
     }
 
-    setFormData((prevData) => ({
-      ...prevData,
-      imageUrls: [...prevData.imageUrls, ...uploadedUrls],
-    }));
-
-    alert("Images uploaded successfully!");
+    try {
+      const res = await apiClient.post('/upload', uploadData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: (progressEvent) => {
+           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+           setUploadProgress(percentCompleted);
+        }
+      });
+      setFormData((prevData) => ({
+        ...prevData,
+        images: [...(prevData.images || []), ...res.data.images],
+      }));
+      setUploadProgress(0);
+      alert("Images uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+      alert("Image upload failed. Please try again.");
+      setUploadProgress(0);
+    }
   };
 
   const handleSubmit = async () => {
@@ -84,11 +66,12 @@ export default function PropertyPost() {
     }
 
     try {
-      await addDoc(collection(db, "NewlyProject"), {
+      const submitData = {
         ...formData,
-        userId: user.uid,
-        createdAt: new Date(),
-      });
+        title: formData.projectBuildingName || 'Untitled Project',
+        description: 'New project description', // Add a description to satisfy required field
+      };
+      await apiClient.post('/projects', submitData);
 
       alert("Property submitted successfully!");
       setStep(1);
@@ -102,7 +85,7 @@ export default function PropertyPost() {
         floorNumber: "",
         totalFloors: "",
         amenities: [],
-        imageUrls: [],
+        images: [],
       });
 
       navigate("/project-explore");
@@ -176,9 +159,9 @@ export default function PropertyPost() {
                 </div>
               </div>
             )}
-            {formData.imageUrls.length > 0 && (
+            {formData.images && formData.images.length > 0 && (
               <div className="grid grid-cols-3 gap-2 mt-4">
-                {formData.imageUrls.map((url, index) => (
+                {formData.images.map((url, index) => (
                   <img key={index} src={url} alt={`Property ${index}`} className="w-full h-32 object-cover rounded-lg" />
                 ))}
               </div>

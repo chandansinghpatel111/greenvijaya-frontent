@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
@@ -34,12 +33,11 @@ const ContactUs = () => {
 
     setLoading(true);
     try {
-      await setDoc(doc(db, "contactsunique", Date.now().toString()), {
+      await apiClient.post('/enquiries', {
         name: `${firstName} ${lastName}`.trim(),
         email,
-        mobileNumber,
+        phone: mobileNumber,
         message,
-        createdAt: new Date().toISOString(),
       });
 
       setResponseMessage("✅ Your message has been sent successfully!");
@@ -59,12 +57,12 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="bg-[#f6f9fa] min-h-screen font-sans w-full overflow-hidden flex flex-col justify-center pt-6 sm:pt-8 pb-12 sm:pb-16 lg:pb-24">
+    <div className="bg-[#f6f9fa] min-h-screen font-sans w-full overflow-hidden flex flex-col justify-center pt-2 sm:pt-1 pb-12 sm:pb-16 lg:pb-24">
       <div className="section-shell max-w-6xl mx-auto px-4 sm:px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-          {/* Left Column: Get in Touch (Now visually on Right) */}
-          <div className="lg:col-span-6 lg:order-last pt-0 lg:pl-10 lg:pr-4">
+          {/* Left Column: Get in Touch (Now visually on Left) */}
+          <div className="lg:col-span-6 lg:order-first pt-0 lg:pr-10 lg:pl-4">
             <span className="text-[#753441] font-extrabold tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-3 block">WE'RE HERE TO HELP</span>
             <h2 className="text-5xl sm:text-6xl font-black text-[#291217] mb-5 leading-[1.05] tracking-tight">
               Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Connect</span>
@@ -107,8 +105,8 @@ const ContactUs = () => {
             </div>
           </div>
 
-          {/* Right Column: The Form (Now visually on Left) */}
-          <div className="lg:col-span-6 lg:order-first bg-white rounded-[2rem] p-6 sm:p-8 lg:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.06)] h-fit">
+          {/* Right Column: The Form (Now visually on Right) */}
+          <div className="lg:col-span-6 lg:order-last bg-white rounded-[2rem] p-6 sm:p-8 lg:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.06)] h-fit">
             <h3 className="text-lg sm:text-xl font-bold text-[#3d1e24] mb-1.5 uppercase tracking-wide">HOW CAN WE HELP?</h3>
             <p className="text-[13px] sm:text-[14px] text-[#753441] mb-6 sm:mb-8 font-medium tracking-tight">Feel free to ask a question or simply leave a comment</p>
 

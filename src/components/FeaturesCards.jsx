@@ -50,36 +50,6 @@ const FeaturesCards = () => {
           </button>
         </div>
 
-        {/* Banner 2: Find a TruBroker */}
-        <div className="w-full bg-gradient-to-r from-[#1f1f1f] to-[#0a0a0a] rounded-xl flex flex-col md:flex-row items-center justify-between p-5 md:py-3.5 md:px-8 overflow-hidden relative shadow-sm border border-[#333]">
-          {/* Diagonal overlay for styling */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-[-25deg] transform translate-x-1/4"></div>
-
-          {/* Avatars Left */}
-          <div className="flex items-center justify-center md:justify-start mr-4 z-10 shrink-0 mb-4 md:mb-0">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Agent 1" className="w-11 h-11 rounded-full border-2 border-[#1f1f1f] relative z-[4] shadow-md object-cover bg-white" />
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Agent 2" className="w-11 h-11 rounded-full border-2 border-[#1f1f1f] -ml-3 relative z-[3] shadow-md object-cover bg-white" />
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80" alt="Agent 3" className="w-11 h-11 rounded-full border-2 border-[#1f1f1f] -ml-3 relative z-[2] shadow-md object-cover bg-white" />
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" alt="Agent 4" className="w-11 h-11 rounded-full border-2 border-[#1f1f1f] -ml-3 relative z-[1] shadow-md object-cover bg-white" />
-          </div>
-
-          {/* Text Content */}
-          <div className="flex-1 text-center md:text-left z-10 text-white md:pl-2">
-            <h2 className="text-[17px] md:text-[19px] font-bold mb-0.5 flex items-center justify-center md:justify-start text-[#f0e6d2]">
-              Find a TruBroker<sup className="text-[9px] ml-0.5">TM</sup>
-            </h2>
-            <p className="text-[12px] md:text-[13px] text-white/60">Find trusted agents awarded for their excellent performance</p>
-          </div>
-
-          {/* Button */}
-          <button 
-            onClick={() => navigate('/contact')}
-            className="mt-5 md:mt-0 bg-[#f0e6d2] text-[#0a0a0a] font-bold px-5 py-2 rounded-lg flex items-center text-[14px] shadow-sm hover:bg-white z-10 shrink-0 transition-transform hover:scale-105 active:scale-95"
-          >
-            Find My Agent <ChevronRight size={16} className="ml-1" />
-          </button>
-        </div>
-
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight, CheckCircle2, Ruler, Sofa, Layers } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import apiClient from "../api/apiClient";
+import { getImageUrl } from "../utils/imageUtils";
 
 const PostPropertyListing = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,12 +16,8 @@ const PostPropertyListing = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "propertiesunique"));
-        const projectsList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setProperties(projectsList);
+        const res = await apiClient.get('/properties');
+        setProperties(res.data);
       } catch (error) {
         console.error("Error fetching Properties: ", error);
       }
@@ -45,7 +42,7 @@ const PostPropertyListing = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const filteredProperties = Properties.filter((project) => project.isApproved === true);
+  const filteredProperties = Properties; // backend already returns Approved properties
   const totalSlides = Math.max(1, filteredProperties.length - visibleCards + 1);
 
   const nextSlide = () => {
@@ -69,6 +66,12 @@ const PostPropertyListing = () => {
     if (price >= 10000000) return `₹ ${(price / 10000000).toFixed(2)} Cr`;
     if (price >= 100000) return `₹ ${(price / 100000).toFixed(2)} Lac`;
     return `₹ ${price.toLocaleString('en-IN')}`;
+  };
+
+  const handleWhatsAppEnquiry = (project) => {
+    const phoneNumber = project.postedBy?.mobileNumber || "919450058323";
+    const message = `Hello, I am interested in your property:\n\n*Property:* ${project.ProjectBuildingName || project.title || "Untitled"}\n*Location:* ${project.City || project.location?.city || project.locality || "Not specified"}\n*Price:* ₹ ${project.Price || project.price || "N/A"}\n\nPlease share more details.`;
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   return (
@@ -130,10 +133,10 @@ const PostPropertyListing = () => {
                   >
                     {/* Image Section */}
                     <div className="relative mx-3 mt-3 aspect-[4/3] overflow-hidden rounded-md">
-                      {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+                      {Array.isArray(project.images) && project.images.length > 0 && getImageUrl(project.images[0]) ? (
                         <img
-                          src={project.imageUrls[0]}
-                          alt={project.ProjectBuildingName || project.projectBuildingName || "Property"}
+                          src={getImageUrl(project.images[0])}
+                          alt={project.ProjectBuildingName || project.projectBuildingName || project.title || "Property"}
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                       ) : (
@@ -169,7 +172,7 @@ const PostPropertyListing = () => {
                       </div>
 
                       <h3 className="mb-4 line-clamp-1 text-2xl font-bold text-slate-950 group-hover:text-[#3d1e24] transition-colors">
-                        {project.ProjectBuildingName || project.projectBuildingName || "Exclusive Property"}
+                        {project.ProjectBuildingName || project.projectBuildingName || project.title || "Exclusive Property"}
                       </h3>
 
                       {/* Property Details Pills */}
@@ -201,13 +204,20 @@ const PostPropertyListing = () => {
                         )}
                       </div>
 
-                      <div className="mt-auto border-t border-slate-100 pt-2">
+                      <div className="mt-auto border-t border-slate-100 pt-3 flex flex-col gap-2">
                         <button
                           onClick={() => navigate(`/listing-detail`, { state: { project } })}
-                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-3 text-sm font-semibold text-slate-800 transition-all hover:bg-rose-50 hover:text-[#3d1e24] hover:shadow-sm"
+                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-800 transition-all hover:bg-rose-50 hover:text-[#3d1e24] hover:shadow-sm"
                         >
                           View Property Details
                           <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1.5 text-[#3d1e24]" />
+                        </button>
+                        <button
+                          onClick={() => handleWhatsAppEnquiry(project)}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#128C7E] px-4 py-2.5 text-sm font-bold text-white transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
+                        >
+                          <FaWhatsapp size={18} />
+                          Enquire Now
                         </button>
                       </div>
                     </div>

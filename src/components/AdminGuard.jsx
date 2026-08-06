@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+import apiClient from "../api/apiClient";
 
 const AdminGuard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,52 +19,89 @@ const AdminGuard = () => {
     }
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (userId === "chandan@greenvijaya.com" && password === "Chandan@123") {
-      setIsAuthenticated(true);
-      sessionStorage.setItem("adminAuth", "true");
-    } else {
-      alert("Invalid Admin ID or Password");
+    setError("");
+    setLoading(true);
+    
+    try {
+      const response = await apiClient.post('/auth/login', { email: userId, password });
+      if (response.data.role === 'admin') {
+        setIsAuthenticated(true);
+        sessionStorage.setItem("adminAuth", "true");
+        // Also sync with standard localStorage if AuthContext relies on it globally
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data));
+      } else {
+        setError("Access Denied: You do not have admin privileges.");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Invalid Admin ID or Password");
+    } finally {
+      setLoading(false);
     }
   };
 
   if (!isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-400 to-red-600 px-4 py-8">
-        <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+      <div className="flex items-center justify-center min-h-screen relative overflow-hidden bg-gradient-to-br from-[#1a0c0f] to-[#3d1e24] px-4 py-8">
+        
+        {/* Decorative Background Elements */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[#753441] opacity-20 blur-[100px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-rose-500 opacity-10 blur-[100px]"></div>
+
+        <div className="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 p-8 sm:p-10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full max-w-[420px]">
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-black text-gray-800 tracking-tighter">SECURE <span className="text-orange-500">ADMIN</span></h2>
-            <div className="h-1 w-20 bg-orange-500 mx-auto mt-2 rounded-full"></div>
+            <h2 className="text-3xl font-black text-white tracking-tight flex items-center justify-center gap-2">
+              SECURE <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-[#d4af37]">ADMIN</span>
+            </h2>
+            <div className="h-1 w-16 bg-gradient-to-r from-rose-400 to-[#d4af37] mx-auto mt-3 rounded-full opacity-80"></div>
           </div>
+          
+          {error && (
+            <div className="mb-6 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm font-medium text-center">
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Login Identity</label>
+              <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Login Identity</label>
               <input
                 type="text"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
                 placeholder="Admin Email/ID"
-                className="w-full px-5 py-4 border-2 border-gray-100 rounded-xl focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 font-medium"
+                className="w-full px-5 py-3.5 bg-white/5 border border-white/10 rounded-xl focus:border-rose-400/50 focus:ring-1 focus:ring-rose-400/50 outline-none transition-all placeholder:text-gray-500 text-white font-medium text-sm"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Access Key</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-5 py-4 border-2 border-gray-100 rounded-xl focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 font-medium"
-                required
-              />
+              <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Access Key</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-5 pr-12 py-3.5 bg-white/5 border border-white/10 rounded-xl focus:border-rose-400/50 focus:ring-1 focus:ring-rose-400/50 outline-none transition-all placeholder:text-gray-500 text-white font-medium text-sm tracking-widest"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-orange-600 transform transition-all active:scale-95 shadow-xl hover:shadow-orange-200"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-rose-500 to-[#753441] text-white py-4 rounded-xl font-bold text-sm tracking-wide hover:shadow-[0_0_20px_rgba(225,29,72,0.3)] transform transition-all active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100 uppercase"
             >
-              AUTHENTICATE
+              {loading ? "Authenticating..." : "Authenticate"}
             </button>
           </form>
           <div className="mt-8 text-center">

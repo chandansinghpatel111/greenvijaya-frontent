@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { db } from "../firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 
 export default function ProjectsDetailPage() {
     const navigate = useNavigate();
@@ -12,23 +11,21 @@ export default function ProjectsDetailPage() {
     useEffect(() => {
         const fetchAndRedirect = async () => {
             try {
-                const projectRef = doc(db, "ProjectExplore", projectId);
-                const projectSnap = await getDoc(projectRef);
-                if (projectSnap.exists()) {
-                    const projectData = projectSnap.data();
-                    let cityValue = projectData.City || projectData.Locality || "Unknown City";
+                const res = await apiClient.get(`/projects/${projectId}`);
+                if (res.data) {
+                    const projectData = res.data;
+                    let cityValue = projectData.city || projectData.locality || "Unknown City";
 
                     // Validate city
                     if (!validCities.includes(cityValue)) {
-                        cityValue = projectData.Locality || "Unknown City";
-                        await updateDoc(projectRef, { City: cityValue });
+                        cityValue = projectData.locality || "Unknown City";
                     }
 
                     const citySlug = cityValue.toLowerCase();
                     if (validCities.map(c => c.toLowerCase()).includes(citySlug)) {
-                        navigate(`/${citySlug}/${projectId}`, { state: { project: { id: projectSnap.id, ...projectData } } });
+                        navigate(`/${citySlug}/${projectId}`, { state: { project: projectData } });
                     } else {
-                        navigate(`/unknown/${projectId}`, { state: { project: { id: projectSnap.id, ...projectData } } });
+                        navigate(`/unknown/${projectId}`, { state: { project: projectData } });
                     }
                 } else {
                     console.log("No such project!");

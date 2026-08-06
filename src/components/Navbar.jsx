@@ -1,53 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { FaUser } from "react-icons/fa";
-import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
 import CustomButton from "./Button";
 import logo from "../assets/greenlogo.jpeg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isUserLogin, setIsUserLogin] = useState(false);
-  const [userid, setUserid] = useState(null);
-  const [role, setRole] = useState("User");
+  const { user, logout } = useAuth();
+  const isUserLogin = !!user;
+  const role = user?.role?.toLowerCase() || "user";
 
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserid(user.uid);
-        setIsUserLogin(true);
-      } else {
-        setIsUserLogin(false);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (userid) {
-        try {
-          const userDocRef = doc(db, "usersunique", userid);
-          const userdata = await getDoc(userDocRef);
-
-          if (userdata.exists()) {
-            setRole(userdata.data().role);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      }
-    };
-
-    fetchUserData();
-  }, [userid]);
 
   const navItems = [
     { title: "Home", path: "/" },
@@ -94,13 +63,30 @@ const Navbar = () => {
 
             <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
               {isUserLogin ? (
-                <button
-                  className="inline-flex items-center gap-2 rounded-full border-2 border-rose-200 bg-rose-50/90 px-6 py-2 font-extrabold text-sm text-[#3d1e24] transition-all duration-300 hover:border-[#753441] hover:bg-white hover:shadow-md active:scale-95"
-                  onClick={() => navigate("profile")}
-                >
-                  <FaUser className="text-[#753441] text-base" />
-                  <span>My Profile</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    className="inline-flex items-center gap-2 rounded-full border-2 border-rose-200 bg-rose-50/90 px-4 py-1.5 font-extrabold text-sm text-[#3d1e24] transition-all duration-300 hover:border-[#753441] hover:bg-white hover:shadow-md active:scale-95"
+                    onClick={() => navigate("profile")}
+                  >
+                    {user?.photoURL ? (
+                      <img src={user.photoURL} alt="User" className="w-6 h-6 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-6 h-6 bg-[#753441] text-white rounded-full flex items-center justify-center text-xs">
+                        {user?.name?.[0] || 'U'}
+                      </div>
+                    )}
+                    <span className="hidden sm:inline">{user?.name?.split(' ')[0] || 'Profile'}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      logout();
+                      navigate('/login');
+                    }}
+                    className="inline-flex items-center justify-center rounded-full bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-red-600 border border-slate-200 hover:border-red-200 px-4 py-1.5 text-sm font-bold transition-all duration-300 shadow-sm active:scale-95"
+                  >
+                    Logout
+                  </button>
+                </div>
               ) : (
                 <button
                   onClick={() => navigate("/login")}
@@ -110,7 +96,7 @@ const Navbar = () => {
                 </button>
               )}
 
-              {role === "Admin" && (
+              {role === "admin" && (
                 <button
                   onClick={() => navigate("admin")}
                   className="cursor-pointer rounded-full border-2 border-amber-500/80 bg-amber-50 px-5 py-2 text-sm font-black text-amber-950 hover:bg-amber-100 hover:shadow-md transition-all active:scale-95 shadow-sm"
@@ -122,7 +108,7 @@ const Navbar = () => {
           </div>
 
           <div className="md:hidden flex items-center gap-2">
-            {role === "Admin" && (
+            {role === "admin" && (
               <button
                 onClick={() => navigate("admin")}
                 className="rounded-full bg-amber-50 border border-amber-400 px-3 py-1.5 text-xs font-bold text-amber-900 shadow-sm"
@@ -157,16 +143,34 @@ const Navbar = () => {
 
             <div className="pt-3 mt-3 border-t border-slate-200/80">
               {isUserLogin ? (
-                <button
-                  className="w-full flex items-center justify-center gap-3 rounded-2xl border border-rose-300 bg-rose-50 px-4 py-3.5 text-center font-extrabold text-[#3d1e24] shadow-sm active:scale-98"
-                  onClick={() => {
-                    setIsOpen(false);
-                    navigate("profile");
-                  }}
-                >
-                  <FaUser className="text-[#753441]" />
-                  <span>View My Profile</span>
-                </button>
+                <div className="flex flex-col gap-2">
+                  <button
+                    className="w-full flex items-center justify-center gap-3 rounded-2xl border border-rose-300 bg-rose-50 px-4 py-3.5 text-center font-extrabold text-[#3d1e24] shadow-sm active:scale-98"
+                    onClick={() => {
+                      setIsOpen(false);
+                      navigate("profile");
+                    }}
+                  >
+                    {user?.photoURL ? (
+                      <img src={user.photoURL} alt="User" className="w-6 h-6 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-6 h-6 bg-[#753441] text-white rounded-full flex items-center justify-center text-xs">
+                        {user?.name?.[0] || 'U'}
+                      </div>
+                    )}
+                    <span>View My Profile</span>
+                  </button>
+                  <button
+                    className="w-full rounded-2xl bg-slate-100 border border-slate-200 px-4 py-3.5 font-extrabold text-slate-700 hover:text-red-600 transition-all active:scale-95"
+                    onClick={() => {
+                      setIsOpen(false);
+                      logout();
+                      navigate("login");
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
               ) : (
                 <button
                   className="w-full rounded-2xl bg-gradient-to-r from-[#3d1e24] via-[#56252f] to-[#753441] px-4 py-3.5 font-extrabold text-white shadow-lg shadow-[#3d1e24]/20 transition-all active:scale-95"

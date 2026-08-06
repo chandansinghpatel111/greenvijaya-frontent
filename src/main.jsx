@@ -5,14 +5,17 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.jsx";
-import WhatsAppButton from "./Pages/whatsapp";
+import FloatingContact from "./components/FloatingContact";
+import { AuthProvider } from "./context/AuthContext";
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AppWrapper />
+      <AuthProvider>
+        <AppWrapper />
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
@@ -33,8 +36,7 @@ function AppWrapper() {
      
       <App />
       <ScrollToTop />
-      
-      <WhatsAppButton />
+      <FloatingContact />
     </>
   );
 }

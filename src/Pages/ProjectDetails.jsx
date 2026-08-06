@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import apiClient from "../api/apiClient";
 import { FaWhatsapp } from "react-icons/fa";
+import { getImageUrl } from "../utils/imageUtils";
 
 const ProjectDetails = () => {
   const { city } = useParams();
@@ -19,10 +19,8 @@ const ProjectDetails = () => {
     const fetchCityProjects = async () => {
       try {
 
-        const querySnapshot = await getDocs(collection(db, "NewlyProjectunique"));
-
-
-        const allProjects = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const res = await apiClient.get('/projects');
+        const allProjects = res.data;
 
         const cityProjects = allProjects.filter(
           (project) => project.city?.trim().toLowerCase() === city.toLowerCase()
@@ -56,9 +54,9 @@ const ProjectDetails = () => {
         {projects.map((project) => (
           <div key={project.id} className="border rounded-lg overflow-hidden shadow-md bg-white">
             {/* Image Block */}
-            {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+            {Array.isArray(project.images) && project.images.length > 0 && getImageUrl(project.images[0]) ? (
               <img
-                src={project.imageUrls[0]}
+                src={getImageUrl(project.images[0])}
                 alt={project.projectBuildingName}
                 className="w-full h-48 object-cover"
               />
@@ -80,13 +78,13 @@ const ProjectDetails = () => {
                 <p><strong>Property Type:</strong> {project.propertyType || "N/A"}</p>
                 <p><strong>Facing:</strong> {project.facingType || "N/A"}</p>
               </div>
-              <div className="mt-5">
+              <div className="mt-6 pt-4 border-t border-slate-100">
                 <button
                   onClick={() => handleWhatsAppBooking(project)}
-                  className="w-full bg-[#3d1e24] hover:bg-[#291217] text-white font-bold py-2.5 px-4 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-md shadow-rose-950/15 flex items-center justify-center gap-2"
+                  className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_14px_rgba(37,211,102,0.3)] flex items-center justify-center gap-2"
                 >
-                  <FaWhatsapp size={18} />
-                  Book on WhatsApp
+                  <FaWhatsapp size={20} />
+                  Enquire on WhatsApp
                 </button>
               </div>
             </div>

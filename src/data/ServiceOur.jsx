@@ -61,7 +61,7 @@ export const services = [
   },
   {
     title: "PG and Co-Living",
-    description: "Organized, owner and broker-listed PGs",
+    description: "Organized and verified PG listings",
     url: "varanasi",
     image: "../assets/our4.jpeg",
     video: "../assets/usd.mp4", // Local video

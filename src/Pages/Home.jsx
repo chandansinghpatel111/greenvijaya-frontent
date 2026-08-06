@@ -5,8 +5,7 @@ import GreenVijayaSectors from "../components/GreenVijayaSectors";
 import Listingproperties from "./Listingproperties";
 import Coming from "./Coming";
 import Service from "./Service";
-import { useEffect } from "react";
-import { auth } from "../firebase";
+import { useAuth } from "../context/AuthContext";
 import WhatsAppButton from "./whatsapp";
 import Cityhome from "./Cityhome";
 import ContactUs from "./ContactUs";
@@ -14,11 +13,7 @@ import NewsProject from "./NewsProject";
 import { Building2, Compass, ShieldCheck } from "lucide-react";
 
 const Home = () => {
-  useEffect(() => {
-    if (auth.currentUser) {
-      console.log(auth.currentUser);
-    }
-  }, []);
+  const { user } = useAuth();
 
   const highlights = [
     {

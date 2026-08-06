@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 import { Search as SearchIcon, MapPin, Building, ArrowRight, ShieldCheck } from "lucide-react";
+import { getImageUrl } from "../utils/imageUtils";
 
 export default function Search() {
   const location = useLocation();
@@ -12,22 +12,26 @@ export default function Search() {
   const initialType = searchParams.get("type") || "";
 
   const [projects, setProjects] = useState([]);
+  const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState(initialQuery);
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchAllData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "NewlyProjectunique"));
-        const allData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setProjects(allData);
+        const [projectsRes, propertiesRes] = await Promise.all([
+          apiClient.get('/projects'),
+          apiClient.get('/properties')
+        ]);
+        setProjects(projectsRes.data || []);
+        setProperties(propertiesRes.data || []);
       } catch (error) {
-        console.error("Error fetching projects:", error);
+        console.error("Error fetching search data:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchProjects();
+    fetchAllData();
   }, []);
 
   const filteredProjects = projects.filter(project => {
@@ -41,6 +45,28 @@ export default function Search() {
 
     return matchesSearch && matchesType;
   });
+
+  const filteredProperties = properties.filter(prop => {
+    const title = (prop.title || prop.projectBuildingName || "").toLowerCase();
+    const city = (prop.city || prop.locality || "").toLowerCase();
+    const ownerName = (prop.postedBy?.name || "").toLowerCase();
+    
+    const matchesSearch = 
+      title.includes(searchTerm.toLowerCase()) || 
+      city.includes(searchTerm.toLowerCase()) ||
+      ownerName.includes(searchTerm.toLowerCase());
+    
+    const matchesType = !initialType || 
+      (prop.propertyCategory && prop.propertyCategory.toLowerCase() === initialType.toLowerCase()) ||
+      (prop.propertyType && prop.propertyType.toLowerCase() === initialType.toLowerCase());
+
+    return matchesSearch && matchesType;
+  });
+
+  const combinedResults = [
+    ...filteredProjects.map(p => ({ ...p, resultType: 'project' })),
+    ...filteredProperties.map(p => ({ ...p, resultType: 'property' }))
+  ];
 
   return (
     <div className="min-h-screen bg-slate-50/50 pt-6 sm:pt-8 pb-20">
@@ -74,7 +100,7 @@ export default function Search() {
             {searchTerm ? `Search Results for "${searchTerm}"` : "All Projects"}
           </h1>
           <p className="text-slate-500">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'property' : 'properties'} found
+            {combinedResults.length} {combinedResults.length === 1 ? 'result' : 'results'} found
           </p>
         </div>
 
@@ -83,15 +109,15 @@ export default function Search() {
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#753441]"></div>
           </div>
-        ) : filteredProjects.length > 0 ? (
+        ) : combinedResults.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map(project => (
-              <div key={project.id} className="bg-white rounded-[1.5rem] border border-slate-200/80 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+            {combinedResults.map(item => (
+              <div key={item._id || item.id} className="bg-white rounded-[1.5rem] border border-slate-200/80 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
                 <div className="relative h-60 overflow-hidden">
-                  {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+                  {Array.isArray(item.images) && item.images.length > 0 && getImageUrl(item.images[0]) ? (
                     <img 
-                      src={project.imageUrls[0]} 
-                      alt={project.projectBuildingName} 
+                      src={getImageUrl(item.images[0])} 
+                      alt={item.title || item.projectBuildingName} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
                     />
                   ) : (
@@ -101,22 +127,29 @@ export default function Search() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#3d1e24] flex items-center gap-1.5 shadow-sm">
-                    <ShieldCheck size={14} className="text-green-600" /> Verified
+                    <ShieldCheck size={14} className="text-green-600" /> 
+                    {item.resultType === 'project' ? 'Verified Project' : 'Verified Property'}
                   </div>
                 </div>
                 
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-1">
-                    {project.projectBuildingName || "Untitled Project"}
+                    {item.title || item.projectBuildingName || "Untitled"}
                   </h3>
                   <div className="flex items-center text-slate-500 mb-4 text-sm font-medium">
                     <MapPin size={16} className="mr-1 text-[#753441]" />
-                    {project.city || "Location Not Specified"}
+                    {item.locality ? `${item.locality}, ` : ''}{item.city || "Location Not Specified"}
                   </div>
                   
                   <div className="mt-auto pt-4 border-t border-slate-100">
                     <button 
-                      onClick={() => navigate(`/project/${project.city}`)}
+                      onClick={() => {
+                        if (item.resultType === 'project') {
+                          navigate(`/project/${item.city}`);
+                        } else {
+                          navigate(`/listing-detail?id=${item._id}`);
+                        }
+                      }}
                       className="w-full flex items-center justify-center gap-2 bg-slate-50 hover:bg-[#3d1e24] text-[#3d1e24] hover:text-white border border-slate-200 hover:border-[#3d1e24] transition-colors py-2.5 rounded-xl font-bold text-sm"
                     >
                       View Details <ArrowRight size={16} />

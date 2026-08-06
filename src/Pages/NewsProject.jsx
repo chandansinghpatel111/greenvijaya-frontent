@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 import CustomButton from "../components/Button";
+import { getImageUrl } from "../utils/imageUtils";
 
 const NewsProject = () => {
   const [projects, setProjects] = useState([]);
@@ -25,34 +26,24 @@ const NewsProject = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleWhatsAppEnquiry = (project) => {
+    const phoneNumber = "919450058323";
+    const message = `Hello, I am interested in your project:\n\n*Project:* ${project.projectBuildingName || "Untitled"}\n*City:* ${project.city || "Not specified"}\n\nPlease share more details.`;
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+  };
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
 
-        const querySnapshot = await getDocs(collection(db, "NewlyProjectunique"));
+        const res = await apiClient.get('/projects');
+        const allData = res.data;
 
-
-
-        const allData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-        // Filter by valid cities
-        const filtered = allData.filter(project =>
-          validCities.includes(project.city?.trim())
-        );
-
-        // Get only one project per city
-        const uniqueCityProjects = [];
-        const seenCities = new Set();
-
-        for (const project of filtered) {
-          const city = project.city?.trim();
-          if (city && !seenCities.has(city)) {
-            seenCities.add(city);
-            uniqueCityProjects.push(project);
-          }
-        }
-
-        setProjects(uniqueCityProjects);
+        // Filter by valid cities (optional if we just want all projects)
+        // If the user wants all projects, we just set all projects.
+        // I will just use `allData` directly or keep the valid city filter if needed.
+        // Let's just set all active projects.
+        setProjects(allData);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -83,7 +74,7 @@ const NewsProject = () => {
           Prime Landmark Projects & <span className="text-[#3d1e24]">Real Estate Townships</span>
         </h2>
         <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
-          Explore Green-Vijaya&apos;s strategic property developments engineered for luxury living, vibrant commercial growth, and high-value architectural excellence across premier urban destinations.
+          Explore Green-Vijaya&apos;s strategic projects developments engineered for luxury living, vibrant commercial growth, and high-value architectural excellence across premier urban destinations.
         </p>
       </div>
 
@@ -100,10 +91,10 @@ const NewsProject = () => {
                 style={{ minWidth: `${100 / visibleCards}%` }}
               >
                 <div className="bg-white border border-[#3d1e24]/40 hover:border-[#3d1e24] rounded-lg overflow-hidden  transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  <div className="relative h-52 overflow-hidden">
-                    {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+                  <div className="relative h-64 overflow-hidden">
+                    {Array.isArray(project.images) && project.images.length > 0 && getImageUrl(project.images[0]) ? (
                       <img
-                        src={project.imageUrls[0]}
+                        src={getImageUrl(project.images[0])}
                         alt={project.projectBuildingName || "Project"}
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                       />
@@ -113,21 +104,31 @@ const NewsProject = () => {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60" />
-                    <span className="absolute bottom-3 left-3 bg-white/95 text-[#3d1e24] font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm">
-                      Verified City
+                    <span className="absolute bottom-3 left-3 bg-white/95 text-[#3d1e24] font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+                      <MapPin size={14} />
+                      {project.city || "Verified Project"}
                     </span>
                   </div>
                   <div className="p-6 text-left">
-                    <h3 className="text-2xl font-bold text-slate-950 mb-2">{project.city}</h3>
+                    <h3 className="text-2xl font-bold text-slate-950 mb-2 line-clamp-1">{project.projectBuildingName || project.title || "Exclusive Project"}</h3>
 
-                    <p className="text-slate-600 text-sm mb-5 leading-relaxed font-normal">
-                      {getShortDescription(project.projectBuildingName || "Explore exclusive real estate opportunities in this city.")}
+                    <p className="text-slate-600 text-sm mb-5 leading-relaxed font-normal h-10 overflow-hidden text-ellipsis">
+                      {project.description || "Explore exclusive real estate opportunities in this city."}
                     </p>
-                    <CustomButton
-                      onClick={() => navigate(`/project/${project.city}`)}
-                      text="Learn More"
-                      className="w-full justify-center"
-                    />
+                    <div className="flex flex-col sm:flex-row gap-2 w-full mt-2">
+                      <CustomButton
+                        onClick={() => navigate(`/project/${project.city}`)}
+                        text="Learn More"
+                        className="flex-1 justify-center"
+                      />
+                      <button
+                        onClick={() => handleWhatsAppEnquiry(project)}
+                        className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-2.5 px-4 rounded-full transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
+                      >
+                        <FaWhatsapp size={18} />
+                        Enquire
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

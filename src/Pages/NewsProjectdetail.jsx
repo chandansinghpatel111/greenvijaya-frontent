@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 import { motion } from "framer-motion";
 import {
   Wifi, Building2, Dumbbell, ShieldCheck, Sparkle,
@@ -29,11 +28,9 @@ export default function NewlyProjectD() {
     if (projectId) {
       const fetchProject = async () => {
         try {
-          const projectRef = doc(db, "NewlyProject", projectId);
-          const projectSnap = await getDoc(projectRef);
-
-          if (projectSnap.exists()) {
-            setProject({ id: projectSnap.id, ...projectSnap.data() });
+          const res = await apiClient.get(`/projects/${projectId}`);
+          if (res.data) {
+            setProject(res.data);
           } else {
             console.log("No such project!");
           }
@@ -48,13 +45,13 @@ export default function NewlyProjectD() {
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === 0 ? project.imageUrls.length - 1 : prev - 1
+      prev === 0 ? project.images.length - 1 : prev - 1
     );
   };
 
   const handleNextImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === project.imageUrls.length - 1 ? 0 : prev + 1
+      prev === project.images.length - 1 ? 0 : prev + 1
     );
   };
 
@@ -84,11 +81,11 @@ export default function NewlyProjectD() {
           <>
             {/* Image Carousel */}
             <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg mb-10">
-              {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+              {Array.isArray(project.images) && project.images.length > 0 ? (
                 <>
                   <motion.img
                     key={currentImageIndex}
-                    src={project.imageUrls[currentImageIndex]}
+                    src={project.images[currentImageIndex]}
                     alt={`Project image ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0.5, scale: 1.05 }}

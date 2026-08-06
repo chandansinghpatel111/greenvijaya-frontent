@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import apiClient from '../api/apiClient';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 
@@ -13,16 +13,20 @@ const Login = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
+  const { login } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const response = await apiClient.post('/auth/login', { email, password });
+      login(response.data, response.data.token);
       setSuccess('Login successful! Redirecting...');
       setError('');
       setTimeout(() => navigate('/'), 1000);
     } catch (error) {
-      console.error('Error signing in:', error.message);
-      setError(error.message);
+      const errorMsg = error.response?.data?.message || error.message;
+      console.error('Error signing in:', errorMsg);
+      setError(errorMsg);
       setSuccess('');
     }
   };
@@ -129,13 +133,20 @@ const Login = () => {
             <div className="relative">
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full py-2 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441] outline-none transition-all text-[13px]"
+                className="w-full py-2 pl-3 pr-10 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441] outline-none transition-all text-[13px]"
                 placeholder="Your password"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#753441] transition-colors"
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
             </div>
             <div className="flex justify-end mt-1.5">
               <a href="#" className="text-[11px] font-semibold text-gray-500 hover:text-[#753441] transition-colors underline decoration-gray-300">

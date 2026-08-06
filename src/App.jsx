@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { auth } from "./firebase";
+import { useAuth } from "./context/AuthContext";
 
 
 import Layout from "./components/Layout";
@@ -15,7 +15,6 @@ import About from "./Pages/About";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import Service from "./Pages/Service";
-import PostProperty from "./Pages/PostProperty";
 import Profilepage from "./Pages/ProfilePage";
 import OurTeams from "./Pages/OurTeams";
 
@@ -45,29 +44,27 @@ import Search from "./components/Search";
 
 // Admin
 import AdminPanel from "./Admin/AdminPanel";
+import DashboardOverview from "./Admin/DashboardOverview";
 import OurProject from "./Admin/OurProject";
-import Postproject from "./Admin/Postproject";
-import ComingSoon from "./Admin/ComingSoon";
+import PropertyApproval from "./Admin/PropertyApproval";
+import PostPropertyForm from "./Admin/PostPropertyForm";
+import AdminSignup from "./Admin/ComingSoon"; // Still using the same file but renamed component
 
 import Buys from "./Admin/Buys";
 
 import ProjectExplore from "./Admin/ProjectExplore";
+import PostProjectForm from "./Admin/PostProjectForm";
 
-// Seller
-import Postlisting from "./Seller/Postlisting";
+// Seller routes removed
 
 // Admin Guard
 import AdminGuard from "./components/AdminGuard";
 
 function App() {
-  const [isUserLogin, setIsUserLogin] = useState(false);
+  const { user, loading } = useAuth();
+  const isUserLogin = !!user;
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsUserLogin(!!user);
-    });
-    return unsubscribe;
-  }, []);
+  if (loading) return <div>Loading...</div>;
 
   return (
     <>
@@ -82,7 +79,6 @@ function App() {
           path="/sign"
           element={isUserLogin ? <Navigate to="/" /> : <SignUp />}
         />
-        <Route path="/postproperty" element={<PostProperty />} />
 
         {/* Layout wrapped routes */}
         <Route element={<Layout />}>
@@ -123,20 +119,25 @@ function App() {
           <Route path="/NewsProjectdetail" element={<NewsProjectdetail />} />
           <Route path="/project/:city" element={<ProjectDetails />} />
 
-          {/* Seller */}
-          <Route path="/Postlisting" element={<Postlisting />} />
+          {/* Seller routes removed */}
           <Route path="/profile" element={<Profilepage />} />
 
-          {/* Protected Admin Routes */}
-          <Route element={<AdminGuard />}>
-            <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/admin/ourproject" element={<OurProject />} />
-            <Route path="/admin/Postproject" element={<Postproject />} />
-            <Route path="/admin/ComingSoon" element={<ComingSoon />} />
-            <Route path="/admin/Buys" element={<Buys />} />
-            <Route path="/admin/ProjectExplore" element={<ProjectExplore />} />
+        </Route>
+
+        {/* Protected Admin Routes (Nested in AdminPanel Layout) */}
+        <Route element={<AdminGuard />}>
+          <Route path="/admin" element={<AdminPanel />}>
+            <Route index element={<DashboardOverview />} />
+            <Route path="ourproject" element={<OurProject />} />
+            <Route path="PropertyApproval" element={<PropertyApproval />} />
+            <Route path="PostPropertyForm" element={<PostPropertyForm />} />
+            <Route path="PostProjectForm" element={<PostProjectForm />} />
+            <Route path="AdminSignup" element={<AdminSignup />} />
+            <Route path="Buys" element={<Buys />} />
+            <Route path="ProjectExplore" element={<ProjectExplore />} />
           </Route>
         </Route>
+
       </Routes>
     </>
   );

@@ -1,21 +1,17 @@
 // src/Pages/Dashboard.js
 // import React from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
-console.log(auth, "sss")
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/login"); // Redirect to login page after logging out
-    } catch (err) {
-      console.error("Error signing out: ", err);
-    }
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (

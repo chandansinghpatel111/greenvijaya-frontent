@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
-import { db, storage } from "../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { addDoc, collection } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 
 const CreatenewCourse = () => {
   const navigate = useNavigate();
@@ -53,28 +51,20 @@ const CreatenewCourse = () => {
     setLoading(true);
 
     try {
-      const uploadPromises = thumbnails.map((file) => {
-        const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+      const uploadData = new FormData();
+      thumbnails.forEach((file) => uploadData.append("images", file));
 
-        return new Promise((resolve, reject) => {
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              setUploadProgress(Math.round(progress));
-            },
-            (error) => reject(error),
-            async () => {
-              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-              resolve(downloadURL);
-            }
+      const uploadRes = await apiClient.post("/upload", uploadData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: (progressEvent) => {
+          const progress = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
           );
-        });
+          setUploadProgress(progress);
+        },
       });
 
-      const downloadURLs = await Promise.all(uploadPromises);
+      const downloadURLs = uploadRes.data.images;
 
       const courseData = {
         title,
@@ -85,8 +75,8 @@ const CreatenewCourse = () => {
         createdAt: new Date(),
       };
 
-      const docRef = await addDoc(collection(db, "newcourse"), courseData);
-      console.log("Document written with ID: ", docRef.id);
+      const res = await apiClient.post("/courses", courseData);
+      console.log("Document written with ID: ", res.data._id);
 
       setLoading(false);
       setMessage("Course created successfully!");

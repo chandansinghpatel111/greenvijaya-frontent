@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import apiClient from "../api/apiClient";
 import { useNavigate } from "react-router-dom";
 
 const PostPropertyListing = () => {
@@ -43,10 +42,8 @@ const PostPropertyListing = () => {
   useEffect(() => {
     const fetchProjectExplore = async () => {
       try {
-
-        const querySnapshot = await getDocs(collection(db, "NewlyProject"));
-        const projectsList = querySnapshot.docs
-          .map((doc) => ({ id: doc.id, ...doc.data() }))
+        const res = await apiClient.get('/projects');
+        const projectsList = res.data
           .filter((project) => validCities.includes(project.city?.trim()));
 
         setProperties(projectsList);
@@ -169,9 +166,9 @@ const PostPropertyListing = () => {
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
             <div className="h-48 w-full relative">
-              {Array.isArray(project.imageUrls) && project.imageUrls.length > 0 ? (
+              {Array.isArray(project.images) && project.images.length > 0 ? (
                 <img
-                  src={project.imageUrls[0]}
+                  src={project.images[0]}
                   alt={`${project.projectBuildingName || "Project"} in ${project.city || "City"}`}
                   className="w-full h-full object-cover"
                 />
