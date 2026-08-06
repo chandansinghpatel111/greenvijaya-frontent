@@ -74,29 +74,29 @@ const ContactUs = () => {
 
           {/* Left Column: Get in Touch (Now visually on Left) */}
           <div className="lg:col-span-6 lg:order-first pt-0 lg:pr-10 lg:pl-4">
-            <span className="text-[#753441] font-extrabold tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-2 block">WE'RE HERE TO HELP</span>
-            <h2 className="text-5xl sm:text-5xl font-black text-[#291217] mb-5 leading-[1.05] tracking-tight">
-              Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Connect</span>
+            <span className="text-brand-gold font-extrabold tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-2 block">WE'RE HERE TO HELP</span>
+            <h2 className="text-5xl sm:text-5xl font-black text-brand-burgundy mb-5 leading-[1.05] tracking-tight">
+              Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Connect</span>
             </h2>
             <p className="text-slate-600 text-base sm:text-[17px] leading-relaxed mb-8 max-w-md font-medium">
               Whether you're exploring our luxury residential townships or seeking strategic commercial spaces, our expert real estate advisory team is here to guide you every step of the way.
             </p>
 
             {/* Brand Theme Horizontal Line */}
-            <div className="w-40 h-[2px] bg-gradient-to-r from-[#753441] to-transparent mb-6"></div>
+            <div className="w-40 h-[2px] bg-gradient-to-r from-brand-gold to-transparent mb-6"></div>
 
             {/* Contact Info Items */}
             <div className="space-y-5">
-              <div className="flex items-center gap-4 text-[14px] sm:text-[15px] font-bold text-[#3d1e24]">
-                <Mail size={20} className="text-[#753441]" />
+              <div className="flex items-center gap-4 text-[14px] sm:text-[15px] font-bold text-brand-burgundy">
+                <Mail size={20} className="text-brand-gold" />
                 <span>info@greenvijaya.com</span>
               </div>
-              <div className="flex items-center gap-4 text-[14px] sm:text-[15px] font-bold text-[#3d1e24]">
-                <Phone size={20} className="text-[#753441]" />
+              <div className="flex items-center gap-4 text-[14px] sm:text-[15px] font-bold text-brand-burgundy">
+                <Phone size={20} className="text-brand-gold" />
                 <span>+91 9450058323</span>
               </div>
-              <div className="flex items-start gap-4 text-[14px] sm:text-[15px] font-bold text-[#3d1e24]">
-                <MapPin size={20} className="text-[#753441] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-4 text-[14px] sm:text-[15px] font-bold text-brand-burgundy">
+                <MapPin size={20} className="text-brand-gold shrink-0 mt-0.5" />
                 <span className="leading-snug max-w-[250px]">Ward 15, 21/N/1, Tilak Marg, Butler Colony, Lucknow</span>
               </div>
             </div>
@@ -109,7 +109,7 @@ const ContactUs = () => {
                 { Icon: FaLinkedinIn, link: "https://www.linkedin.com/in/chandan-singh-754418303?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
                 { Icon: FaInstagram, link: "https://www.instagram.com/uniqueusd?utm_source=qr&igsh=aXZ6Ymw0bDBubTho" },
               ].map(({ Icon, link }, i) => (
-                <a key={i} href={link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-[#753441] hover:bg-[#3d1e24] hover:text-white hover:border-[#3d1e24] transition-colors">
+                <a key={i} href={link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-brand-gold hover:bg-brand-burgundy hover:text-white hover:border-brand-burgundy transition-colors">
                   <Icon size={16} />
                 </a>
               ))}
@@ -118,8 +118,8 @@ const ContactUs = () => {
 
           {/* Right Column: The Form (Now visually on Right) */}
           <div className="lg:col-span-6 lg:order-last bg-white rounded-[2rem] p-6 sm:p-8 lg:p-10 shadow-[0_15px_50px_rgba(0,0,0,0.06)] h-fit">
-            <h3 className="text-lg sm:text-xl font-bold text-[#3d1e24] mb-1.5 uppercase tracking-wide">HOW CAN WE HELP?</h3>
-            <p className="text-[13px] sm:text-[14px] text-[#753441] mb-6 sm:mb-8 font-medium tracking-tight">Feel free to ask a question or simply leave a comment</p>
+            <h3 className="text-lg sm:text-xl font-bold text-brand-burgundy mb-1.5 uppercase tracking-wide">HOW CAN WE HELP?</h3>
+            <p className="text-[13px] sm:text-[14px] text-brand-gold mb-6 sm:mb-8 font-medium tracking-tight">Feel free to ask a question or simply leave a comment</p>
 
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
@@ -129,14 +129,14 @@ const ContactUs = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                   required
                   placeholder="First Name"
-                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441]/30 transition-all"
+                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-brand-burgundy placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold/30 transition-all"
                 />
                 <input
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Last Name"
-                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441]/30 transition-all"
+                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-brand-burgundy placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold/30 transition-all"
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
@@ -146,7 +146,7 @@ const ContactUs = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="E-mail"
-                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441]/30 transition-all"
+                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-brand-burgundy placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold/30 transition-all"
                 />
                 <input
                   type="text"
@@ -154,7 +154,7 @@ const ContactUs = () => {
                   onChange={(e) => setMobileNumber(e.target.value)}
                   required
                   placeholder="Mobile Number"
-                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441]/30 transition-all"
+                  className="w-full bg-[#fafbfc] border border-slate-100 rounded-full px-5 py-3 text-[14px] font-medium text-brand-burgundy placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold/30 transition-all"
                 />
               </div>
 
@@ -164,7 +164,7 @@ const ContactUs = () => {
                 required
                 placeholder="Comments / Questions"
                 rows="3"
-                className="w-full bg-[#fafbfc] border border-slate-100 rounded-2xl sm:rounded-3xl px-5 py-4 text-[14px] font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441]/30 transition-all resize-none"
+                className="w-full bg-[#fafbfc] border border-slate-100 rounded-2xl sm:rounded-3xl px-5 py-4 text-[14px] font-medium text-brand-burgundy placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold/30 transition-all resize-none"
               ></textarea>
 
               <div className="pt-2">
@@ -178,7 +178,7 @@ const ContactUs = () => {
               </div>
 
               {responseMessage && (
-                <div className={`mt-3 rounded-xl p-3 text-[14px] font-bold ${responseMessage.includes("❌") ? "text-red-600" : "text-[#753441]"}`}>
+                <div className={`mt-3 rounded-xl p-3 text-[14px] font-bold ${responseMessage.includes("❌") ? "text-red-600" : "text-brand-gold"}`}>
                   {responseMessage}
                 </div>
               )}

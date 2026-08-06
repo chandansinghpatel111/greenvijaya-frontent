@@ -53,14 +53,14 @@ const GreenVijayaSectors = () => {
           {/* Compact Header & CTA */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-slate-100 text-left gap-4">
             <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#3d1e24] mb-1.5">PORTFOLIO OFFERINGS</p>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
+              <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-brand-burgundy mb-1.5">PORTFOLIO OFFERINGS</p>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-burgundy">
                 Explore Our Real Estate Developments
               </h2>
             </div>
             <button
               onClick={() => navigate('/NewsProject')}
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#3d1e24] hover:text-[#291217] transition-colors group self-start sm:self-auto"
+              className="inline-flex items-center gap-2 text-sm font-bold text-brand-burgundy hover:text-brand-burgundy transition-colors group self-start sm:self-auto"
             >
               <span>View All Active Projects</span>
               <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
@@ -105,7 +105,7 @@ const GreenVijayaSectors = () => {
                   {/* Action Link */}
                   <div className="mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs font-extrabold text-white/80 group-hover:text-white transition-colors">
                     <span>Explore Properties</span>
-                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-slate-900 text-white transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-brand-burgundy text-white transition-colors">
                       <ArrowRight size={16} className="transform transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </div>

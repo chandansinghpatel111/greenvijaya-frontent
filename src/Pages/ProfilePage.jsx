@@ -69,7 +69,7 @@ const Profilepage = () => {
   return (
     <div className="flex justify-center items-start min-h-[calc(100vh-4rem)] pt-24 bg-gray-50 px-4 pb-8">
       <div className="w-full max-w-4xl">
-        <h1 className="text-2xl font-bold text-[#753441] mb-6">Profile Details</h1>
+        <h1 className="text-2xl font-bold text-brand-gold mb-6">Profile Details</h1>
 
         {/* Compact User Banner */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-200 mb-8">
@@ -82,7 +82,7 @@ const Profilepage = () => {
                 className="w-full h-full object-cover rounded-full"
               />
             ) : (
-              <div className="w-full h-full bg-[#753441] rounded-full flex justify-center items-center text-white text-3xl font-bold uppercase">
+              <div className="w-full h-full bg-brand-gold rounded-full flex justify-center items-center text-white text-3xl font-bold uppercase">
                 {userData?.name?.[0] || 'U'}
               </div>
             )}
@@ -90,11 +90,11 @@ const Profilepage = () => {
           
           {/* Info */}
           <div className="flex-1 text-center md:text-left flex flex-col justify-center min-h-[5rem]">
-            <h2 className="text-xl font-bold text-gray-900 mb-0.5">{userData?.name || 'User Name'}</h2>
+            <h2 className="text-xl font-bold text-brand-burgundy mb-0.5">{userData?.name || 'User Name'}</h2>
             <p className="text-sm text-gray-600">{userData?.email || 'Email not available'}</p>
             <p className="text-sm text-gray-600 mb-2">{userData?.mobileNumber || 'Phone not available'}</p>
             <div>
-              <span className="inline-block px-2.5 py-0.5 bg-rose-50 text-[#753441] text-[10px] font-bold uppercase tracking-wider rounded-md border border-rose-100">
+              <span className="inline-block px-2.5 py-0.5 bg-rose-50 text-brand-gold text-[10px] font-bold uppercase tracking-wider rounded-md border border-rose-100">
                 Role: {userData?.role || 'user'}
               </span>
             </div>
@@ -111,7 +111,7 @@ const Profilepage = () => {
               </button>
               <button
                 onClick={() => navigate("/contact")}
-                className="px-5 py-2.5 bg-[#753441] hover:bg-[#56252f] text-white rounded-lg font-bold text-sm shadow-sm transition-all active:scale-95"
+                className="px-5 py-2.5 bg-brand-gold hover:bg-[#56252f] text-white rounded-lg font-bold text-sm shadow-sm transition-all active:scale-95"
               >
                 Contact Admin
               </button>
@@ -136,7 +136,7 @@ const Profilepage = () => {
                         className="w-full h-40 object-cover rounded-lg mb-3"
                       />
                     )}
-                    <h3 className="font-semibold text-gray-900 mb-2">{property.title}</h3>
+                    <h3 className="font-semibold text-brand-burgundy mb-2">{property.title}</h3>
                     <div className="text-sm text-gray-600 space-y-1">
                       <p>City: {property.location?.city}</p>
                       <p>Price: ₹{property.price}</p>

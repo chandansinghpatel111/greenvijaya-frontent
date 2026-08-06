@@ -119,7 +119,7 @@ export default function PropertyApproval() {
     <div className="p-4 sm:p-4 max-w-full mx-auto bg-gray-50 min-h-screen">
       <div className="mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Property Approvals</h2>
+          <h2 className="text-3xl font-black text-brand-burgundy tracking-tight">Property Approvals</h2>
           <p className="text-gray-500 mt-1">Review, approve, or reject properties submitted by owners.</p>
         </div>
 
@@ -133,7 +133,7 @@ export default function PropertyApproval() {
             placeholder="Search by title, city, or owner..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#753441] focus:border-[#753441] outline-none transition-all text-sm"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-all text-sm"
           />
         </div>
       </div>
@@ -164,7 +164,7 @@ export default function PropertyApproval() {
                 .map((property) => (
                   <tr key={property._id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-gray-900 line-clamp-1">{property.title || property.projectBuildingName || 'Unnamed Property'}</div>
+                      <div className="font-bold text-brand-burgundy line-clamp-1">{property.title || property.projectBuildingName || 'Unnamed Property'}</div>
                       <div className="text-xs text-gray-500 mt-1">{property.propertyType}</div>
                     </td>
 
@@ -176,12 +176,12 @@ export default function PropertyApproval() {
                     </td>
 
                     <td className="px-6 py-4">
-                      <div className="font-semibold text-gray-900">₹ {property.price?.toLocaleString()}</div>
+                      <div className="font-semibold text-brand-burgundy">₹ {property.price?.toLocaleString()}</div>
                       <div className="text-xs text-gray-500 mt-1">Area: {property.plotArea}</div>
                     </td>
 
                     <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-800">{property.postedBy?.name || 'Unknown Owner'}</div>
+                      <div className="text-sm font-medium text-brand-burgundy/90">{property.postedBy?.name || 'Unknown Owner'}</div>
                       <div className="text-xs text-gray-500">{property.postedBy?.email}</div>
                     </td>
 
@@ -258,7 +258,7 @@ export default function PropertyApproval() {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-              <h3 className="font-bold text-lg text-gray-900">Quick Edit Property</h3>
+              <h3 className="font-bold text-lg text-brand-burgundy">Quick Edit Property</h3>
               <button onClick={() => setEditingProperty(null)} className="text-gray-400 hover:text-gray-600">
                 <X size={20} />
               </button>

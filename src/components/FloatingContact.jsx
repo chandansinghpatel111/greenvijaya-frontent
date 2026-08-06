@@ -6,7 +6,7 @@ const FloatingContact = () => {
       {/* Phone Calling Button */}
       <a
         href="tel:+919450058323"
-        className="group flex items-center bg-gradient-to-tr from-[#1a0c0f] to-[#3d1e24] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden h-[50px]"
+        className="group flex items-center bg-gradient-to-tr from-[#1a0c0f] to-brand-burgundy text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden h-[50px]"
         aria-label="Call for buy"
       >
         <div className="w-[50px] h-[50px] flex items-center justify-center flex-shrink-0">

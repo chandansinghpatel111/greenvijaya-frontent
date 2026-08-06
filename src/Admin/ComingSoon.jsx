@@ -63,7 +63,7 @@ const AdminSignup = () => {
   return (
     <div className="p-4 sm:p-8 max-w-6xl mx-auto bg-gray-50 min-h-screen">
       <div className="mb-8">
-        <h2 className="text-3xl font-black text-gray-900 tracking-tight">Admin & User Management</h2>
+        <h2 className="text-3xl font-black text-brand-burgundy tracking-tight">Admin & User Management</h2>
         <p className="text-gray-500 mt-1">Create new administrators or reset passwords for existing users.</p>
       </div>
 
@@ -71,8 +71,8 @@ const AdminSignup = () => {
         {/* Create User Form */}
         <div className="lg:col-span-1">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 mb-4">
-              <UserPlus size={20} className="text-[#753441]" /> Create New User
+            <h3 className="text-lg font-bold text-brand-burgundy flex items-center gap-2 mb-4">
+              <UserPlus size={20} className="text-brand-gold" /> Create New User
             </h3>
             
             {formMsg.text && (
@@ -106,7 +106,7 @@ const AdminSignup = () => {
                 <input required type="password" value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Min 6 characters" minLength={6} />
               </div>
               
-              <button type="submit" className="w-full bg-[#753441] text-white py-2.5 rounded-lg font-bold text-sm hover:bg-[#5a2832] transition">
+              <button type="submit" className="w-full bg-brand-gold text-white py-2.5 rounded-lg font-bold text-sm hover:bg-[#5a2832] transition">
                 Create Account
               </button>
             </form>
@@ -117,7 +117,7 @@ const AdminSignup = () => {
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="p-4 border-b border-gray-100 bg-gray-50">
-              <h3 className="font-bold text-gray-900">All Registered Users</h3>
+              <h3 className="font-bold text-brand-burgundy">All Registered Users</h3>
             </div>
             
             {loading ? (
@@ -137,7 +137,7 @@ const AdminSignup = () => {
                     {users.map((user) => (
                       <tr key={user._id} className="hover:bg-gray-50/50">
                         <td className="px-4 py-3">
-                          <div className="font-bold text-gray-900">{user.name}</div>
+                          <div className="font-bold text-brand-burgundy">{user.name}</div>
                         </td>
                         <td className="px-4 py-3">
                           <div className="text-xs text-gray-600 flex items-center gap-1"><Mail size={12}/> {user.email}</div>
@@ -155,7 +155,7 @@ const AdminSignup = () => {
                         <td className="px-4 py-3 text-center">
                           <button 
                             onClick={() => handleResetPassword(user)}
-                            className="inline-flex items-center gap-1 bg-white border border-gray-300 text-gray-700 px-2.5 py-1.5 rounded text-xs font-bold hover:bg-gray-50 hover:text-gray-900 transition"
+                            className="inline-flex items-center gap-1 bg-white border border-gray-300 text-gray-700 px-2.5 py-1.5 rounded text-xs font-bold hover:bg-gray-50 hover:text-brand-burgundy transition"
                           >
                             <Key size={12} /> Reset Password
                           </button>

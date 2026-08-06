@@ -53,7 +53,7 @@ const City = () => {
     >
       {/* Heading */}
       <motion.h1
-        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 text-[#133763]"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 text-brand-burgundy"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -85,7 +85,7 @@ const City = () => {
             {/* Content */}
             <div className="p-5 flex flex-col justify-between h-40">
               <div>
-                <h2 className="text-lg font-semibold text-[#133763]">
+                <h2 className="text-lg font-semibold text-brand-burgundy">
                   {city.name}
                 </h2>
               </div>
@@ -120,8 +120,8 @@ const City = () => {
         viewport={{ once: true }}
       >
         <div className="text-center mb-10 sm:mb-14">
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
-            Visit Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Office</span>
+          <h2 className="text-4xl md:text-5xl font-black text-brand-burgundy tracking-tight mb-4">
+            Visit Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Office</span>
           </h2>
           <p className="text-slate-600 font-medium max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
             Step into our corporate office to discuss your real estate aspirations. Experience our commitment to innovation, transparency, and building your dreams.
@@ -130,7 +130,7 @@ const City = () => {
 
         {/* Premium Map Container */}
         <div className="relative max-w-5xl mx-auto group">
-          <div className="absolute -inset-1.5 bg-gradient-to-r from-[#3d1e24] via-[#753441] to-[#3d1e24] rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+          <div className="absolute -inset-1.5 bg-gradient-to-r from-brand-burgundy via-brand-gold to-brand-burgundy rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
           <div className="relative bg-white p-2 rounded-[2rem] shadow-2xl overflow-hidden border border-slate-100">
             <iframe
               title="Location Map"
@@ -153,8 +153,8 @@ const City = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-wide">
-          Join Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441] italic font-serif">Exclusive Network</span>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-brand-burgundy mb-8 tracking-wide">
+          Join Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold italic font-serif">Exclusive Network</span>
         </h2>
 
         <div className="flex justify-center gap-5 sm:gap-6">
@@ -185,7 +185,7 @@ const City = () => {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-[#753441] shadow-sm hover:shadow-md hover:bg-[#3d1e24] hover:text-white hover:border-[#3d1e24] transition-all duration-300 group"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-brand-gold shadow-sm hover:shadow-md hover:bg-brand-burgundy hover:text-white hover:border-brand-burgundy transition-all duration-300 group"
               whileHover={{ y: -4 }}
               title={name}
             >

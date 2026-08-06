@@ -32,7 +32,7 @@ const BuilderCard = ({ builder }) => {
       />
       <h3 className="text-xl font-semibold mb-2">{builder.name}</h3>
       <p className="text-gray-600 text-sm mb-4">{builder.description}</p>
-      <p className="text-[#ec9322] text-sm mb-4 font-semibold">{builder.propertiesCount} Properties Available</p>
+      <p className="text-brand-gold text-sm mb-4 font-semibold">{builder.propertiesCount} Properties Available</p>
       <button className=" pl-4 pr-4 border-2  text-black px-3 py-2   ">
       View Properties →
       </button>
@@ -44,7 +44,7 @@ const PopularBuildersPage = () => {
   return (
     <div className="max-w-6xl mx-auto px-5 py-12 text-center">
       <h2 className="text-3xl font-bold text-center mb-8 text-[#cb2b39]">
-        Popular <span className="text-[#133763]">Builders</span>
+        Popular <span className="text-brand-burgundy">Builders</span>
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 justify-center">
         {builders.map((builder) => (

@@ -22,7 +22,7 @@ export default function AdditionalDetails({ formData, setFormData, nextStep, pre
           <select
             value={facingType}
             onChange={(e) => setFacingType(e.target.value)}
-            className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#753441]/10 focus:border-[#753441] transition-all bg-gray-50/50"
+            className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-gold/10 focus:border-brand-gold transition-all bg-gray-50/50"
           >
             <option value="">Select Facing Type</option>
             <option value="North">North</option>
@@ -44,7 +44,7 @@ export default function AdditionalDetails({ formData, setFormData, nextStep, pre
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
             placeholder="Enter contact number"
-            className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#753441]/10 focus:border-[#753441] transition-all bg-gray-50/50"
+            className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-gold/10 focus:border-brand-gold transition-all bg-gray-50/50"
           />
         </div>
       </div>

@@ -44,10 +44,10 @@ const AdminGuard = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen relative overflow-hidden bg-gradient-to-br from-[#1a0c0f] to-[#3d1e24] px-4 py-8">
+      <div className="flex items-center justify-center min-h-screen relative overflow-hidden bg-gradient-to-br from-[#1a0c0f] to-brand-burgundy px-4 py-8">
         
         {/* Decorative Background Elements */}
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[#753441] opacity-20 blur-[100px]"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-gold opacity-20 blur-[100px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-rose-500 opacity-10 blur-[100px]"></div>
 
         <div className="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 p-8 sm:p-10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full max-w-[420px]">
@@ -99,7 +99,7 @@ const AdminGuard = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-rose-500 to-[#753441] text-white py-4 rounded-xl font-bold text-sm tracking-wide hover:shadow-[0_0_20px_rgba(225,29,72,0.3)] transform transition-all active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100 uppercase"
+              className="w-full bg-gradient-to-r from-rose-500 to-brand-gold text-white py-4 rounded-xl font-bold text-sm tracking-wide hover:shadow-[0_0_20px_rgba(225,29,72,0.3)] transform transition-all active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100 uppercase"
             >
               {loading ? "Authenticating..." : "Authenticate"}
             </button>

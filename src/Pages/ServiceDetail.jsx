@@ -46,11 +46,11 @@ const ServiceDetail = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
         <div className="bg-rose-50 p-6 rounded-full mb-6">
-          <ShieldCheck size={48} className="text-[#753441]" />
+          <ShieldCheck size={48} className="text-brand-gold" />
         </div>
-        <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-3">Service Not Found</h2>
+        <h2 className="text-3xl font-black text-brand-burgundy tracking-tight mb-3">Service Not Found</h2>
         <p className="text-slate-600 mb-8 max-w-md">We couldn't find the service you're looking for. It might have been updated or moved.</p>
-        <Link to="/" className="bg-[#3d1e24] text-white px-8 py-3 rounded-full font-bold shadow-md hover:bg-[#291217] transition-all">
+        <Link to="/" className="bg-brand-burgundy text-white px-8 py-3 rounded-full font-bold shadow-md hover:bg-[#291217] transition-all">
           Return to Homepage
         </Link>
       </div>
@@ -61,7 +61,7 @@ const ServiceDetail = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-16 sm:pb-24">
       {/* Header Section */}
       <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-        <h1 className="text-3xl sm:text-4xl md:text-3xl lg:text-5xl font-black bg-gradient-to-r from-[#291217] via-[#461e27] to-[#753441] bg-clip-text text-transparent tracking-tight mb-6 leading-tight py-1">
+        <h1 className="text-3xl sm:text-4xl md:text-3xl lg:text-5xl font-black bg-gradient-to-r from-[#291217] via-[#461e27] to-brand-gold bg-clip-text text-transparent tracking-tight mb-6 leading-tight py-1">
           {service.title}
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed font-medium px-2">
@@ -81,26 +81,26 @@ const ServiceDetail = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8">
             <div className="bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl shadow-xl border border-white/40 transform transition-transform duration-500 hover:-translate-y-2">
-              <p className="text-[#3d1e24] font-extrabold text-xs sm:text-sm uppercase tracking-widest mb-1">Starting From</p>
-              <p className="text-2xl sm:text-3xl font-black text-slate-900">{service.priceRange.split(' - ')[0]}</p>
+              <p className="text-brand-burgundy font-extrabold text-xs sm:text-sm uppercase tracking-widest mb-1">Starting From</p>
+              <p className="text-2xl sm:text-3xl font-black text-brand-burgundy">{service.priceRange.split(' - ')[0]}</p>
             </div>
           </div>
         </div>
 
         {/* Details Section (Takes up 5 columns on desktop) */}
         <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8">
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 border-b-2 border-rose-100 pb-4 inline-block w-fit">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-brand-burgundy border-b-2 border-rose-100 pb-4 inline-block w-fit">
             Key Highlights
           </h3>
 
           <div className="grid gap-6 sm:gap-8 mt-2">
             <div className="flex gap-5 items-start">
-              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-rose-50 flex items-center justify-center text-[#753441] shadow-sm">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-rose-50 flex items-center justify-center text-brand-gold shadow-sm">
                 <MapPin size={26} strokeWidth={2.5} />
               </div>
               <div className="pt-1">
                 <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Location Focus</p>
-                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.location}</p>
+                <p className="text-base sm:text-lg font-bold text-brand-burgundy leading-tight">{service.location}</p>
               </div>
             </div>
 
@@ -110,7 +110,7 @@ const ServiceDetail = () => {
               </div>
               <div className="pt-1">
                 <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Property Type</p>
-                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.projectType}</p>
+                <p className="text-base sm:text-lg font-bold text-brand-burgundy leading-tight">{service.projectType}</p>
               </div>
             </div>
 
@@ -120,7 +120,7 @@ const ServiceDetail = () => {
               </div>
               <div className="pt-1">
                 <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Premium Amenities</p>
-                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.amenities}</p>
+                <p className="text-base sm:text-lg font-bold text-brand-burgundy leading-tight">{service.amenities}</p>
               </div>
             </div>
 
@@ -130,7 +130,7 @@ const ServiceDetail = () => {
               </div>
               <div className="pt-1">
                 <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Investment Range</p>
-                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.priceRange}</p>
+                <p className="text-base sm:text-lg font-bold text-brand-burgundy leading-tight">{service.priceRange}</p>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@ const ServiceDetail = () => {
           <div className="mt-8 pt-8 border-t border-slate-200">
             <Link
               to="/contact"
-              className="flex w-full items-center justify-center bg-[#3d1e24] text-white px-8 py-5 rounded-2xl font-black text-lg shadow-xl shadow-rose-950/20 hover:bg-[#291217] transition-all hover:-translate-y-1 hover:shadow-rose-950/30"
+              className="flex w-full items-center justify-center bg-brand-burgundy text-white px-8 py-5 rounded-2xl font-black text-lg shadow-xl shadow-rose-950/20 hover:bg-[#291217] transition-all hover:-translate-y-1 hover:shadow-rose-950/30"
             >
               Contact Sales Expert
             </Link>

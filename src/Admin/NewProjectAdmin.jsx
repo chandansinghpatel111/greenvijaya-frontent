@@ -108,7 +108,7 @@ export default function PropertyPost() {
           ].map((item, index) => (
             <span
               key={index}
-              className={`text-lg flex items-center ${step === index + 1 ? "font-bold text-[#ec9322]" : "text-gray-400"}`}
+              className={`text-lg flex items-center ${step === index + 1 ? "font-bold text-brand-gold" : "text-gray-400"}`}
             >
               {item.icon} {item.label}
             </span>
@@ -153,7 +153,7 @@ export default function PropertyPost() {
                 <p>Uploading: {uploadProgress.toFixed(0)}%</p>
                 <div className="w-full bg-gray-300 h-2 rounded">
                   <div
-                    className="bg-[#ec9322] h-2 rounded"
+                    className="bg-brand-gold h-2 rounded"
                     style={{ width: `${uploadProgress}%` }}
                   ></div>
                 </div>

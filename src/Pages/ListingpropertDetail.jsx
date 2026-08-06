@@ -55,7 +55,7 @@ export default function ProjectsDetailPage() {
             <div className="max-w-7xl mx-auto">
                 <button
                     onClick={() => navigate(-1)}
-                    className="mb-6 flex items-center gap-2 text-slate-500 hover:text-[#753441] font-semibold transition-colors"
+                    className="mb-6 flex items-center gap-2 text-slate-500 hover:text-brand-gold font-semibold transition-colors"
                 >
                     <ArrowLeft size={18} /> Back to Listings
                 </button>
@@ -71,17 +71,17 @@ export default function ProjectsDetailPage() {
                                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d4af37]/10 text-[#d4af37] font-bold text-xs uppercase tracking-wider mb-4">
                                         <CheckCircle2 size={14} /> Verified {project.propertyType || "Property"}
                                     </div>
-                                    <h1 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3 tracking-tight">
+                                    <h1 className="text-3xl sm:text-4xl font-black text-brand-burgundy mb-3 tracking-tight">
                                         {project.ProjectBuildingName || project.title || "Untitled Property"}
                                     </h1>
                                     <div className="flex items-center gap-2 text-slate-500 font-medium">
-                                        <MapPin size={18} className="text-[#753441]" />
+                                        <MapPin size={18} className="text-brand-gold" />
                                         {project.Locality || project.locality || "Locality not available"}, {project.City || project.location?.city || "City not available"}
                                     </div>
                                 </div>
                                 <div className="text-left md:text-right">
                                     <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Asking Price</p>
-                                    <p className="text-3xl sm:text-4xl text-[#753441] font-black">
+                                    <p className="text-3xl sm:text-4xl text-brand-gold font-black">
                                         {`₹ ${Number(project.Price || project.price || 0).toLocaleString('en-IN')}`}
                                     </p>
                                 </div>
@@ -108,7 +108,7 @@ export default function ProjectsDetailPage() {
 
                         {/* Property Overview */}
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6">Property Overview</h2>
+                            <h2 className="text-2xl font-bold text-brand-burgundy mb-6">Property Overview</h2>
                             
                             {project.description && (
                                 <div className="mb-8 pb-8 border-b border-slate-100">
@@ -122,29 +122,29 @@ export default function ProjectsDetailPage() {
                                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
                                     <div className="text-slate-400 mb-2"><Maximize size={24} /></div>
                                     <p className="text-sm font-semibold text-slate-500 mb-1">Plot Area</p>
-                                    <p className="font-bold text-slate-900">{project.PlotArea || project.plotArea || "Not specified"}</p>
+                                    <p className="font-bold text-brand-burgundy">{project.PlotArea || project.plotArea || "Not specified"}</p>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
                                     <div className="text-slate-400 mb-2"><Grid size={24} /></div>
                                     <p className="text-sm font-semibold text-slate-500 mb-1">Category</p>
-                                    <p className="font-bold text-slate-900">{project.propertyCategory || "Not specified"}</p>
+                                    <p className="font-bold text-brand-burgundy">{project.propertyCategory || "Not specified"}</p>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
                                     <div className="text-slate-400 mb-2"><Compass size={24} /></div>
                                     <p className="text-sm font-semibold text-slate-500 mb-1">Facing</p>
-                                    <p className="font-bold text-slate-900">{project.facingType || "Not specified"}</p>
+                                    <p className="font-bold text-brand-burgundy">{project.facingType || "Not specified"}</p>
                                 </div>
                                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
                                     <div className="text-slate-400 mb-2"><CheckCircle2 size={24} /></div>
                                     <p className="text-sm font-semibold text-slate-500 mb-1">Listing Type</p>
-                                    <p className="font-bold text-slate-900">{project.listingType || "Not specified"}</p>
+                                    <p className="font-bold text-brand-burgundy">{project.listingType || "Not specified"}</p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Amenities */}
                         <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6">Amenities & Features</h2>
+                            <h2 className="text-2xl font-bold text-brand-burgundy mb-6">Amenities & Features</h2>
                             {Array.isArray(project.amenities) && project.amenities.length > 0 ? (
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                     {project.amenities.map((amenity, index) => (
@@ -166,11 +166,11 @@ export default function ProjectsDetailPage() {
                     <aside className="w-full lg:w-1/3 xl:w-[400px]">
                         <div className="bg-white rounded-[2rem] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 sticky top-24">
                             <div className="flex items-center gap-4 mb-8">
-                                <div className="h-16 w-16 bg-gradient-to-tr from-[#3d1e24] to-[#753441] rounded-full flex items-center justify-center text-white shadow-inner">
+                                <div className="h-16 w-16 bg-gradient-to-tr from-brand-burgundy to-brand-gold rounded-full flex items-center justify-center text-white shadow-inner">
                                     <User size={32} />
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-black text-slate-900">Owner Info</h2>
+                                    <h2 className="text-2xl font-black text-brand-burgundy">Owner Info</h2>
                                     <p className="text-[#d4af37] font-bold text-sm uppercase tracking-wider">{userRole}</p>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@ export default function ProjectsDetailPage() {
                                             </div>
                                             <div>
                                                 <p className="text-sm font-semibold text-slate-500 mb-0.5">Name</p>
-                                                <p className="font-bold text-slate-900">{listingOwner.name || "Not provided"}</p>
+                                                <p className="font-bold text-brand-burgundy">{listingOwner.name || "Not provided"}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
@@ -193,7 +193,7 @@ export default function ProjectsDetailPage() {
                                             </div>
                                             <div className="overflow-hidden">
                                                 <p className="text-sm font-semibold text-slate-500 mb-0.5">Email</p>
-                                                <p className="font-bold text-slate-900 truncate">{listingOwner.email || "Not provided"}</p>
+                                                <p className="font-bold text-brand-burgundy truncate">{listingOwner.email || "Not provided"}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">
@@ -202,7 +202,7 @@ export default function ProjectsDetailPage() {
                                             </div>
                                             <div>
                                                 <p className="text-sm font-semibold text-slate-500 mb-0.5">Phone</p>
-                                                <p className="font-bold text-slate-900">{mobileNumber}</p>
+                                                <p className="font-bold text-brand-burgundy">{mobileNumber}</p>
                                             </div>
                                         </div>
                                     </>

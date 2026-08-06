@@ -97,7 +97,7 @@ export default function AdminPropertyPost() {
   return (
     <div className="w-full">
       <div className="mb-4">
-        <h2 className="text-3xl font-black text-gray-900 tracking-tight">Post Property</h2>
+        <h2 className="text-3xl font-black text-brand-burgundy tracking-tight">Post Property</h2>
         <p className="text-gray-500 mt-1">Add a new property to the platform as an Administrator.</p>
       </div>
       
@@ -113,7 +113,7 @@ export default function AdminPropertyPost() {
             <span 
               key={index}
               className={`text-sm sm:text-base flex items-center ${
-                step === index + 1 ? "font-bold text-[#ec9322]" : "text-gray-400"
+                step === index + 1 ? "font-bold text-brand-gold" : "text-gray-400"
               }`}
             >
               {item.icon} {item.label}
@@ -143,7 +143,7 @@ export default function AdminPropertyPost() {
                   <p className="text-sm font-medium mb-1">Uploading: {uploadProgress.toFixed(0)}%</p>
                   <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
                     <div
-                      className="bg-[#ec9322] h-full rounded-full transition-all duration-300"
+                      className="bg-brand-gold h-full rounded-full transition-all duration-300"
                       style={{ width: `${uploadProgress}%` }}
                     ></div>
                   </div>

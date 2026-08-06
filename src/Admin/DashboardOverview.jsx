@@ -40,7 +40,7 @@ const DashboardOverview = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         
         {/* Projects Card */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-[#753441]/30 transition-all">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-brand-gold/30 transition-all">
           <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 opacity-50 transition-all group-hover:scale-110"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
@@ -48,7 +48,7 @@ const DashboardOverview = () => {
                 <Building2 size={24} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-gray-900 mb-1">
+            <h2 className="text-3xl font-black text-brand-burgundy mb-1">
               {loading ? "..." : stats.totalProjects}
             </h2>
             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">Total Projects</p>
@@ -56,7 +56,7 @@ const DashboardOverview = () => {
         </div>
 
         {/* Postings Card */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-[#753441]/30 transition-all">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-brand-gold/30 transition-all">
           <div className="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -mr-4 -mt-4 opacity-50 transition-all group-hover:scale-110"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
@@ -64,7 +64,7 @@ const DashboardOverview = () => {
                 <ClipboardList size={24} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-gray-900 mb-1">
+            <h2 className="text-3xl font-black text-brand-burgundy mb-1">
               {loading ? "..." : stats.totalPostings}
             </h2>
             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">Property Postings</p>
@@ -72,7 +72,7 @@ const DashboardOverview = () => {
         </div>
 
         {/* Inquiries Card */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-[#753441]/30 transition-all">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-brand-gold/30 transition-all">
           <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-full -mr-4 -mt-4 opacity-50 transition-all group-hover:scale-110"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
@@ -80,7 +80,7 @@ const DashboardOverview = () => {
                 <Users size={24} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-gray-900 mb-1">
+            <h2 className="text-3xl font-black text-brand-burgundy mb-1">
               {loading ? "..." : stats.totalInquiries}
             </h2>
             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">Client Inquiries</p>
@@ -88,7 +88,7 @@ const DashboardOverview = () => {
         </div>
 
         {/* Services Card */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-[#753441]/30 transition-all">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-lg hover:border-brand-gold/30 transition-all">
           <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -mr-4 -mt-4 opacity-50 transition-all group-hover:scale-110"></div>
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-4">
@@ -96,7 +96,7 @@ const DashboardOverview = () => {
                 <Settings size={24} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-gray-900 mb-1">
+            <h2 className="text-3xl font-black text-brand-burgundy mb-1">
               {loading ? "..." : stats.activeServices}
             </h2>
             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">Active Services</p>

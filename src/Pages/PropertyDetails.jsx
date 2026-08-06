@@ -55,7 +55,7 @@ export default function PropertyDetails({ formData, setFormData }) {
               key={listing}
               className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${
                 formData.listingType === listing
-                  ? "bg-rose-50 border-[#753441] text-[#753441] shadow-sm"
+                  ? "bg-rose-50 border-brand-gold text-brand-gold shadow-sm"
                   : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
               }`}
               onClick={() => handleListingSelect(listing)}
@@ -75,7 +75,7 @@ export default function PropertyDetails({ formData, setFormData }) {
               key={category}
               className={`flex items-center px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${
                 formData.propertyCategory === category
-                  ? "bg-rose-50 border-[#753441] text-[#753441] shadow-sm"
+                  ? "bg-rose-50 border-brand-gold text-brand-gold shadow-sm"
                   : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
               }`}
               onClick={() => handleCategorySelect(category)}
@@ -97,7 +97,7 @@ export default function PropertyDetails({ formData, setFormData }) {
                 key={typeObj.name}
                 className={`flex items-center p-3 rounded-xl text-sm font-medium transition-all border ${
                   formData.propertyType === typeObj.name
-                    ? "bg-rose-50 border-[#753441] text-[#753441] shadow-sm"
+                    ? "bg-rose-50 border-brand-gold text-brand-gold shadow-sm"
                     : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
                 }`}
                 onClick={() => handleTypeSelect(typeObj.name)}
@@ -133,7 +133,7 @@ export default function PropertyDetails({ formData, setFormData }) {
                 placeholder={`Enter ${field.label.toLowerCase()}`}
                 value={formData[field.name] || ""}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#753441]/10 focus:border-[#753441] transition-all bg-gray-50/50"
+                className="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-gold/10 focus:border-brand-gold transition-all bg-gray-50/50"
               />
             </div>
           ))}
@@ -147,7 +147,7 @@ export default function PropertyDetails({ formData, setFormData }) {
             value={formData.description || ""}
             onChange={handleChange}
             rows={5}
-            className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-[#753441]/10 focus:border-[#753441] transition-all bg-gray-50/50 resize-y"
+            className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-gold/10 focus:border-brand-gold transition-all bg-gray-50/50 resize-y"
           ></textarea>
         </div>
       </div>

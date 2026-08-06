@@ -57,7 +57,7 @@ export default function Amenities({ formData, setFormData, nextStep, prevStep })
               type="checkbox"
               checked={selectedAmenities.includes(amenity)}
               onChange={() => handleAmenityChange(amenity)}
-              className="form-checkbox text-[#ec9322]"
+              className="form-checkbox text-brand-gold"
             />
             <span>{amenity}</span>
           </label>

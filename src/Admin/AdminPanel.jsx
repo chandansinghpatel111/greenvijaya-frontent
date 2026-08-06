@@ -33,7 +33,7 @@ const AdminPanel = () => {
       
       {/* Sidebar - Dark Real Estate Theme */}
       <div 
-        className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-[#1a0c0f] text-white shadow-2xl flex flex-col h-full border-r border-[#3d1e24] transition-all duration-300 flex-shrink-0 z-20`}
+        className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-[#1a0c0f] text-white shadow-2xl flex flex-col h-full border-r border-brand-burgundy transition-all duration-300 flex-shrink-0 z-20`}
       >
         <div className="p-6 pb-2 border-b border-white/10 flex items-center justify-between">
           {sidebarOpen && (
@@ -63,7 +63,7 @@ const AdminPanel = () => {
                   onClick={() => navigate(item.path)}
                   className={`w-full flex items-center ${sidebarOpen ? 'justify-start gap-3 px-4' : 'justify-center px-0'} py-3 rounded-xl transition-all font-medium text-sm
                     ${isActive 
-                      ? "bg-[#753441] text-white shadow-lg" 
+                      ? "bg-brand-gold text-white shadow-lg" 
                       : "text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   title={!sidebarOpen ? item.name : ""}
@@ -101,8 +101,8 @@ const AdminPanel = () => {
               {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
             <div>
-              <h1 className="text-xl font-black text-gray-900 tracking-tight">
-                Admin <span className="text-[#753441]">Portal</span>
+              <h1 className="text-xl font-black text-brand-burgundy tracking-tight">
+                Admin <span className="text-brand-gold">Portal</span>
               </h1>
             </div>
           </div>
@@ -111,7 +111,7 @@ const AdminPanel = () => {
               <span className="w-2 h-2 rounded-full bg-green-500"></span>
               <span className="hidden sm:inline">System Online</span>
             </div>
-            <div className="w-10 h-10 bg-gradient-to-tr from-[#753441] to-[#1a0c0f] rounded-full border-2 border-white shadow-md flex items-center justify-center text-white font-bold">
+            <div className="w-10 h-10 bg-gradient-to-tr from-brand-gold to-[#1a0c0f] rounded-full border-2 border-white shadow-md flex items-center justify-center text-white font-bold">
               A
             </div>
           </div>

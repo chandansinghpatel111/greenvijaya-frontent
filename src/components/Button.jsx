@@ -23,7 +23,7 @@ const Button = ({ type, onClick, Icon, text, className = "" }) => {
     <button
       type={type}
       onClick={onClick}
-      className={`relative inline-flex items-center justify-center gap-2 rounded-full bg-[#3d1e24] hover:bg-[#291217] px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-rose-950/15 transition-all duration-300 hover:scale-[1.02] active:scale-95 ${className}`}
+      className={`relative inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold hover:bg-[#d19b66] px-6 py-2.5 text-sm font-bold text-brand-burgundy shadow-md shadow-brand-gold/20 transition-all duration-300 hover:scale-[1.02] active:scale-95 ${className}`}
     >
       {Icon && <Icon className="w-4 h-4" />}
       {text}

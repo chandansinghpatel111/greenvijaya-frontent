@@ -70,8 +70,8 @@ const NewsProject = () => {
   return (
     <div className="section-shell pt-4 sm:pt-6 pb-14 sm:pb-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-5xl font-bold text-slate-950">
-          Prime Landmark Projects & <span className="text-[#3d1e24]">Real Estate Townships</span>
+        <h2 className="text-3xl sm:text-5xl font-bold text-brand-burgundy">
+          Prime Landmark Projects & <span className="text-brand-burgundy">Real Estate Townships</span>
         </h2>
         <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
           Explore Green-Vijaya&apos;s strategic projects developments engineered for luxury living, vibrant commercial growth, and high-value architectural excellence across premier urban destinations.
@@ -90,7 +90,7 @@ const NewsProject = () => {
                 className="w-full px-3"
                 style={{ minWidth: `${100 / visibleCards}%` }}
               >
-                <div className="bg-white border border-[#3d1e24]/40 hover:border-[#3d1e24] rounded-lg overflow-hidden  transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="bg-white border border-brand-burgundy/40 hover:border-brand-burgundy rounded-lg overflow-hidden  transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   <div className="relative h-64 overflow-hidden">
                     {Array.isArray(project.images) && project.images.length > 0 && getImageUrl(project.images[0]) ? (
                       <img
@@ -104,13 +104,13 @@ const NewsProject = () => {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60" />
-                    <span className="absolute bottom-3 left-3 bg-white/95 text-[#3d1e24] font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+                    <span className="absolute bottom-3 left-3 bg-white/95 text-brand-burgundy font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
                       <MapPin size={14} />
                       {project.city || "Verified Project"}
                     </span>
                   </div>
                   <div className="p-6 text-left">
-                    <h3 className="text-2xl font-bold text-slate-950 mb-2 line-clamp-1">{project.projectBuildingName || project.title || "Exclusive Project"}</h3>
+                    <h3 className="text-2xl font-bold text-brand-burgundy mb-2 line-clamp-1">{project.projectBuildingName || project.title || "Exclusive Project"}</h3>
 
                     <p className="text-slate-600 text-sm mb-5 leading-relaxed font-normal h-10 overflow-hidden text-ellipsis">
                       {project.description || "Explore exclusive real estate opportunities in this city."}
@@ -123,7 +123,7 @@ const NewsProject = () => {
                       />
                       <button
                         onClick={() => handleWhatsAppEnquiry(project)}
-                        className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-2.5 px-4 rounded-full transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
+                        className="flex-1 flex items-center justify-center gap-2 hover:bg-[#128C7E] text-white font-bold py-2.5 px-4 rounded-full transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
                       >
                         <FaWhatsapp size={18} />
                         Enquire
@@ -141,7 +141,7 @@ const NewsProject = () => {
           <button
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none"
+            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
           >
             <ChevronLeft className="w-5 h-5" />
             <span>Previous</span>
@@ -153,7 +153,7 @@ const NewsProject = () => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-2.5 rounded-full ${index === currentIndex ? "bg-[#3d1e24] w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"}`}
+                className={`h-2.5 rounded-full ${index === currentIndex ? "bg-brand-burgundy w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"}`}
               />
             ))}
           </div>
@@ -161,7 +161,7 @@ const NewsProject = () => {
           <button
             onClick={nextSlide}
             aria-label="Next slide"
-            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none"
+            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
           >
             <span>Next</span>
             <ChevronRight className="w-5 h-5" />

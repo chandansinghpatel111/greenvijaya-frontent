@@ -82,11 +82,11 @@ export default function Search() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search by city or project name..."
-                className="w-full pl-12 pr-4 py-3 rounded-xl border border-[#d4af37]/40 focus:outline-none focus:ring-2 focus:ring-[#d4af37]/30 focus:border-[#d4af37] transition-all bg-slate-50 text-slate-800 placeholder:text-slate-400"
+                className="w-full pl-12 pr-4 py-3 rounded-xl border border-[#d4af37]/40 focus:outline-none focus:ring-2 focus:ring-[#d4af37]/30 focus:border-[#d4af37] transition-all bg-slate-50 text-brand-burgundy/90 placeholder:text-slate-400"
               />
             </div>
             <button 
-              className="bg-gradient-to-r from-[#e3b838] to-[#c29624] hover:from-[#d4af37] hover:to-[#b38f2d] text-slate-900 px-8 py-3 rounded-full font-extrabold transition-all duration-300 shadow-md shadow-yellow-900/20 active:scale-95 w-full sm:w-auto flex items-center justify-center gap-2"
+              className="bg-gradient-to-r from-[#e3b838] to-[#c29624] hover:from-[#d4af37] hover:to-[#b38f2d] text-brand-burgundy px-8 py-3 rounded-full font-extrabold transition-all duration-300 shadow-md shadow-yellow-900/20 active:scale-95 w-full sm:w-auto flex items-center justify-center gap-2"
             >
               <SearchIcon size={18} strokeWidth={2.5} />
               Search
@@ -96,7 +96,7 @@ export default function Search() {
 
         {/* Header Text */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
+          <h1 className="text-3xl font-bold text-brand-burgundy mb-2">
             {searchTerm ? `Search Results for "${searchTerm}"` : "All Projects"}
           </h1>
           <p className="text-slate-500">
@@ -107,7 +107,7 @@ export default function Search() {
         {/* Results Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#753441]"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-gold"></div>
           </div>
         ) : combinedResults.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -126,18 +126,18 @@ export default function Search() {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#3d1e24] flex items-center gap-1.5 shadow-sm">
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-burgundy flex items-center gap-1.5 shadow-sm">
                     <ShieldCheck size={14} className="text-green-600" /> 
                     {item.resultType === 'project' ? 'Verified Project' : 'Verified Property'}
                   </div>
                 </div>
                 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-1">
+                  <h3 className="text-xl font-bold text-brand-burgundy mb-2 line-clamp-1">
                     {item.title || item.projectBuildingName || "Untitled"}
                   </h3>
                   <div className="flex items-center text-slate-500 mb-4 text-sm font-medium">
-                    <MapPin size={16} className="mr-1 text-[#753441]" />
+                    <MapPin size={16} className="mr-1 text-brand-gold" />
                     {item.locality ? `${item.locality}, ` : ''}{item.city || "Location Not Specified"}
                   </div>
                   
@@ -150,7 +150,7 @@ export default function Search() {
                           navigate(`/listing-detail?id=${item._id}`);
                         }
                       }}
-                      className="w-full flex items-center justify-center gap-2 bg-slate-50 hover:bg-[#3d1e24] text-[#3d1e24] hover:text-white border border-slate-200 hover:border-[#3d1e24] transition-colors py-2.5 rounded-xl font-bold text-sm"
+                      className="w-full flex items-center justify-center gap-2 bg-slate-50 hover:bg-brand-burgundy text-brand-burgundy hover:text-white border border-slate-200 hover:border-brand-burgundy transition-colors py-2.5 rounded-xl font-bold text-sm"
                     >
                       View Details <ArrowRight size={16} />
                     </button>
@@ -162,11 +162,11 @@ export default function Search() {
         ) : (
           <div className="text-center py-20 bg-white rounded-3xl border border-slate-200 border-dashed">
             <Building className="mx-auto h-12 w-12 text-slate-300 mb-4" />
-            <h3 className="text-xl font-bold text-slate-900 mb-2">No projects found</h3>
+            <h3 className="text-xl font-bold text-brand-burgundy mb-2">No projects found</h3>
             <p className="text-slate-500">We couldn't find any properties matching your search criteria.</p>
             <button 
               onClick={() => setSearchTerm("")}
-              className="mt-6 text-[#753441] font-bold hover:underline"
+              className="mt-6 text-brand-gold font-bold hover:underline"
             >
               Clear Search
             </button>

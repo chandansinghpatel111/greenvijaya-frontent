@@ -68,7 +68,7 @@ export default function ProjectExplore() {
     <div className="p-2 sm:p-4 max-w-full mx-auto bg-gray-50 min-h-screen">
       <div className="mb-4 flex justify-between items-end">
         <div>
-          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Project Explore</h2>
+          <h2 className="text-3xl font-black text-brand-burgundy tracking-tight">Project Explore</h2>
           <p className="text-gray-500 mt-1">View all projects posted by administrators.</p>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function ProjectExplore() {
                   <Building2 size={48} />
                 </div>
               )}
-              <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-1 py-1 rounded-full text-xs font-bold text-[#753441] shadow-sm">
+              <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-1 py-1 rounded-full text-xs font-bold text-brand-gold shadow-sm">
                 ₹ {project.price?.toLocaleString()}
               </div>
             </div>
@@ -98,7 +98,7 @@ export default function ProjectExplore() {
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-gray-900 mb-1 line-clamp-1">{project.title}</h3>
+              <h3 className="text-base font-bold text-brand-burgundy mb-1 line-clamp-1">{project.title}</h3>
               <p className="text-sm text-gray-500 flex items-center gap-1 mb-3">
                 <MapPin size={14} /> {project.locality}, {project.city}
               </p>
@@ -145,7 +145,7 @@ export default function ProjectExplore() {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-              <h3 className="font-bold text-lg text-gray-900">Quick Edit Project</h3>
+              <h3 className="font-bold text-lg text-brand-burgundy">Quick Edit Project</h3>
               <button onClick={() => setEditingProject(null)} className="text-gray-400 hover:text-gray-600">
                 <X size={20} />
               </button>

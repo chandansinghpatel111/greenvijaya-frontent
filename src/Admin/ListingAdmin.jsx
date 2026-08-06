@@ -29,7 +29,7 @@ const ListingAdmin
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
-      <h2 className="text-5xl font-bold text-center text-[#ec9322] mb-6">
+      <h2 className="text-5xl font-bold text-center text-brand-gold mb-6">
       Apartments, Villas, and More
  
       </h2>
@@ -108,7 +108,7 @@ const ListingAdmin
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-[#ec9322] text-white p-3 rounded hover:bg-[#ec9322]"
+          className="w-full bg-brand-gold text-white p-3 rounded hover:bg-brand-gold"
         >
           Submit Project
         </button>

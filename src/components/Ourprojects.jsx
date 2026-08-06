@@ -48,12 +48,12 @@ const Ourprojects = () => {
     <div className="max-w-7xl px-4 py-16 mx-auto">
       {/* Brand-Aligned Section Title */}
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 border border-rose-200 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#3d1e24] mb-3 shadow-sm">
-          <Sparkles size={14} className="text-[#753441]" />
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 border border-rose-200 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-brand-burgundy mb-3 shadow-sm">
+          <Sparkles size={14} className="text-brand-gold" />
           PRESTIGE DEVELOPMENTS
         </span>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight">
-          Featured Projects to <span className="text-[#3d1e24]">Explore</span>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-burgundy tracking-tight">
+          Featured Projects to <span className="text-brand-burgundy">Explore</span>
         </h2>
         <p className="mt-3 text-slate-600 text-sm sm:text-base font-normal leading-relaxed">
           Discover our premier selection of luxury residential townships, commercial centers, and high-appreciation urban plots.
@@ -87,7 +87,7 @@ const Ourprojects = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
                     
                     {/* Featured Tag */}
-                    <span className="absolute top-4 right-4 rounded-full bg-[#3d1e24]/90 backdrop-blur-md px-3.5 py-1 text-[11px] font-extrabold tracking-wider text-white uppercase border border-white/20 shadow-md">
+                    <span className="absolute top-4 right-4 rounded-full bg-brand-burgundy/90 backdrop-blur-md px-3.5 py-1 text-[11px] font-extrabold tracking-wider text-white uppercase border border-white/20 shadow-md">
                       Verified Title
                     </span>
 
@@ -103,7 +103,7 @@ const Ourprojects = () => {
                   {/* Text Details & Action Button */}
                   <div className="p-6 flex flex-col flex-grow justify-between text-left bg-white">
                     <div>
-                      <h3 className="text-xl font-extrabold text-slate-950 mb-2.5 group-hover:text-[#3d1e24] transition-colors leading-snug">
+                      <h3 className="text-xl font-extrabold text-brand-burgundy mb-2.5 group-hover:text-brand-burgundy transition-colors leading-snug">
                         {service.title}
                       </h3>
                       <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-normal line-clamp-3">
@@ -131,7 +131,7 @@ const Ourprojects = () => {
           <button
             onClick={prevSlide}
             aria-label="Previous Slide"
-            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none"
+            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
           >
             <ChevronLeft className="w-5 h-5" />
             <span>Previous</span>
@@ -145,7 +145,7 @@ const Ourprojects = () => {
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Go to slide ${index + 1}`}
                 className={`h-2.5 rounded-full ${
-                  index === currentIndex ? "bg-[#3d1e24] w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
+                  index === currentIndex ? "bg-brand-burgundy w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
                 }`}
               />
             ))}
@@ -154,7 +154,7 @@ const Ourprojects = () => {
           <button
             onClick={nextSlide}
             aria-label="Next Slide"
-            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none"
+            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
           >
             <span>Next</span>
             <ChevronRight className="w-5 h-5" />

@@ -101,7 +101,7 @@ const CreatenewCourse = () => {
 
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <h1 className="text-2xl font-bold text-gray-800">Create New Course</h1>
+          <h1 className="text-2xl font-bold text-brand-burgundy/90">Create New Course</h1>
 
           {message && (
             <p className="text-sm text-red-600 bg-red-100 p-2 rounded">{message}</p>

@@ -12,7 +12,7 @@ const FeaturesCards = () => {
       <div className="flex flex-col gap-4 mb-8">
         
         {/* Banner 1: Sell or Rent */}
-        <div className="w-full bg-gradient-to-r from-[#4a1525] to-[#240a12] rounded-xl flex flex-col md:flex-row items-center justify-between p-5 md:py-4 md:px-8 overflow-hidden relative shadow-sm border border-[#753441]/50">
+        <div className="w-full bg-gradient-to-r from-[#4a1525] to-[#240a12] rounded-xl flex flex-col md:flex-row items-center justify-between p-5 md:py-4 md:px-8 overflow-hidden relative shadow-sm border border-brand-gold/50">
           {/* Decorative City Left */}
           <div className="hidden lg:flex items-end h-16 w-48 relative mr-4 shrink-0 z-10">
             <div className="w-4 h-12 bg-[#b8860b] rounded-t-sm absolute bottom-0 left-0">
@@ -57,7 +57,7 @@ const FeaturesCards = () => {
         {/* Card 1: TruEstimate */}
         <div 
           onClick={() => navigate('/contact')}
-          className="relative rounded-[1.5rem] overflow-hidden border border-[#3d1e24]/40 hover:border-[#3d1e24] h-[280px] sm:h-[320px] group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+          className="relative rounded-[1.5rem] overflow-hidden border border-brand-burgundy/40 hover:border-brand-burgundy h-[280px] sm:h-[320px] group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
         >
           <img src="/image55.jpg" alt="Property Value Estimate" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b0e] via-[#3d1e24]/80 to-transparent"></div>
@@ -80,7 +80,7 @@ const FeaturesCards = () => {
         {/* Card 2: Smart Search */}
         <div 
           onClick={() => navigate('/Search')}
-          className="relative rounded-[1.5rem] overflow-hidden border border-[#3d1e24]/40 hover:border-[#3d1e24] h-[280px] sm:h-[320px] group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+          className="relative rounded-[1.5rem] overflow-hidden border border-brand-burgundy/40 hover:border-brand-burgundy h-[280px] sm:h-[320px] group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
         >
           <img src="/image66.jpg" alt="Smart Search" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b0e] via-[#3d1e24]/80 to-transparent"></div>
@@ -103,7 +103,7 @@ const FeaturesCards = () => {
         {/* Card 3: Interactive Map */}
         <div 
           onClick={() => navigate('/Search')}
-          className="relative rounded-[1.5rem] overflow-hidden border border-[#3d1e24]/40 hover:border-[#3d1e24] h-[280px] sm:h-[320px] group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+          className="relative rounded-[1.5rem] overflow-hidden border border-brand-burgundy/40 hover:border-brand-burgundy h-[280px] sm:h-[320px] group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
         >
           <img src="/image77.jpg" alt="Map Exploration" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b0e] via-[#3d1e24]/80 to-transparent"></div>

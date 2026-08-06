@@ -84,11 +84,11 @@ const PostPropertyListing = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         {/* Header Section */}
-        <div className="mb-14 flex flex-col lg:flex-row lg:items-center lg:justify-between border-b border-[#3d1e24]/10 pb-10 gap-8">
+        <div className="mb-14 flex flex-col lg:flex-row lg:items-center lg:justify-between border-b border-brand-burgundy/10 pb-10 gap-8">
           <div className="max-w-2xl text-left">
 
-            <h2 className="text-4xl font-black text-slate-900 sm:text-5xl lg:text-6xl tracking-tight leading-[1.1]">
-              Experience Unmatched <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">Luxury</span> & Signature Masterpieces
+            <h2 className="text-4xl font-black text-brand-burgundy sm:text-5xl lg:text-6xl tracking-tight leading-[1.1]">
+              Experience Unmatched <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Luxury</span> & Signature Masterpieces
             </h2>
             <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
               Step into a world of architectural brilliance. Our meticulously curated collection of premium residential estates and strategic commercial spaces offers unparalleled elegance, flawless design, and exceptional capital appreciation.
@@ -158,7 +158,7 @@ const PostPropertyListing = () => {
 
                       {/* Bottom Image Overlay Content */}
                       <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                        <div className="rounded-md bg-white/95 px-4 py-2 font-bold text-slate-950 shadow-lg backdrop-blur-md">
+                        <div className="rounded-md bg-white/95 px-4 py-2 font-bold text-brand-burgundy shadow-lg backdrop-blur-md">
                           {formatPrice(project.price)}
                         </div>
                       </div>
@@ -166,12 +166,12 @@ const PostPropertyListing = () => {
 
                     {/* Card Content */}
                     <div className="flex flex-1 flex-col p-6 pt-5">
-                      <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#753441]">
+                      <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-brand-gold">
                         <MapPin size={16} />
                         <span className="truncate">{project.Locality || project.locality || project.city || "Prime location"}</span>
                       </div>
 
-                      <h3 className="mb-4 line-clamp-1 text-2xl font-bold text-slate-950 group-hover:text-[#3d1e24] transition-colors">
+                      <h3 className="mb-4 line-clamp-1 text-2xl font-bold text-brand-burgundy group-hover:text-brand-burgundy transition-colors">
                         {project.ProjectBuildingName || project.projectBuildingName || project.title || "Exclusive Property"}
                       </h3>
 
@@ -179,19 +179,19 @@ const PostPropertyListing = () => {
                       <div className="mb-6 flex flex-wrap gap-2">
                         {(project.plotArea || project.totalFloors) && (
                           <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
-                            <Ruler size={16} className="text-[#753441]" />
+                            <Ruler size={16} className="text-brand-gold" />
                             {project.plotArea ? `${project.plotArea} sq.ft` : `${project.totalFloors} Floors`}
                           </div>
                         )}
                         {project.furnishing && (
                           <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
-                            <Sofa size={16} className="text-[#753441]" />
+                            <Sofa size={16} className="text-brand-gold" />
                             {project.furnishing}
                           </div>
                         )}
                         {(project.floorNumber) && (
                           <div className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
-                            <Layers size={16} className="text-[#753441]" />
+                            <Layers size={16} className="text-brand-gold" />
                             Floor {project.floorNumber}
                           </div>
                         )}
@@ -207,10 +207,10 @@ const PostPropertyListing = () => {
                       <div className="mt-auto border-t border-slate-100 pt-3 flex flex-col gap-2">
                         <button
                           onClick={() => navigate(`/listing-detail`, { state: { project } })}
-                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-800 transition-all hover:bg-rose-50 hover:text-[#3d1e24] hover:shadow-sm"
+                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-4 py-2.5 text-sm font-semibold text-brand-burgundy/90 transition-all hover:bg-rose-50 hover:text-brand-burgundy hover:shadow-sm"
                         >
                           View Property Details
-                          <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1.5 text-[#3d1e24]" />
+                          <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1.5 text-brand-burgundy" />
                         </button>
                         <button
                           onClick={() => handleWhatsAppEnquiry(project)}
@@ -232,7 +232,7 @@ const PostPropertyListing = () => {
             <button
               onClick={prevSlide}
               aria-label="Previous slide"
-              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Previous</span>
@@ -245,7 +245,7 @@ const PostPropertyListing = () => {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   aria-label={`Go to slide ${index + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-[#3d1e24] w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
+                  className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-brand-burgundy w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
                     }`}
                 />
               ))}
@@ -254,7 +254,7 @@ const PostPropertyListing = () => {
             <button
               onClick={nextSlide}
               aria-label="Next slide"
-              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-[#3d1e24] hover:bg-[#3d1e24] hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
             >
               <span>Next</span>
               <ChevronRight className="w-5 h-5" />

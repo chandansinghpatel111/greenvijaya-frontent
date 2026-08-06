@@ -83,12 +83,12 @@ const SignUp = () => {
         {/* Header Section */}
         <div className="mb-3 text-center flex flex-col items-center">
           <div className="flex items-center justify-center mb-1">
-             <Home className="text-[#753441]" size={18} />
+             <Home className="text-brand-gold" size={18} />
           </div>
           <p className="text-[8px] font-bold tracking-[0.15em] uppercase mb-1">
-            <span className="text-[#753441]">WELCOME TO</span> <span className="text-[#FFB6C1]">GREEN VIJYA</span>
+            <span className="text-brand-gold">WELCOME TO</span> <span className="text-[#FFB6C1]">GREEN VIJYA</span>
           </p>
-          <h2 className="text-[20px] font-serif leading-tight mb-1 text-gray-900">
+          <h2 className="text-[20px] font-serif leading-tight mb-1 text-brand-burgundy">
             Create Your Account
           </h2>
           <div className="w-6 h-[2px] bg-[#FFB6C1] mb-1"></div>
@@ -110,7 +110,7 @@ const SignUp = () => {
               onChange={(e) => setName(e.target.value)}
               required
               placeholder="Full Name"
-              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
           </div>
 
@@ -125,7 +125,7 @@ const SignUp = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Email Address"
-              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
           </div>
 
@@ -140,7 +140,7 @@ const SignUp = () => {
               onChange={(e) => setMobileNumber(e.target.value)}
               required
               placeholder="Phone Number"
-              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-3 bg-white border border-gray-200 rounded-xl focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
           </div>
 
@@ -155,12 +155,12 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Password"
-              className="w-full h-[38px] pl-8 pr-10 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-10 bg-white border border-gray-200 rounded-xl focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="no-light absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
+              className="no-light absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-brand-gold transition-colors"
             >
               {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
             </button>
@@ -177,12 +177,12 @@ const SignUp = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               placeholder="Confirm Password"
-              className="w-full h-[38px] pl-8 pr-10 bg-white border border-gray-200 rounded-xl focus:border-[#753441] focus:ring-1 focus:ring-[#753441] outline-none text-[12px] transition-all placeholder:text-gray-400"
+              className="w-full h-[38px] pl-8 pr-10 bg-white border border-gray-200 rounded-xl focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none text-[12px] transition-all placeholder:text-gray-400"
             />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="no-light absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
+              className="no-light absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-brand-gold transition-colors"
             >
               {showConfirmPassword ? <EyeOff size={14} /> : <Eye size={14} />}
             </button>
@@ -196,11 +196,11 @@ const SignUp = () => {
                 type="checkbox"
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
-                className="w-3 h-3 rounded-sm border-gray-300 text-[#753441] focus:ring-[#753441] accent-[#753441]"
+                className="w-3 h-3 rounded-sm border-gray-300 text-brand-gold focus:ring-brand-gold accent-brand-gold"
               />
             </div>
             <label htmlFor="terms" className="text-[9px] text-gray-600 font-medium">
-              Agree to <a href="#" className="text-[#753441] hover:underline">T&C</a> and <a href="#" className="text-[#753441] hover:underline">Privacy Policy</a>
+              Agree to <a href="#" className="text-brand-gold hover:underline">T&C</a> and <a href="#" className="text-brand-gold hover:underline">Privacy Policy</a>
             </label>
           </div>
 
@@ -216,7 +216,7 @@ const SignUp = () => {
               type="submit"
               disabled={loading}
               className={`w-full h-[38px] flex items-center justify-center gap-2 text-white rounded-xl transition-all duration-300 ${
-                loading ? "bg-gray-400 cursor-not-allowed" : "bg-gradient-to-r from-[#1a0c0f] to-[#3d1e24] hover:from-[#291217] hover:to-[#4e222d] shadow-lg shadow-[#1a0c0f]/20 active:scale-[0.98]"
+                loading ? "bg-gray-400 cursor-not-allowed" : "bg-gradient-to-r from-[#1a0c0f] to-brand-burgundy hover:from-[#291217] hover:to-[#4e222d] shadow-lg shadow-[#1a0c0f]/20 active:scale-[0.98]"
               }`}
             >
               <span className="font-semibold text-[11px]">
@@ -249,7 +249,7 @@ const SignUp = () => {
         <div className="mt-2.5 text-center">
           <p className="text-[9px] text-gray-600">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#753441] font-bold hover:underline">
+            <Link to="/login" className="text-brand-gold font-bold hover:underline">
               Log in
             </Link>
           </p>

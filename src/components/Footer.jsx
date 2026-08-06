@@ -33,7 +33,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="relative overflow-hidden bg-gradient-to-br from-[#1a0c0f] to-[#3d1e24] text-white border-t border-rose-900/40"
+      className="relative overflow-hidden bg-gradient-to-br from-[#1a0c0f] to-brand-burgundy text-white border-t border-rose-900/40"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(244,63,94,0.15),_transparent_55%)] pointer-events-none" />
 
@@ -51,16 +51,16 @@ const Footer = () => {
               We redefine modern living through trusted property guidance, government-approved architectural developments, and a commitment to sustained capital value.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="https://www.facebook.com/share/16ZPuAWVye/" aria-label="Facebook" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-[#3d1e24] hover:text-rose-300 hover:border-rose-400">
+              <a href="https://www.facebook.com/share/16ZPuAWVye/" aria-label="Facebook" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-brand-burgundy hover:text-rose-300 hover:border-rose-400">
                 <Facebook size={18} />
               </a>
-              <a href="https://www.youtube.com/@UniqueUSD-com" aria-label="Youtube" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-[#3d1e24] hover:text-rose-300 hover:border-rose-400">
+              <a href="https://www.youtube.com/@UniqueUSD-com" aria-label="Youtube" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-brand-burgundy hover:text-rose-300 hover:border-rose-400">
                 <Youtube size={18} />
               </a>
-              <a href="https://www.instagram.com/uniqueusd?utm_source=qr&igsh=aXZ6Ymw0bDBubTho" aria-label="Instagram" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-[#3d1e24] hover:text-rose-300 hover:border-rose-400">
+              <a href="https://www.instagram.com/uniqueusd?utm_source=qr&igsh=aXZ6Ymw0bDBubTho" aria-label="Instagram" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-brand-burgundy hover:text-rose-300 hover:border-rose-400">
                 <Instagram size={18} />
               </a>
-              <a href="https://www.linkedin.com/in/chandan-singh-754418303?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="Linkedin" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-[#3d1e24] hover:text-rose-300 hover:border-rose-400">
+              <a href="https://www.linkedin.com/in/chandan-singh-754418303?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="Linkedin" className="rounded-2xl border border-white/20 bg-white/10 p-3 transition-all duration-300 hover:scale-110 hover:bg-brand-burgundy hover:text-rose-300 hover:border-rose-400">
                 <Linkedin size={18} />
               </a>
             </div>

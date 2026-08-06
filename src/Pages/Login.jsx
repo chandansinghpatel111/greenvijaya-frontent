@@ -89,7 +89,7 @@ const Login = () => {
       {/* Floating Form Card */}
       <div className="relative z-20 w-full max-w-[380px] bg-white rounded-[1.25rem] p-5 sm:p-6 shadow-2xl my-4">
         <div className="mb-4">
-          <h2 className="text-[20px] sm:text-[22px] font-bold text-gray-900 mb-1 tracking-tight">
+          <h2 className="text-[20px] sm:text-[22px] font-bold text-brand-burgundy mb-1 tracking-tight">
             Welcome Back!
           </h2>
           <p className="text-[12px] text-gray-500 font-medium">
@@ -111,7 +111,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-[12px] font-bold text-gray-800 mb-1">
+            <label htmlFor="email" className="block text-[12px] font-bold text-brand-burgundy/90 mb-1">
               Email
             </label>
             <input
@@ -120,14 +120,14 @@ const Login = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full py-2 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441] outline-none transition-all text-[13px]"
+              className="w-full py-2 px-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold outline-none transition-all text-[13px]"
               placeholder="Your email address"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-[12px] font-bold text-gray-800 mb-1">
+            <label htmlFor="password" className="block text-[12px] font-bold text-brand-burgundy/90 mb-1">
               Password
             </label>
             <div className="relative">
@@ -137,19 +137,19 @@ const Login = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full py-2 pl-3 pr-10 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#753441]/20 focus:border-[#753441] outline-none transition-all text-[13px]"
+                className="w-full py-2 pl-3 pr-10 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold outline-none transition-all text-[13px]"
                 placeholder="Your password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="no-light absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#753441] transition-colors"
+                className="no-light absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-gold transition-colors"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
             <div className="flex justify-end mt-1.5">
-              <a href="#" className="text-[11px] font-semibold text-gray-500 hover:text-[#753441] transition-colors underline decoration-gray-300">
+              <a href="#" className="text-[11px] font-semibold text-gray-500 hover:text-brand-gold transition-colors underline decoration-gray-300">
                 Forget your password?
               </a>
             </div>
@@ -162,7 +162,7 @@ const Login = () => {
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="w-3.5 h-3.5 text-[#753441] bg-white border-gray-300 rounded focus:ring-[#753441]/30 cursor-pointer accent-[#753441]"
+              className="w-3.5 h-3.5 text-brand-gold bg-white border-gray-300 rounded focus:ring-brand-gold/30 cursor-pointer accent-brand-gold"
             />
             <label htmlFor="remember" className="ml-2 text-[12px] font-medium text-gray-700 cursor-pointer">
               Remember me
@@ -172,14 +172,14 @@ const Login = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-[#1a0c0f] to-[#3d1e24] hover:from-[#291217] hover:to-[#4e222d] text-white py-2.5 rounded-lg font-bold text-[13px] shadow-md transition-all active:scale-[0.98]"
+            className="w-full bg-gradient-to-r from-[#1a0c0f] to-brand-burgundy hover:from-[#291217] hover:to-[#4e222d] text-white py-2.5 rounded-lg font-bold text-[13px] shadow-md transition-all active:scale-[0.98]"
           >
             Log In
           </button>
 
           <p className="text-center text-[12px] text-gray-600 mt-3 font-medium">
             Don't have an account?{' '}
-            <Link to="/sign" className="text-gray-900 font-bold hover:text-[#753441] transition-colors">
+            <Link to="/sign" className="text-brand-burgundy font-bold hover:text-brand-gold transition-colors">
               Sign up
             </Link>
           </p>

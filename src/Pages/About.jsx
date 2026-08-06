@@ -37,8 +37,8 @@ const HeroSection = () => (
   <section className="relative pb-24 sm:pb-32 -mt-4 sm:-mt-8">
     {/* Premium Background Elements */}
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[60%] bg-gradient-to-br from-[#753441]/20 to-transparent rounded-full blur-[120px]"></div>
-      <div className="absolute top-[20%] -right-[10%] w-[40%] h-[50%] bg-[#3d1e24]/10 rounded-full blur-[100px]"></div>
+      <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[60%] bg-gradient-to-br from-brand-gold/20 to-transparent rounded-full blur-[120px]"></div>
+      <div className="absolute top-[20%] -right-[10%] w-[40%] h-[50%] bg-brand-burgundy/10 rounded-full blur-[100px]"></div>
     </div>
 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -49,21 +49,21 @@ const HeroSection = () => (
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-left flex flex-col justify-center"
         >
-          <h1 className="text-3xl sm:text-5xl md:text-5xl lg:text-5xl font-serif text-gray-900 mb-5 sm:mb-2 leading-[1.1] sm:leading-[1.1] font-black tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-5xl lg:text-5xl font-serif text-brand-burgundy mb-5 sm:mb-2 leading-[1.1] sm:leading-[1.1] font-black tracking-tight">
             Our Visionary <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#56252f] sm:ml-0 ml-1">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-[#56252f] sm:ml-0 ml-1">
               Story
             </span>
           </h1>
 
           <p className="max-w-xl text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-8 sm:mb-10">
-            Crafting premium lifestyles. At <span className="text-[#3d1e24] font-bold">Green Vijya</span>, your trust is the foundation of our legacy.
+            Crafting premium lifestyles. At <span className="text-brand-burgundy font-bold">Green Vijya</span>, your trust is the foundation of our legacy.
           </p>
 
           {/* Subtle Premium Detail */}
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full border border-[#753441]/30 flex items-center justify-center shadow-sm">
-              <span className="w-2 h-2 bg-[#753441] rounded-full animate-pulse"></span>
+            <div className="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center shadow-sm">
+              <span className="w-2 h-2 bg-brand-gold rounded-full animate-pulse"></span>
             </div>
             <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Building Legacies</span>
           </div>
@@ -87,7 +87,7 @@ const HeroSection = () => (
           </div>
 
           {/* Decorative Gold/Rose Frame */}
-          <div className="absolute -bottom-6 -right-6 w-[90%] h-[90%] border-2 border-[#753441]/40 rounded-[2rem] z-0 hidden lg:block pointer-events-none"></div>
+          <div className="absolute -bottom-6 -right-6 w-[90%] h-[90%] border-2 border-brand-gold/40 rounded-[2rem] z-0 hidden lg:block pointer-events-none"></div>
         </motion.div>
       </div>
     </div>
@@ -104,15 +104,15 @@ const MissionVisionSection = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="group p-8 lg:p-10 bg-[#3d1e24] rounded-[1.5rem] shadow-[0_15px_40px_rgba(13,59,38,0.3)] relative overflow-hidden flex flex-col hover:-translate-y-1.5 transition-all duration-500"
+          className="group p-8 lg:p-10 bg-brand-burgundy rounded-[1.5rem] shadow-[0_15px_40px_rgba(13,59,38,0.3)] relative overflow-hidden flex flex-col hover:-translate-y-1.5 transition-all duration-500"
         >
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-[60px] group-hover:bg-white/10 transition-colors duration-500 pointer-events-none"></div>
 
           <div className="w-14 h-14 rounded-full bg-[#4e222d] flex items-center justify-center mb-6 shadow-inner border border-[#5a2734]">
-            <Target className="w-7 h-7 text-[#753441]" />
+            <Target className="w-7 h-7 text-brand-gold" />
           </div>
 
-          <h3 className="text-[#753441] text-[10px] lg:text-xs font-bold tracking-[0.2em] uppercase mb-3">Our Mission</h3>
+          <h3 className="text-brand-gold text-[10px] lg:text-xs font-bold tracking-[0.2em] uppercase mb-3">Our Mission</h3>
           <p className="text-2xl font-serif text-white mb-4 leading-tight relative z-10">
             To deliver premium-quality plotted developments and innovative real estate solutions
           </p>
@@ -129,14 +129,14 @@ const MissionVisionSection = () => (
           transition={{ duration: 0.8, delay: 0.2 }}
           className="group p-8 lg:p-10 bg-white rounded-[1.5rem] shadow-xl relative overflow-hidden flex flex-col hover:-translate-y-1.5 transition-all duration-500 border border-gray-100"
         >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-[#753441]/5 rounded-full blur-[60px] group-hover:bg-[#753441]/10 transition-colors duration-500 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-48 h-48 bg-brand-gold/5 rounded-full blur-[60px] group-hover:bg-brand-gold/10 transition-colors duration-500 pointer-events-none"></div>
 
           <div className="w-14 h-14 rounded-full bg-[#faf9f6] flex items-center justify-center mb-6 shadow-sm border border-gray-100">
-            <Eye className="w-7 h-7 text-[#753441]" />
+            <Eye className="w-7 h-7 text-brand-gold" />
           </div>
 
-          <h3 className="text-[#753441] text-[10px] lg:text-xs font-bold tracking-[0.2em] uppercase mb-3">Our Vision</h3>
-          <p className="text-2xl font-serif text-gray-900 mb-4 leading-tight relative z-10">
+          <h3 className="text-brand-gold text-[10px] lg:text-xs font-bold tracking-[0.2em] uppercase mb-3">Our Vision</h3>
+          <p className="text-2xl font-serif text-brand-burgundy mb-4 leading-tight relative z-10">
             To become the most trusted and influential real estate developer in the region,
           </p>
           <p className="text-gray-500 text-xs lg:text-sm leading-relaxed mt-auto relative z-10 font-light">
@@ -165,27 +165,27 @@ const CeoSection = () => (
       >
         <div className="relative">
           {/* Animated rotating outer ring */}
-          <div className="absolute -inset-2.5 rounded-full border border-dashed border-[#753441]/40 animate-[spin_15s_linear_infinite]"></div>
+          <div className="absolute -inset-2.5 rounded-full border border-dashed border-brand-gold/40 animate-[spin_15s_linear_infinite]"></div>
           {/* Inner portrait container */}
-          <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full border-[3px] border-[#1a0c0f] ring-2 ring-[#753441]/80 mx-auto overflow-hidden bg-[#1a1a1a] flex items-center justify-center relative z-10 shadow-[0_0_20px_rgba(181,142,77,0.2)]">
+          <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full border-[3px] border-[#1a0c0f] ring-2 ring-brand-gold/80 mx-auto overflow-hidden bg-[#1a1a1a] flex items-center justify-center relative z-10 shadow-[0_0_20px_rgba(181,142,77,0.2)]">
             <img src={founderImg} alt="Chandan Singh" className="w-full h-full object-cover" />
           </div>
         </div>
       </motion.div>
 
-      <h4 className="text-[#753441] text-[10px] lg:text-xs font-bold tracking-[0.2em] uppercase mb-2">The Visionary Behind</h4>
+      <h4 className="text-brand-gold text-[10px] lg:text-xs font-bold tracking-[0.2em] uppercase mb-2">The Visionary Behind</h4>
       <h2 className="text-3xl lg:text-4xl font-serif text-white mb-5">Chandan Singh</h2>
 
-      <div className="inline-block px-5 py-1.5 rounded-full bg-gradient-to-r from-[#3d1e24] to-[#4e222d] border border-rose-900/50 mb-10 shadow-lg">
+      <div className="inline-block px-5 py-1.5 rounded-full bg-gradient-to-r from-brand-burgundy to-[#4e222d] border border-rose-900/50 mb-10 shadow-lg">
         <span className="text-[#fda4af] text-[10px] font-bold tracking-[0.2em] uppercase shadow-sm">CEO & Founder</span>
       </div>
 
       <div className="relative max-w-3xl mx-auto">
-        <Quote className="absolute -top-8 -left-4 lg:-left-8 w-8 h-8 lg:w-12 lg:h-12 text-[#753441]/20 rotate-180" />
+        <Quote className="absolute -top-8 -left-4 lg:-left-8 w-8 h-8 lg:w-12 lg:h-12 text-brand-gold/20 rotate-180" />
         <p className="text-white text-xl lg:text-2xl font-serif leading-relaxed text-center relative z-10 px-6">
           We aren't just selling land; we are laying the foundation for your family's future and your legacy to flourish.
         </p>
-        <Quote className="absolute -bottom-8 -right-4 lg:-right-8 w-8 h-8 lg:w-12 lg:h-12 text-[#753441]/20" />
+        <Quote className="absolute -bottom-8 -right-4 lg:-right-8 w-8 h-8 lg:w-12 lg:h-12 text-brand-gold/20" />
       </div>
     </div>
   </section>
@@ -209,11 +209,11 @@ const CoreValuesSection = () => {
     <section className="pt-4 lg:pt-8 pb-16 lg:pb-24 bg-white relative overflow-hidden -mt-10 lg:-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-serif text-gray-900 mb-5">
+          <h2 className="text-3xl lg:text-4xl font-serif text-brand-burgundy mb-5">
             The principles that <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#56252f]">drive every project</span> we undertake.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-[#56252f]">drive every project</span> we undertake.
           </h2>
-          <div className="w-12 h-[2px] bg-[#753441] mx-auto"></div>
+          <div className="w-12 h-[2px] bg-brand-gold mx-auto"></div>
         </div>
 
         <motion.div
@@ -235,8 +235,8 @@ const CoreValuesSection = () => {
               <div className={`w-16 h-16 rounded-full ${value.iconBg} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 relative z-10 shadow-sm border border-gray-100`}>
                 {value.icon}
               </div>
-              <h4 className="text-lg lg:text-xl font-bold text-gray-900 mb-3 relative z-10">{value.title}</h4>
-              <div className="w-6 h-[2px] bg-[#753441]/30 mb-4 group-hover:w-12 group-hover:bg-[#753441] transition-all duration-500 relative z-10"></div>
+              <h4 className="text-lg lg:text-xl font-bold text-brand-burgundy mb-3 relative z-10">{value.title}</h4>
+              <div className="w-6 h-[2px] bg-brand-gold/30 mb-4 group-hover:w-12 group-hover:bg-brand-gold transition-all duration-500 relative z-10"></div>
               <p className="text-gray-500 text-xs lg:text-sm leading-relaxed relative z-10 font-medium">{value.description}</p>
             </motion.div>
           ))}
@@ -248,7 +248,7 @@ const CoreValuesSection = () => {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#faf9f6] overflow-hidden font-sans selection:bg-[#3d1e24] selection:text-white">
+    <div className="min-h-screen bg-[#faf9f6] overflow-hidden font-sans selection:bg-brand-burgundy selection:text-white">
       <HeroSection />
       <MissionVisionSection />
       <CeoSection />

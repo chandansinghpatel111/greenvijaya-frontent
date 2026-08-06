@@ -20,7 +20,7 @@ const AppPromo = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-brand-burgundy/90 mb-4">
             Download Usdunique Mobile App
           </h2>
           <p className="text-gray-600 mb-4">And never miss out on any update</p>
@@ -35,7 +35,7 @@ const AppPromo = () => {
               href="https://play.google.com/store/apps/details?id=com.difmo.usdunique"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 px-4 py-2 border border-[#ec9322] rounded-full bg-[#ec9322] text-white hover:bg-[#e07c13] transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-brand-gold rounded-full bg-brand-gold text-white hover:bg-[#e07c13] transition-colors"
             >
               <FaGooglePlay size={20} />
               <span>Google Play</span>
@@ -45,7 +45,7 @@ const AppPromo = () => {
               href="https://play.google.com/store/apps/details?id=com.difmo.usdunique"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 px-4 py-2 border border-[#ec9322] rounded-full bg-[#ec9322] text-white hover:bg-[#e07c13] transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-brand-gold rounded-full bg-brand-gold text-white hover:bg-[#e07c13] transition-colors"
             >
               <FaApple size={20} />
               <span>App Store</span>

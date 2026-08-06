@@ -27,7 +27,7 @@ export default function SoldProperties() {
   return (
     <div className="p-8 max-w-6xl mx-auto bg-gray-50 min-h-screen">
       <div className="mb-8">
-        <h2 className="text-3xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+        <h2 className="text-3xl font-black text-brand-burgundy tracking-tight flex items-center gap-2">
           Construction Status <span className="text-gray-400 font-normal">|</span> Sold Properties
         </h2>
         <p className="text-gray-500 mt-1">A real-time overview of properties that have been sold.</p>
@@ -54,13 +54,13 @@ export default function SoldProperties() {
 
             {/* Content */}
             <div className="p-5 flex-grow flex flex-col">
-              <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-1">{property.projectBuildingName || property.title}</h3>
+              <h3 className="text-lg font-bold text-brand-burgundy mb-1 line-clamp-1">{property.projectBuildingName || property.title}</h3>
               <p className="text-sm text-gray-500 flex items-center gap-1 mb-3">
                 <MapPin size={14} /> {property.locality}, {property.city}
               </p>
               
               <div className="bg-gray-50 p-3 rounded-lg border border-gray-100 text-sm mt-auto">
-                <p className="text-gray-500 mb-1">Final Price: <strong className="text-gray-900">₹{property.price?.toLocaleString()}</strong></p>
+                <p className="text-gray-500 mb-1">Final Price: <strong className="text-brand-burgundy">₹{property.price?.toLocaleString()}</strong></p>
                 {property.buyerDetails && (
                   <div className="pt-2 mt-2 border-t border-gray-200">
                     <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Buyer Details</p>

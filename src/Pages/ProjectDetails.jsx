@@ -43,8 +43,8 @@ const ProjectDetails = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 pt-4 sm:pt-6 pb-12">
       <div className="text-center mb-10 sm:mb-12">
-        <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-          Explore Premium Properties in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441]">{city}</span>
+        <h1 className="text-4xl md:text-5xl font-black text-brand-burgundy tracking-tight">
+          Explore Premium Properties in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">{city}</span>
         </h1>
         <p className="mt-4 text-slate-600 font-medium max-w-2xl mx-auto text-sm sm:text-base">
           Discover our exclusive portfolio of meticulously planned residential plots, commercial spaces, and luxury living opportunities tailored for your aspirations in {city}.

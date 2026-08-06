@@ -6,10 +6,9 @@ export default {
   ],
   theme: {
     extend: {
-      color:{
-        primary: '#d8232',  // Customize the primary color
-        secondary: '#ec9322',  // Customize the secondary color
-         
+      colors: {
+        'brand-burgundy': '#3d1e24',
+        'brand-gold': '#e0a973',
       },
     },
   },

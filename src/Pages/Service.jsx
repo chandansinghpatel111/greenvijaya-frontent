@@ -15,7 +15,7 @@ const services = [
     image: image,
     url: "/contact",
     icon: <Building2 className="w-6 h-6" />,
-    color: "from-[#3d1e24] to-[#753441]"
+    color: "from-brand-burgundy to-brand-gold"
   },
   {
     title: "Leasing Solutions",
@@ -31,7 +31,7 @@ const services = [
     image: image2,
     url: "/contact",
     icon: <LandPlot className="w-6 h-6" />,
-    color: "from-[#3d1e24] to-[#602b36]"
+    color: "from-brand-burgundy to-[#602b36]"
   },
   {
     title: "Luxury Residential Renting",
@@ -39,7 +39,7 @@ const services = [
     image: image3,
     url: "/contact",
     icon: <Home className="w-6 h-6" />,
-    color: "from-[#462128] to-[#753441]"
+    color: "from-[#462128] to-brand-gold"
   },
   {
     title: "Modern PG & Co-living",
@@ -47,7 +47,7 @@ const services = [
     image: image4,
     url: "/contact",
     icon: <Users className="w-6 h-6" />,
-    color: "from-[#3d1e24] to-[#853949]"
+    color: "from-brand-burgundy to-[#853949]"
   },
   {
     title: "Property Management & Advisory",
@@ -55,7 +55,7 @@ const services = [
     image: image5,
     url: "/contact",
     icon: <Briefcase className="w-6 h-6" />,
-    color: "from-[#3d1e24] to-[#753441]"
+    color: "from-brand-burgundy to-brand-gold"
   },
 ];
 
@@ -71,8 +71,8 @@ export default function ExploreServices() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
-              Pioneering <span className="text-[#3d1e24]">Real Estate</span> Excellence
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-black text-brand-burgundy mb-6 tracking-tight leading-tight">
+              Pioneering <span className="text-brand-burgundy">Real Estate</span> Excellence
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl mx-auto">
               Green Vijaya Infra delivers a complete spectrum of bespoke real estate solutions. We bridge the gap between your property aspirations and landmark reality, driven by our commitment to transparency, innovation, and unwavering trust.
@@ -107,7 +107,7 @@ export default function ExploreServices() {
 
                 {/* Content */}
                 <div className="p-8 text-left">
-                  <h3 className="text-2xl font-bold text-slate-950 mb-3 group-hover:text-[#3d1e24] transition-colors">
+                  <h3 className="text-2xl font-bold text-brand-burgundy mb-3 group-hover:text-brand-burgundy transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-slate-600 leading-relaxed text-sm sm:text-base font-normal">
@@ -119,7 +119,7 @@ export default function ExploreServices() {
               <div className="px-8 pb-8 pt-2 text-left border-t border-slate-200/60 mx-8">
                 <a
                   href={service.url}
-                  className="inline-flex items-center text-sm font-extrabold text-[#3d1e24] group-hover:text-[#291217] transition-all"
+                  className="inline-flex items-center text-sm font-extrabold text-brand-burgundy group-hover:text-brand-burgundy transition-all"
                 >
                   Explore Details
                   <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" />
@@ -157,7 +157,7 @@ export default function ExploreServices() {
 
             <a
               href="/contact"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-10 py-4 text-base font-extrabold text-[#3d1e24] transition-all duration-300 hover:bg-rose-50 hover:scale-[1.02] active:scale-95 shadow-lg"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-10 py-4 text-base font-extrabold text-brand-burgundy transition-all duration-300 hover:bg-rose-50 hover:scale-[1.02] active:scale-95 shadow-lg"
             >
               <span>Get Expert Consultation</span>
               <ArrowRight size={18} />

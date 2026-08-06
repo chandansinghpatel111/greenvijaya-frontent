@@ -13,8 +13,8 @@ const Coming = () => {
           {/* Left Content Area: Brand Logo Green Styling, Zero Ad-Box Effects */}
           <div className="text-left">
 
-            <h2 className="text-3xl font-bold sm:text-5xl text-slate-950 tracking-tight leading-tight">
-              Elevate your property portfolio with <span className="text-[#3d1e24]">architectural benchmarks</span>.
+            <h2 className="text-3xl font-bold sm:text-5xl text-brand-burgundy tracking-tight leading-tight">
+              Elevate your property portfolio with <span className="text-brand-burgundy">architectural benchmarks</span>.
             </h2>
             <p className="mt-5 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 font-normal">
               From luxury green townships to future-ready commercial corridors, Green Vijaya delivers developments engineered for verified title security, uncompromising prestige, and guaranteed capital appreciation.
@@ -23,14 +23,14 @@ const Coming = () => {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={() => navigate('/listing-post')}
-                className="group inline-flex items-center gap-2.5 rounded-full bg-[#3d1e24] hover:bg-[#291217] px-8 py-4 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-brand-burgundy hover:bg-[#291217] px-8 py-4 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
               >
                 <span>Explore Masterplans</span>
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </button>
               <button
                 onClick={() => navigate('/contact')}
-                className="inline-flex items-center justify-center rounded-full bg-slate-100 hover:bg-rose-50 px-8 py-4 text-sm sm:text-base font-semibold text-[#3d1e24] transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+                className="inline-flex items-center justify-center rounded-full bg-slate-100 hover:bg-rose-50 px-8 py-4 text-sm sm:text-base font-semibold text-brand-burgundy transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
               >
                 Schedule Executive Call
               </button>
@@ -39,8 +39,8 @@ const Coming = () => {
             {/* Clean Stats Row without Heavy Borders */}
             <div className="mt-12 grid grid-cols-3 gap-4 pt-8 border-t border-slate-100">
               {[
-                { label: 'Landmark Projects', value: '50+', color: 'text-[#3d1e24]' },
-                { label: 'Portfolio Value', value: '₹50Cr+', color: 'text-[#753441]' },
+                { label: 'Landmark Projects', value: '50+', color: 'text-brand-burgundy' },
+                { label: 'Portfolio Value', value: '₹50Cr+', color: 'text-brand-gold' },
                 { label: 'Verified CSAT', value: '98%', color: 'text-[#a85567]' }
               ].map((stat) => (
                 <div key={stat.label} className="py-1">
@@ -90,7 +90,7 @@ const Coming = () => {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="group relative bg-gradient-to-br from-[#291217] via-[#3d1e24] to-[#753441] rounded-2xl border border-[#753441]/40 p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden cursor-pointer"
+                  className="group relative bg-gradient-to-br from-[#291217] via-[#3d1e24] to-brand-gold rounded-2xl border border-brand-gold/40 p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden cursor-pointer"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative z-10">

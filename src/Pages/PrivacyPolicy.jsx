@@ -4,13 +4,13 @@ const Privacypolicy = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
       <div className="max-w-4xl bg-white shadow-lg rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Privacy Policy</h1>
+        <h1 className="text-3xl font-bold text-brand-burgundy/90 mb-6">Privacy Policy</h1>
         
         <p className="text-gray-700 mb-4">
           Welcome to <strong>USD Unique</strong>. Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your information.
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">1. Information We Collect</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">1. Information We Collect</h2>
         <p className="text-gray-700 mb-4">We collect the following information:
           <ul className="list-disc ml-6 mt-2">
             <li>Email Address</li>
@@ -21,7 +21,7 @@ const Privacypolicy = () => {
           </ul>
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">2. How We Use Your Information</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">2. How We Use Your Information</h2>
         <p className="text-gray-700 mb-4">Your data is used for:
           <ul className="list-disc ml-6 mt-2">
             <li>Account Authentication</li>
@@ -32,7 +32,7 @@ const Privacypolicy = () => {
           </ul>
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">3. Data Sharing and Disclosure</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">3. Data Sharing and Disclosure</h2>
         <p className="text-gray-700 mb-4">
           We do not sell or share your personal data with third parties except in the following cases:
           <ul className="list-disc ml-6 mt-2">
@@ -43,12 +43,12 @@ const Privacypolicy = () => {
           </ul>
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">4. Data Security</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">4. Data Security</h2>
         <p className="text-gray-700 mb-4">
           We implement security measures to protect your information. Your password is stored securely, and we do not share your credentials with third parties.
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">5. User Credentials</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">5. User Credentials</h2>
         <p className="text-gray-700 mb-4">For testing purposes, you can use:
           <div className="bg-gray-200 p-4 rounded-md mt-2">
             <p><strong>Email:</strong> test3@gmail.com</p>
@@ -56,7 +56,7 @@ const Privacypolicy = () => {
           </div>
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">6. User Rights</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">6. User Rights</h2>
         <p className="text-gray-700 mb-4">
           You have the right to:
           <ul className="list-disc ml-6 mt-2">
@@ -67,12 +67,12 @@ const Privacypolicy = () => {
           </ul>
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">7. Changes to This Policy</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">7. Changes to This Policy</h2>
         <p className="text-gray-700 mb-4">
           We may update this policy from time to time. Any changes will be posted on this page, and we encourage you to review it periodically.
         </p>
         
-        <h2 className="text-xl font-semibold text-gray-800 mt-4">8. Contact Us</h2>
+        <h2 className="text-xl font-semibold text-brand-burgundy/90 mt-4">8. Contact Us</h2>
         <p className="text-gray-700 mb-4">If you have any questions about this Privacy Policy, please contact us at support@usdunique.com.</p>
       </div>
     </div>

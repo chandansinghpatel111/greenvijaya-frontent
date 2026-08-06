@@ -123,7 +123,7 @@ export default function NewlyProjectD() {
         <p className="text-lg text-gray-600 mb-2">
           <strong>City:</strong> {project.city || "City not available"}
         </p>
-        <p className="text-xl text-gray-800 font-bold mb-4">
+        <p className="text-xl text-brand-burgundy/90 font-bold mb-4">
           <strong>Price:</strong> ₹ {project.price || "Not available"}
         </p>
         <p className="text-lg text-gray-600 mb-2">
