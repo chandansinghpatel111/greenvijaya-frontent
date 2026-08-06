@@ -52,7 +52,8 @@ export default function PostProjectForm() {
       alert("Images uploaded successfully!");
     } catch (error) {
       console.error("Error uploading image: ", error);
-      alert("Image upload failed. Please try again.");
+      const errorMsg = error.response?.data?.message || error.message;
+      alert(`Image upload failed: ${errorMsg}`);
       setUploadProgress(0);
     }
   };
