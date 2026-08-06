@@ -160,7 +160,7 @@ const SignUp = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
+              className="no-light absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
             >
               {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
             </button>
@@ -182,7 +182,7 @@ const SignUp = () => {
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
+              className="no-light absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-[#753441] transition-colors"
             >
               {showConfirmPassword ? <EyeOff size={14} /> : <Eye size={14} />}
             </button>
