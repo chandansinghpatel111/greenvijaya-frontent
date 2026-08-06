@@ -41,6 +41,17 @@ const ContactUs = () => {
       });
 
       setResponseMessage("✅ Your message has been sent successfully!");
+
+      // Generate WhatsApp Link
+      const adminWhatsApp = "919450058323";
+      const textMessage = encodeURIComponent(
+        `Hi Green Vijaya Team,\n\nI have a new enquiry.\n\n*Name:* ${firstName} ${lastName}\n*Email:* ${email}\n*Mobile:* ${mobileNumber}\n*Message:* ${message}`
+      );
+      const whatsappUrl = `https://wa.me/${adminWhatsApp}?text=${textMessage}`;
+      
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, '_blank');
+
       setFirstName("");
       setLastName("");
       setEmail("");
