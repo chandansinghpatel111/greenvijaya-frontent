@@ -78,7 +78,7 @@ const PostPropertyListing = () => {
     <div className="bg-white relative">
       <motion.div
         ref={ref}
-        className="section-shell -mt-8 sm:-mt-12 pt-0 pb-16 sm:pb-20 relative z-10"
+        className="section-shell pt-8 sm:pt-12 pb-16 sm:pb-20 relative z-10"
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
