@@ -58,84 +58,87 @@ const ServiceDetail = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-0 pb-12 sm:pb-16 -mt-2 sm:-mt-4">
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <h1 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-[#291217] via-[#461e27] to-[#753441] bg-clip-text text-transparent tracking-tight mb-4 leading-tight py-1">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-16 sm:pb-24">
+      {/* Header Section */}
+      <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-[#291217] via-[#461e27] to-[#753441] bg-clip-text text-transparent tracking-tight mb-6 leading-tight py-1">
           {service.title}
         </h1>
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+        <p className="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed font-medium px-2">
           {service.description}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Image Section */}
-        <div className="relative group rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        {/* Image Section (Takes up 7 columns on desktop) */}
+        <div className="lg:col-span-7 relative group rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100">
           <img 
             src={service.image} 
             alt={service.title} 
-            className="w-full h-[300px] sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" 
+            className="w-full h-[350px] sm:h-[450px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105" 
             loading="lazy" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-white/20 inline-block">
-              <p className="text-[#3d1e24] font-extrabold text-sm uppercase tracking-wider mb-1">Starting From</p>
-              <p className="text-2xl font-black text-slate-900">{service.priceRange.split(' - ')[0]}</p>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8">
+            <div className="bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl shadow-xl border border-white/40 transform transition-transform duration-500 hover:-translate-y-2">
+              <p className="text-[#3d1e24] font-extrabold text-xs sm:text-sm uppercase tracking-widest mb-1">Starting From</p>
+              <p className="text-2xl sm:text-3xl font-black text-slate-900">{service.priceRange.split(' - ')[0]}</p>
             </div>
           </div>
         </div>
 
-        {/* Details Section */}
-        <div className="flex flex-col gap-6">
-          <h3 className="text-2xl font-extrabold text-slate-900 mb-2 border-b border-slate-100 pb-4">Key Highlights</h3>
+        {/* Details Section (Takes up 5 columns on desktop) */}
+        <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 border-b-2 border-rose-100 pb-4 inline-block w-fit">
+            Key Highlights
+          </h3>
           
-          <div className="grid gap-6">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center text-[#753441]">
-                <MapPin size={24} />
+          <div className="grid gap-6 sm:gap-8 mt-2">
+            <div className="flex gap-5 items-start">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-rose-50 flex items-center justify-center text-[#753441] shadow-sm">
+                <MapPin size={26} strokeWidth={2.5} />
               </div>
-              <div>
-                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Location Focus</p>
-                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.location}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-                <Building size={24} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Property Type</p>
-                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.projectType}</p>
+              <div className="pt-1">
+                <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Location Focus</p>
+                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.location}</p>
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                <ShieldCheck size={24} />
+            <div className="flex gap-5 items-start">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shadow-sm">
+                <Building size={26} strokeWidth={2.5} />
               </div>
-              <div>
-                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Premium Amenities</p>
-                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.amenities}</p>
+              <div className="pt-1">
+                <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Property Type</p>
+                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.projectType}</p>
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-                <Banknote size={24} />
+            <div className="flex gap-5 items-start">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 shadow-sm">
+                <ShieldCheck size={26} strokeWidth={2.5} />
               </div>
-              <div>
-                <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Investment Range</p>
-                <p className="text-lg font-semibold text-slate-900 mt-0.5">{service.priceRange}</p>
+              <div className="pt-1">
+                <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Premium Amenities</p>
+                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.amenities}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-5 items-start">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 shadow-sm">
+                <Banknote size={26} strokeWidth={2.5} />
+              </div>
+              <div className="pt-1">
+                <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Investment Range</p>
+                <p className="text-base sm:text-lg font-bold text-slate-900 leading-tight">{service.priceRange}</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-slate-100 flex gap-4">
+          <div className="mt-8 pt-8 border-t border-slate-200">
             <Link 
               to="/contact" 
-              className="flex-1 bg-[#3d1e24] text-white text-center px-6 py-4 rounded-2xl font-bold shadow-lg shadow-rose-950/20 hover:bg-[#291217] transition-all hover:-translate-y-1"
+              className="flex w-full items-center justify-center bg-[#3d1e24] text-white px-8 py-5 rounded-2xl font-black text-lg shadow-xl shadow-rose-950/20 hover:bg-[#291217] transition-all hover:-translate-y-1 hover:shadow-rose-950/30"
             >
               Contact Sales Expert
             </Link>
