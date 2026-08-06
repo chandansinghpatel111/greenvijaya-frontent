@@ -53,7 +53,7 @@ const City = () => {
     >
       {/* Heading */}
       <motion.h1
-        className="text-3xl font-bold text-center mb-10 text-[#133763]"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 text-[#133763]"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -127,7 +127,7 @@ const City = () => {
             Step into our corporate office to discuss your real estate aspirations. Experience our commitment to innovation, transparency, and building your dreams.
           </p>
         </div>
-        
+
         {/* Premium Map Container */}
         <div className="relative max-w-5xl mx-auto group">
           <div className="absolute -inset-1.5 bg-gradient-to-r from-[#3d1e24] via-[#753441] to-[#3d1e24] rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
@@ -156,7 +156,7 @@ const City = () => {
         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-wide">
           Join Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#753441] italic font-serif">Exclusive Network</span>
         </h2>
-        
+
         <div className="flex justify-center gap-5 sm:gap-6">
           {[
             {

@@ -49,18 +49,14 @@ const HeroSection = () => (
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-left flex flex-col justify-center"
         >
-          <div className="flex items-center gap-4 mb-4">
-            <span className="w-12 h-[1px] bg-[#753441]"></span>
-            <span className="text-[#753441] text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">Discover Green Vijya</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-gray-900 mb-6 leading-[1.1] font-black tracking-tight">
-            Our Visionary <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#56252f]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-gray-900 mb-4 sm:mb-6 leading-[1.1] sm:leading-[1.1] font-black tracking-tight">
+            Our Visionary <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d1e24] to-[#56252f] sm:ml-0 ml-1">
               Story
             </span>
           </h1>
 
-          <p className="max-w-xl text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-10">
+          <p className="max-w-xl text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-8 sm:mb-10">
             Crafting premium lifestyles. At <span className="text-[#3d1e24] font-bold">Green Vijya</span>, your trust is the foundation of our legacy.
           </p>
 
@@ -77,7 +73,7 @@ const HeroSection = () => (
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative h-[300px] sm:h-[350px] lg:h-[400px] w-full mt-10 lg:mt-0"
+          className="relative h-[300px] sm:h-[350px] lg:h-[400px] w-full mt-10 lg:mt-16"
         >
           {/* Main Hero Image */}
           <div className="w-full h-full rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border-[3px] border-white bg-gray-100 group">
