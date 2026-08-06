@@ -96,11 +96,10 @@ function Slider() {
                     {["", "Residential", "Commercial", "Flat/Apartment", "Independent House/Villa", "Plot/Land", "1 RK/Studio Apartment", "Office", "Retail", "Storage", "Industry"].map((type) => (
                       <div
                         key={type}
-                        className={`px-4 py-2.5 text-[13px] cursor-pointer transition-all duration-200 flex items-center ${
-                          propertyType === type 
-                            ? "bg-slate-50 text-[#b8860b] font-semibold border-l-[3px] border-[#d4af37]" 
-                            : "text-slate-600 hover:bg-slate-50/80 hover:text-[#d4af37] border-l-[3px] border-transparent"
-                        }`}
+                        className={`px-4 py-2.5 text-[13px] cursor-pointer transition-all duration-200 flex items-center ${propertyType === type
+                          ? "bg-slate-50 text-[#b8860b] font-semibold border-l-[3px] border-[#d4af37]"
+                          : "text-slate-600 hover:bg-slate-50/80 hover:text-[#d4af37] border-l-[3px] border-transparent"
+                          }`}
                         onClick={() => { setPropertyType(type); setIsDropdownOpen(false); }}
                       >
                         {type === "" ? "Property Type" : type}
@@ -115,7 +114,7 @@ function Slider() {
               onClick={() => {
                 navigate(`/Search?query=${encodeURIComponent(searchQuery)}&type=${propertyType}`);
               }}
-              className="flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:from-[#f0e6d2] hover:to-[#d4af37] text-[#240a12] rounded-xl sm:rounded-full px-6 py-2.5 sm:py-2 font-bold text-[13px] transition-all shadow-md shrink-0"
+              className="flex items-center justify-center w-full bg-black/30 backdrop-blur-md text-white sm:w-auto from-[#d4af37] to-[#b8860b] hover:from-[#f0e6d2] hover:to-[#d4af37] text-[#240a12] rounded-xl sm:rounded-full px-6 py-2.5 sm:py-2 font-bold text-[13px] transition-all shadow-md shrink-0"
             >
               <Search size={14} className="mr-1.5" /> Search
             </button>
@@ -138,7 +137,7 @@ function Slider() {
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
             <button
               onClick={() => navigate('/Search')}
-              className="group flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b8860b] px-8 py-4 text-sm sm:text-base font-bold text-[#240a12] shadow-lg shadow-[#d4af37]/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
+              className="group flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-[#240a12]/80 backdrop-blur-sm text-white px-8 py-4 text-sm sm:text-base font-bold text-[#240a12] shadow-lg shadow-[#d4af37]/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
             >
               <span>Explore Properties</span>
               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5 shrink-0" />

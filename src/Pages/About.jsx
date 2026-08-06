@@ -34,7 +34,7 @@ const coreValues = [
 // --- COMPONENTS ---
 
 const HeroSection = () => (
-  <section className="relative pt-6 sm:pt-10 pb-24 sm:pb-32">
+  <section className="relative pb-24 sm:pb-32 -mt-4 sm:-mt-8">
     {/* Premium Background Elements */}
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[60%] bg-gradient-to-br from-[#753441]/20 to-transparent rounded-full blur-[120px]"></div>

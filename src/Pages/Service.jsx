@@ -71,7 +71,7 @@ export default function ExploreServices() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
               Pioneering <span className="text-[#3d1e24]">Real Estate</span> Excellence
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl mx-auto">

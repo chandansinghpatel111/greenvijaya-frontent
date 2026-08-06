@@ -70,7 +70,7 @@ const NewsProject = () => {
   return (
     <div className="section-shell pt-4 sm:pt-6 pb-14 sm:pb-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-slate-950">
+        <h2 className="text-3xl sm:text-5xl font-bold text-slate-950">
           Prime Landmark Projects & <span className="text-[#3d1e24]">Real Estate Townships</span>
         </h2>
         <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
