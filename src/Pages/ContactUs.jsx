@@ -68,7 +68,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="bg-[#f6f9fa] min-h-screen font-sans w-full overflow-hidden flex flex-col justify-center pt-1 sm:pt-1 pb-12 sm:pb-16 lg:pb-24">
+    <div className="bg-[#f6f9fa] mt-10 font-sans w-full overflow-hidden flex flex-col justify-center pt-1 sm:pt-1 pb-12 sm:pb-16">
       <div className="section-shell max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 

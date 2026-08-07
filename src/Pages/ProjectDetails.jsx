@@ -44,10 +44,10 @@ const ProjectDetails = () => {
     <div className="max-w-6xl mx-auto px-4 pt-4 sm:pt-6 pb-12">
       <div className="text-center mb-10 sm:mb-12">
         <h1 className="text-4xl md:text-5xl font-black text-brand-burgundy tracking-tight">
-          Explore Premium Properties in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">{city}</span>
+          Explore Premium Projects in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">{city}</span>
         </h1>
         <p className="mt-4 text-slate-600 font-medium max-w-2xl mx-auto text-sm sm:text-base">
-          Discover our exclusive portfolio of meticulously planned residential plots, commercial spaces, and luxury living opportunities tailored for your aspirations in {city}.
+          Discover our exclusive portfolio of meticulously planned residential townships, commercial projects, and luxury living opportunities tailored for your aspirations in {city}.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -81,7 +81,7 @@ const ProjectDetails = () => {
               <div className="mt-6 pt-4 border-t border-slate-100">
                 <button
                   onClick={() => handleWhatsAppBooking(project)}
-                  className="w-full bg-[#128C7E] text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_14px_rgba(37,211,102,0.3)] flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-brand-burgundy to-brand-gold text-white font-bold py-3 px-4 rounded-full transition-all shadow-md hover:shadow-lg hover:opacity-90 flex items-center justify-center gap-2"
                 >
                   <FaWhatsapp size={20} />
                   Enquire on WhatsApp

@@ -35,11 +35,11 @@ export default function Search() {
   }, []);
 
   const filteredProjects = projects.filter(project => {
-    const matchesSearch = 
+    const matchesSearch =
       (project.projectBuildingName && project.projectBuildingName.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (project.city && project.city.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesType = !initialType || 
+
+    const matchesType = !initialType ||
       (project.propertyCategory && project.propertyCategory.toLowerCase() === initialType.toLowerCase()) ||
       (project.propertyType && project.propertyType.toLowerCase() === initialType.toLowerCase());
 
@@ -50,13 +50,13 @@ export default function Search() {
     const title = (prop.title || prop.projectBuildingName || "").toLowerCase();
     const city = (prop.city || prop.locality || "").toLowerCase();
     const ownerName = (prop.postedBy?.name || "").toLowerCase();
-    
-    const matchesSearch = 
-      title.includes(searchTerm.toLowerCase()) || 
+
+    const matchesSearch =
+      title.includes(searchTerm.toLowerCase()) ||
       city.includes(searchTerm.toLowerCase()) ||
       ownerName.includes(searchTerm.toLowerCase());
-    
-    const matchesType = !initialType || 
+
+    const matchesType = !initialType ||
       (prop.propertyCategory && prop.propertyCategory.toLowerCase() === initialType.toLowerCase()) ||
       (prop.propertyType && prop.propertyType.toLowerCase() === initialType.toLowerCase());
 
@@ -71,7 +71,7 @@ export default function Search() {
   return (
     <div className="min-h-screen bg-slate-50/50 pt-6 sm:pt-8 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Search Header */}
         <div className="bg-white rounded-2xl shadow-sm border border-[#d4af37]/30 p-6 mb-10 flex flex-col md:flex-row items-center gap-4">
           <div className="flex-1 w-full relative flex flex-col sm:flex-row gap-3">
@@ -85,7 +85,7 @@ export default function Search() {
                 className="w-full pl-12 pr-4 py-3 rounded-xl border border-[#d4af37]/40 focus:outline-none focus:ring-2 focus:ring-[#d4af37]/30 focus:border-[#d4af37] transition-all bg-slate-50 text-brand-burgundy/90 placeholder:text-slate-400"
               />
             </div>
-            <button 
+            <button
               className="bg-gradient-to-r from-[#e3b838] to-[#c29624] hover:from-[#d4af37] hover:to-[#b38f2d] text-brand-burgundy px-8 py-3 rounded-full font-extrabold transition-all duration-300 shadow-md shadow-yellow-900/20 active:scale-95 w-full sm:w-auto flex items-center justify-center gap-2"
             >
               <SearchIcon size={18} strokeWidth={2.5} />
@@ -97,7 +97,7 @@ export default function Search() {
         {/* Header Text */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-brand-burgundy mb-2">
-            {searchTerm ? `Search Results for "${searchTerm}"` : "All Projects"}
+            {searchTerm ? `Search Results for "${searchTerm}"` : "All Properties and Projects"}
           </h1>
           <p className="text-slate-500">
             {combinedResults.length} {combinedResults.length === 1 ? 'result' : 'results'} found
@@ -115,10 +115,10 @@ export default function Search() {
               <div key={item._id || item.id} className="bg-white rounded-[1.5rem] border border-slate-200/80 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
                 <div className="relative h-60 overflow-hidden">
                   {Array.isArray(item.images) && item.images.length > 0 && getImageUrl(item.images[0]) ? (
-                    <img 
-                      src={getImageUrl(item.images[0])} 
-                      alt={item.title || item.projectBuildingName} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                    <img
+                      src={getImageUrl(item.images[0])}
+                      alt={item.title || item.projectBuildingName}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   ) : (
                     <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">
@@ -127,11 +127,11 @@ export default function Search() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-burgundy flex items-center gap-1.5 shadow-sm">
-                    <ShieldCheck size={14} className="text-green-600" /> 
+                    <ShieldCheck size={14} className="text-green-600" />
                     {item.resultType === 'project' ? 'Verified Project' : 'Verified Property'}
                   </div>
                 </div>
-                
+
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-bold text-brand-burgundy mb-2 line-clamp-1">
                     {item.title || item.projectBuildingName || "Untitled"}
@@ -140,9 +140,9 @@ export default function Search() {
                     <MapPin size={16} className="mr-1 text-brand-gold" />
                     {item.locality ? `${item.locality}, ` : ''}{item.city || "Location Not Specified"}
                   </div>
-                  
+
                   <div className="mt-auto pt-4 border-t border-slate-100">
-                    <button 
+                    <button
                       onClick={() => {
                         if (item.resultType === 'project') {
                           navigate(`/project/${item.city}`);
@@ -164,7 +164,7 @@ export default function Search() {
             <Building className="mx-auto h-12 w-12 text-slate-300 mb-4" />
             <h3 className="text-xl font-bold text-brand-burgundy mb-2">No projects found</h3>
             <p className="text-slate-500">We couldn't find any properties matching your search criteria.</p>
-            <button 
+            <button
               onClick={() => setSearchTerm("")}
               className="mt-6 text-brand-gold font-bold hover:underline"
             >

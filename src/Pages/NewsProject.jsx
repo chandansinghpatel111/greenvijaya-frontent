@@ -70,8 +70,8 @@ const NewsProject = () => {
   return (
     <div className="section-shell pt-4 sm:pt-6 pb-14 sm:pb-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-5xl font-bold text-brand-burgundy">
-          Prime Landmark Projects & <span className="text-brand-burgundy">Real Estate Townships</span>
+        <h2 className="text-3xl sm:text-5xl font-bold text-brand-burgundy tracking-tight">
+          Prime Landmark Projects & <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Real Estate Townships</span>
         </h2>
         <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
           Explore Green-Vijaya&apos;s strategic projects developments engineered for luxury living, vibrant commercial growth, and high-value architectural excellence across premier urban destinations.
@@ -109,24 +109,40 @@ const NewsProject = () => {
                       {project.city || "Verified Project"}
                     </span>
                   </div>
-                  <div className="p-6 text-left">
-                    <h3 className="text-2xl font-bold text-brand-burgundy mb-2 line-clamp-1">{project.projectBuildingName || project.title || "Exclusive Project"}</h3>
+                  <div className="p-4 text-left flex flex-col h-full justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold text-brand-burgundy line-clamp-1">{project.projectBuildingName || project.title || "Exclusive Project"}</h3>
+                      <p className="text-slate-500 text-sm mb-4">{project.city}</p>
 
-                    <p className="text-slate-600 text-sm mb-5 leading-relaxed font-normal h-10 overflow-hidden text-ellipsis">
-                      {project.description || "Explore exclusive real estate opportunities in this city."}
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-2 w-full mt-2">
+                      <div className="space-y-1 mb-2 text-sm text-slate-700">
+                        <p><strong>Price:</strong> ₹ {project.price || "N/A"}</p>
+                        <p><strong>Plot Area:</strong> {project.plotArea || "N/A"}</p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50 rounded-lg border border-slate-100">
+                        <p><strong>Listing Type:</strong><br />{project.listingType || "N/A"}</p>
+                        <p><strong>Category:</strong><br />{project.propertyCategory || "N/A"}</p>
+                        <p><strong>Property Type:</strong><br />{project.propertyType || "N/A"}</p>
+                        <p><strong>Facing:</strong><br />{project.facingType || "N/A"}</p>
+                      </div>
+
+                      {/* <p className="text-slate-600 text-sm mb-2 leading-relaxed font-normal h-10 overflow-hidden text-ellipsis">
+                        {project.description || "Explore exclusive real estate opportunities in this city."}
+                      </p> */}
+                    </div>
+
+                    <div className="flex flex-col gap-2 w-full mt-auto pt-2 border-t border-slate-100">
                       <CustomButton
                         onClick={() => navigate(`/project/${project.city}`)}
                         text="Learn More"
-                        className="flex-1 justify-center"
+                        className="w-full justify-center py-2"
                       />
                       <button
                         onClick={() => handleWhatsAppEnquiry(project)}
-                        className="flex-1 flex items-center justify-center gap-2 bg-[#3d1e24] text-white font-bold py-2.5 px-4 rounded-full transition-all shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_15px_rgba(37,211,102,0.4)]"
+                        className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-brand-burgundy to-brand-gold text-white font-bold py-2 px-4 rounded-full transition-all shadow-md hover:shadow-lg hover:opacity-90"
                       >
                         <FaWhatsapp size={18} />
-                        Enquire
+                        Enquire on WhatsApp
                       </button>
                     </div>
                   </div>
@@ -137,11 +153,11 @@ const NewsProject = () => {
         </div>
 
         {/* Normal Navigation Controls - Static Left and Right side buttons below cards without floating overlays */}
-        <div className="flex items-center justify-between mt-6 px-3">
+        <div className="flex items-center justify-between">
           <button
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
+            className="flex items-center gap-1 bg-slate-100 border border-slate-200 py-2 px-1 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
           >
             <ChevronLeft className="w-5 h-5" />
             <span>Previous</span>
@@ -161,7 +177,7 @@ const NewsProject = () => {
           <button
             onClick={nextSlide}
             aria-label="Next slide"
-            className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
+            className="flex items-center gap-1 bg-slate-100 border border-slate-200 px-2 py-2 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none"
           >
             <span>Next</span>
             <ChevronRight className="w-5 h-5" />

@@ -6,7 +6,15 @@ export default function ProjectExplore() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingProject, setEditingProject] = useState(null);
-  const [editForm, setEditForm] = useState({ title: '', price: '' });
+  const [editForm, setEditForm] = useState({ 
+    title: '', 
+    price: '',
+    plotArea: '',
+    listingType: '',
+    propertyCategory: '',
+    propertyType: '',
+    facingType: ''
+  });
 
   useEffect(() => {
     fetchProjects();
@@ -38,7 +46,12 @@ export default function ProjectExplore() {
     setEditingProject(project);
     setEditForm({
       title: project.title || '',
-      price: project.price || ''
+      price: project.price || '',
+      plotArea: project.plotArea || '',
+      listingType: project.listingType || '',
+      propertyCategory: project.propertyCategory || '',
+      propertyType: project.propertyType || '',
+      facingType: project.facingType || ''
     });
   };
 
@@ -46,12 +59,26 @@ export default function ProjectExplore() {
     try {
       await apiClient.put(`/projects/${editingProject._id}`, {
         title: editForm.title,
-        price: editForm.price
+        price: editForm.price,
+        plotArea: editForm.plotArea,
+        listingType: editForm.listingType,
+        propertyCategory: editForm.propertyCategory,
+        propertyType: editForm.propertyType,
+        facingType: editForm.facingType
       });
       setProjects((prev) =>
         prev.map((proj) => 
           proj._id === editingProject._id 
-            ? { ...proj, title: editForm.title, price: editForm.price } 
+            ? { 
+                ...proj, 
+                title: editForm.title, 
+                price: editForm.price,
+                plotArea: editForm.plotArea,
+                listingType: editForm.listingType,
+                propertyCategory: editForm.propertyCategory,
+                propertyType: editForm.propertyType,
+                facingType: editForm.facingType
+              } 
             : proj
         )
       );
@@ -151,7 +178,7 @@ export default function ProjectExplore() {
               </button>
             </div>
             
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1">Project Title</label>
                 <input 
@@ -169,6 +196,88 @@ export default function ProjectExplore() {
                   onChange={(e) => setEditForm({...editForm, price: e.target.value})}
                   className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none transition-all"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">Plot Area</label>
+                <input
+                  type="text"
+                  value={editForm.plotArea}
+                  onChange={(e) => setEditForm({ ...editForm, plotArea: e.target.value })}
+                  className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none transition-all"
+                  placeholder="e.g. 5 Acres, 3000 sqft"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">Listing Type</label>
+                  <select 
+                    value={editForm.listingType} 
+                    onChange={(e) => setEditForm({...editForm, listingType: e.target.value})}
+                    className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value="Sell">Sell</option>
+                    <option value="Rent">Rent</option>
+                    <option value="PG">PG</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">Facing Type</label>
+                  <select 
+                    value={editForm.facingType} 
+                    onChange={(e) => setEditForm({...editForm, facingType: e.target.value})}
+                    className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value="North">North</option>
+                    <option value="South">South</option>
+                    <option value="East">East</option>
+                    <option value="West">West</option>
+                    <option value="North-East">North-East</option>
+                    <option value="North-West">North-West</option>
+                    <option value="South-East">South-East</option>
+                    <option value="South-West">South-West</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">Category</label>
+                  <select 
+                    value={editForm.propertyCategory} 
+                    onChange={(e) => setEditForm({...editForm, propertyCategory: e.target.value, propertyType: ''})}
+                    className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial">Commercial</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">Property Type</label>
+                  <select 
+                    value={editForm.propertyType} 
+                    onChange={(e) => setEditForm({...editForm, propertyType: e.target.value})}
+                    className="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] outline-none transition-all"
+                  >
+                    <option value="">Select</option>
+                    {editForm.propertyCategory === 'Residential' && (
+                      <>
+                        <option value="Flat/Apartment">Flat/Apartment</option>
+                        <option value="Independent House/Villa">Independent House/Villa</option>
+                        <option value="Plot/Land">Plot/Land</option>
+                        <option value="1 RK/Studio Apartment">1 RK/Studio Apartment</option>
+                      </>
+                    )}
+                    {editForm.propertyCategory === 'Commercial' && (
+                      <>
+                        <option value="Office">Office</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Plot/Land">Plot/Land</option>
+                        <option value="Storage">Storage</option>
+                        <option value="Industry">Industry</option>
+                      </>
+                    )}
+                  </select>
+                </div>
               </div>
             </div>
             

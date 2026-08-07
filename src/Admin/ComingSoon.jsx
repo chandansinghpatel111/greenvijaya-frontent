@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import apiClient from "../api/apiClient";
-import { UserPlus, Key, Mail, Phone, Shield } from "lucide-react";
+import { UserPlus, Key, Mail, Phone, Shield, Eye, EyeOff } from "lucide-react";
 
 const AdminSignup = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // New User Form State
   const [newUser, setNewUser] = useState({ name: '', email: '', mobileNumber: '', password: '', role: 'admin' });
   const [formMsg, setFormMsg] = useState({ type: '', text: '' });
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -41,7 +42,7 @@ const AdminSignup = () => {
   const handleResetPassword = async (user) => {
     const newPassword = prompt(`Enter new password for ${user.name} (${user.email}):`);
     if (!newPassword) return;
-    
+
     if (newPassword.length < 6) {
       alert("Password must be at least 6 characters.");
       return;
@@ -74,38 +75,49 @@ const AdminSignup = () => {
             <h3 className="text-lg font-bold text-brand-burgundy flex items-center gap-2 mb-4">
               <UserPlus size={20} className="text-brand-gold" /> Create New User
             </h3>
-            
+
             {formMsg.text && (
               <div className={`p-3 rounded-lg mb-4 text-sm font-bold ${formMsg.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                 {formMsg.text}
               </div>
             )}
-            
+
             <form onSubmit={handleCreateUser} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1">Name</label>
-                <input required type="text" value={newUser.name} onChange={e => setNewUser({...newUser, name: e.target.value})} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Full Name" />
+                <input required type="text" value={newUser.name} onChange={e => setNewUser({ ...newUser, name: e.target.value })} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Full Name" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1">Email</label>
-                <input required type="email" value={newUser.email} onChange={e => setNewUser({...newUser, email: e.target.value})} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Email Address" />
+                <input required type="email" value={newUser.email} onChange={e => setNewUser({ ...newUser, email: e.target.value })} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Email Address" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1">Mobile Number</label>
-                <input required type="text" value={newUser.mobileNumber} onChange={e => setNewUser({...newUser, mobileNumber: e.target.value})} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Phone Number" />
+                <input required type="text" value={newUser.mobileNumber} onChange={e => setNewUser({ ...newUser, mobileNumber: e.target.value })} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Phone Number" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1">Role</label>
-                <select value={newUser.role} onChange={e => setNewUser({...newUser, role: e.target.value})} className="w-full border border-gray-300 p-2 rounded-lg text-sm">
+                <select value={newUser.role} onChange={e => setNewUser({ ...newUser, role: e.target.value })} className="w-full border border-gray-300 p-2 rounded-lg text-sm">
                   <option value="admin">Admin</option>
                   <option value="user">User</option>
                 </select>
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1">Temporary Password</label>
-                <input required type="password" value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})} className="w-full border border-gray-300 p-2 rounded-lg text-sm" placeholder="Min 6 characters" minLength={6} />
+                <div className="relative flex items-center w-full">
+                  <input required type={showPassword ? "text" : "password"} value={newUser.password} onChange={e => setNewUser({ ...newUser, password: e.target.value })} className="w-full border border-gray-300 p-2 rounded-lg text-sm pr-10" placeholder="Min 6 characters" minLength={6} />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="text-gray-400 hover:text-gray-600 focus:outline-none flex"
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
               </div>
-              
+
               <button type="submit" className="w-full bg-brand-gold text-white py-2.5 rounded-lg font-bold text-sm hover:bg-[#5a2832] transition">
                 Create Account
               </button>
@@ -119,7 +131,7 @@ const AdminSignup = () => {
             <div className="p-4 border-b border-gray-100 bg-gray-50">
               <h3 className="font-bold text-brand-burgundy">All Registered Users</h3>
             </div>
-            
+
             {loading ? (
               <div className="p-8 text-center text-gray-500">Loading users...</div>
             ) : (
@@ -140,12 +152,12 @@ const AdminSignup = () => {
                           <div className="font-bold text-brand-burgundy">{user.name}</div>
                         </td>
                         <td className="px-4 py-3">
-                          <div className="text-xs text-gray-600 flex items-center gap-1"><Mail size={12}/> {user.email}</div>
-                          <div className="text-xs text-gray-600 flex items-center gap-1 mt-0.5"><Phone size={12}/> {user.mobileNumber || 'N/A'}</div>
+                          <div className="text-xs text-gray-600 flex items-center gap-1"><Mail size={12} /> {user.email}</div>
+                          <div className="text-xs text-gray-600 flex items-center gap-1 mt-0.5"><Phone size={12} /> {user.mobileNumber || 'N/A'}</div>
                         </td>
                         <td className="px-4 py-3 text-center">
                           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide
-                            ${user.role === 'admin' ? 'bg-purple-100 text-purple-700 border border-purple-200' : 
+                            ${user.role === 'admin' ? 'bg-purple-100 text-purple-700 border border-purple-200' :
                               'bg-gray-100 text-gray-700 border border-gray-200'}`}
                           >
                             {user.role === 'admin' && <Shield size={10} />}
@@ -153,7 +165,7 @@ const AdminSignup = () => {
                           </span>
                         </td>
                         <td className="px-4 py-3 text-center">
-                          <button 
+                          <button
                             onClick={() => handleResetPassword(user)}
                             className="inline-flex items-center gap-1 bg-white border border-gray-300 text-gray-700 px-2.5 py-1.5 rounded text-xs font-bold hover:bg-gray-50 hover:text-brand-burgundy transition"
                           >
@@ -162,7 +174,7 @@ const AdminSignup = () => {
                         </td>
                       </tr>
                     ))}
-                    
+
                     {users.length === 0 && (
                       <tr>
                         <td colSpan="4" className="text-center p-8 text-gray-500">No users found.</td>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import apiClient from "../api/apiClient";
+import { useAuth } from "../context/AuthContext";
 
 const AdminGuard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,6 +12,7 @@ const AdminGuard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   useEffect(() => {
     const authStatus = sessionStorage.getItem("adminAuth");
@@ -29,9 +31,8 @@ const AdminGuard = () => {
       if (response.data.role === 'admin') {
         setIsAuthenticated(true);
         sessionStorage.setItem("adminAuth", "true");
-        // Also sync with standard localStorage if AuthContext relies on it globally
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data));
+        // Sync with global AuthContext
+        login(response.data, response.data.token);
       } else {
         setError("Access Denied: You do not have admin privileges.");
       }

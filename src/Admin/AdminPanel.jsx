@@ -67,10 +67,10 @@ const AdminPanel = () => {
 
   const navItems = [
     { name: "Dashboard Overview", path: "/admin", icon: <LayoutDashboard size={20} /> },
-    { name: "Project Explore", path: "/admin/ProjectExplore", icon: <Building2 size={20} /> },
-    { name: "Property Approvals", path: "/admin/PropertyApproval", icon: <ClipboardList size={20} /> },
     { name: "Post Property", path: "/admin/PostPropertyForm", icon: <Home size={20} /> },
     { name: "Post Project", path: "/admin/PostProjectForm", icon: <TrendingUp size={20} /> },
+    { name: "Project Explore", path: "/admin/ProjectExplore", icon: <Building2 size={20} /> },
+    { name: "Property Approvals", path: "/admin/PropertyApproval", icon: <ClipboardList size={20} /> },
     { name: "Construction Status", path: "/admin/Buys", icon: <BarChart3 size={20} /> },
     { name: "Admin Signup", path: "/admin/AdminSignup", icon: <Settings size={20} /> },
   ];

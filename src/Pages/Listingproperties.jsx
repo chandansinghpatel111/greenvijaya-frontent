@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight, MapPin, ArrowRight, CheckCircle2, Ruler, Sofa, Layers } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import apiClient from "../api/apiClient";
 import { getImageUrl } from "../utils/imageUtils";
 
@@ -12,6 +12,8 @@ const PostPropertyListing = () => {
   const [visibleCards, setVisibleCards] = useState(3);
   const [Properties, setProperties] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -42,8 +44,13 @@ const PostPropertyListing = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const filteredProperties = Properties; // backend already returns Approved properties
-  const totalSlides = Math.max(1, filteredProperties.length - visibleCards + 1);
+  const filteredProperties = isHome ? Properties.slice(0, visibleCards) : Properties; // backend already returns Approved properties
+  const cardsPerSlide = isHome ? visibleCards : visibleCards * 2;
+  const slides = [];
+  for (let i = 0; i < filteredProperties.length; i += cardsPerSlide) {
+    slides.push(filteredProperties.slice(i, i + cardsPerSlide));
+  }
+  const totalSlides = Math.max(1, slides.length);
 
   const nextSlide = () => {
     if (totalSlides > 1) {
@@ -84,7 +91,7 @@ const PostPropertyListing = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         {/* Header Section */}
-        <div className="mb-14 flex flex-col lg:flex-row lg:items-center lg:justify-between border-b border-brand-burgundy/10 pb-10 gap-8">
+        <div className="mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between border-b border-brand-burgundy/10 pb-10 gap-8">
           <div className="max-w-2xl text-left">
 
             <h2 className="text-4xl font-black text-brand-burgundy sm:text-5xl lg:text-6xl tracking-tight leading-[1.1]">
@@ -113,24 +120,29 @@ const PostPropertyListing = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative -mx-2 sm:mx-0 px-2 sm:px-0">
-          <div className="overflow-hidden py-4 px-2">
+        <div className="relative mx-2 sm:mx-0 px-2 sm:px-0">
+          <div className="overflow-hidden py-1 px-2">
             <div
               className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-              style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              {filteredProperties.map((project, index) => (
+              {slides.map((slideChunk, slideIndex) => (
                 <div
-                  key={project.id || index}
-                  className="w-full shrink-0 px-3 sm:px-4"
-                  style={{ width: `${100 / visibleCards}%` }}
+                  key={slideIndex}
+                  className="w-full shrink-0 px-2 sm:px-2 flex-none grid gap-4 sm:gap-6"
+                  style={{ 
+                    gridTemplateColumns: `repeat(${visibleCards}, minmax(0, 1fr))`,
+                    gridAutoRows: '1fr'
+                  }}
                 >
-                  <motion.div
-                    className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200/80 bg-white shadow-lg shadow-slate-200/50 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-900/10 hover:border-blue-300"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                  >
+                  {slideChunk.map((project, index) => (
+                    <motion.div
+                      key={project._id || index}
+                      className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200/80 bg-white shadow-lg shadow-slate-200/50 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-900/10 hover:border-blue-300"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.6, delay: index * 0.05 }}
+                    >
                     {/* Image Section */}
                     <div className="relative mx-3 mt-3 aspect-[4/3] overflow-hidden rounded-md">
                       {Array.isArray(project.images) && project.images.length > 0 && getImageUrl(project.images[0]) ? (
@@ -204,10 +216,10 @@ const PostPropertyListing = () => {
                         )}
                       </div>
 
-                      <div className="mt-auto border-t border-slate-100 pt-3 flex flex-col gap-2">
+                      <div className="mt-auto border-t border-slate-100 flex flex-col gap-2">
                         <button
                           onClick={() => navigate(`/listing-detail`, { state: { project } })}
-                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-4 py-2.5 text-sm font-semibold text-brand-burgundy/90 transition-all hover:bg-rose-50 hover:text-brand-burgundy hover:shadow-sm"
+                          className="group/btn flex w-full items-center justify-between rounded-xl bg-slate-50 px-4 py-2 text-sm font-semibold text-brand-burgundy/90 transition-all hover:bg-rose-50 hover:text-brand-burgundy hover:shadow-sm"
                         >
                           View Property Details
                           <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1.5 text-brand-burgundy" />
@@ -222,44 +234,59 @@ const PostPropertyListing = () => {
                       </div>
                     </div>
                   </motion.div>
-                </div>
+                ))}
+              </div>
               ))}
             </div>
           </div>
 
           {/* Normal Navigation Controls - Static Left and Right side buttons below cards matching NewsProject.jsx */}
-          <div className="flex items-center justify-between mt-1">
-            <button
-              onClick={prevSlide}
-              aria-label="Previous slide"
-              className="flex items-center gap-2 bg-[#e0a973] border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
-            >
-              <ChevronLeft className="w-5 h-5" />
-              <span>Previous</span>
-            </button>
-
-            {/* Dots */}
-            <div className="flex items-center gap-2.5">
-              {Array.from({ length: totalSlides }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-brand-burgundy w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
-                    }`}
-                />
-              ))}
+          {!isHome && totalSlides > 1 && (
+            <div className="flex items-center justify-between mt-1">
+              <button
+                onClick={prevSlide}
+                aria-label="Previous slide"
+                className="flex items-center gap-2 bg-[#e0a973] border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              >
+                <ChevronLeft className="w-5 h-5" />
+                <span>Previous</span>
+              </button>
+  
+              {/* Dots */}
+              <div className="flex items-center gap-2.5">
+                {Array.from({ length: totalSlides }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-brand-burgundy w-8" : "bg-slate-300 w-2.5 hover:bg-rose-300"
+                      }`}
+                  />
+                ))}
+              </div>
+  
+              <button
+                onClick={nextSlide}
+                aria-label="Next slide"
+                className="flex items-center gap-2 bg-[#e0a973] border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
+              >
+                <span>Next</span>
+                <ChevronRight className="w-5 h-5" />
+              </button>
             </div>
+          )}
 
-            <button
-              onClick={nextSlide}
-              aria-label="Next slide"
-              className="flex items-center gap-2 bg-[#e0a973] border border-slate-200 px-5 py-2.5 rounded-full font-bold text-sm text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:outline-none transition-all duration-300 active:scale-95"
-            >
-              <span>Next</span>
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          {isHome && (
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={() => navigate('/listing-post')}
+                className="group flex items-center justify-center gap-2 rounded-full bg-brand-burgundy px-8 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-brand-burgundy/90 hover:scale-[1.02]"
+              >
+                View More Properties
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5" />
+              </button>
+            </div>
+          )}
         </div>
       </motion.div>
     </div>

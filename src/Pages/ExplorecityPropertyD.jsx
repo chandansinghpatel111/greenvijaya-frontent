@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Home, Briefcase, Building2, Landmark } from "lucide-react"; // Importing icons
+import { motion } from "framer-motion";
 import CustomButton from "../components/Button";
 
 export default function PropertyDetails({ formData, setFormData }) {
@@ -23,7 +24,7 @@ export default function PropertyDetails({ formData, setFormData }) {
 
   const listingTypes = ["Sell", "Rent", "PG"];
 
-  const cities = ["Lucknow", "Noida", "Gurugram", "Kanpur", "Varanasi"];
+  const cities = ["Lucknow", "Noida", "Gurugram", "Kanpur", "Varanasi", "Delhi", "Mumbai", "Bangalore", "Chennai", "Hyderabad"];
 
   const handleCategorySelect = (category) => {
     setFormData({ ...formData, propertyCategory: category, propertyType: "" });
@@ -52,11 +53,10 @@ export default function PropertyDetails({ formData, setFormData }) {
           {listingTypes.map((listing) => (
             <button
               key={listing}
-              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${
-                formData.listingType === listing
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${formData.listingType === listing
                   ? "bg-rose-50 border-brand-gold text-brand-gold shadow-sm"
                   : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
-              }`}
+                }`}
               onClick={() => handleListingSelect(listing)}
             >
               {listing}
@@ -72,11 +72,10 @@ export default function PropertyDetails({ formData, setFormData }) {
           {Object.keys(propertyTypes).map((category) => (
             <button
               key={category}
-              className={`flex items-center px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${
-                formData.propertyCategory === category
+              className={`flex items-center px-6 py-2.5 rounded-full text-sm font-semibold transition-all border ${formData.propertyCategory === category
                   ? "bg-rose-50 border-brand-gold text-brand-gold shadow-sm"
                   : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
-              }`}
+                }`}
               onClick={() => handleCategorySelect(category)}
             >
               {category === "Residential" ? <Home size={16} className="mr-2" /> : <Briefcase size={16} className="mr-2" />}
@@ -94,11 +93,10 @@ export default function PropertyDetails({ formData, setFormData }) {
             {propertyTypes[formData.propertyCategory].map((typeObj) => (
               <button
                 key={typeObj.name}
-                className={`flex items-center p-3 rounded-xl text-sm font-medium transition-all border ${
-                  formData.propertyType === typeObj.name
+                className={`flex items-center p-3 rounded-xl text-sm font-medium transition-all border ${formData.propertyType === typeObj.name
                     ? "bg-rose-50 border-brand-gold text-brand-gold shadow-sm"
                     : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
-                }`}
+                  }`}
                 onClick={() => handleTypeSelect(typeObj.name)}
               >
                 <div className={`p-2 rounded-lg mr-3 ${formData.propertyType === typeObj.name ? 'bg-white' : 'bg-gray-100'}`}>

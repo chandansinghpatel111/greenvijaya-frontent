@@ -27,9 +27,9 @@ const City = () => {
   ];
 
   return (
-    <div className="section-shell pb-16 pt-0 sm:pb-20 sm:pt-0 -mt-12 sm:-mt-20">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-black text-brand-burgundy tracking-tight mb-4">
+    <div className="section-shell pb-16 pt-0 sm:pb-20 sm:pt-0 mt-12 sm:mt-20">
+      <div className="text-center mb-10">
+        <h2 className="text-4xl md:text-5xl font-black text-brand-burgundy tracking-tight mb-10">
           Strategic Presence in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-burgundy to-brand-gold">Major Cities</span>
         </h2>
         <p className="text-slate-600 font-medium max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
@@ -63,7 +63,7 @@ const City = () => {
               </div>
             </div>
 
-            <div className="px-7 pb-7 pt-2 flex items-center justify-between">
+            {/* <div className="px-7 pb-7 pt-2 flex items-center justify-between">
               <a
                 href={city.contactUrl}
                 className="inline-flex items-center gap-2 text-sm text-brand-gold hover:text-brand-burgundy font-bold transition group/link"
@@ -71,7 +71,7 @@ const City = () => {
                 <span>Explore City Projects</span>
                 <ArrowRight size={16} className="transition-transform group-hover/link:translate-x-1 text-brand-burgundy" />
               </a>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

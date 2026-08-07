@@ -53,7 +53,7 @@ const GreenVijayaSectors = () => {
           {/* Compact Header & CTA */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-slate-100 text-left gap-4">
             <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-brand-burgundy mb-1.5">PORTFOLIO OFFERINGS</p>
+              {/* <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-brand-burgundy mb-1.5">PORTFOLIO OFFERINGS</p> */}
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-burgundy">
                 Explore Our Real Estate Developments
               </h2>
