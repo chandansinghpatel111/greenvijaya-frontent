@@ -11,9 +11,7 @@ function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const media = [
-    { type: 'video', src: '/video22.mp4' },
-    { type: 'image', src: '/image123.avif' },
-    { type: 'image', src: '/image456.webp' },
+    { type: 'video', src: '/green_vijaya_slider.mp4' },
   ];
 
   useEffect(() => {
